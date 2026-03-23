@@ -1030,7 +1030,7 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Kosovo Banking Intelligence v4</title>
+<title>Kosovo Banking Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -1042,7 +1042,7 @@ html = f"""<!DOCTYPE html>
 <div class="hdr">
 <a href="https://fintechhumans.com" target="_blank" rel="noopener" class="hdr-brand">
 <img class="logo-mark" src="data:image/png;base64,{LOGO_B64}" alt="Fintech Humans">
-<div class="logo-text">Kosovo Banking Intelligence<span>v4</span></div>
+<div class="logo-text">Kosovo Banking Intelligence</div>
 </a>
 <div class="hdr-meta"><span>Source: Central Bank of Kosovo</span><span>Analytically corrected</span></div>
 </div>
@@ -1061,10 +1061,8 @@ html = f"""<!DOCTYPE html>
 {mod_methodology()}
 </div>
 <div class="footer"><div class="footer-inner">
-<span>Curated by Orik Drancolli &middot; <a href="https://fintechhumans.com" target="_blank" rel="noopener">Fintech Humans</a> &middot; <a href="https://fintechhumans.com" target="_blank" rel="noopener">fintechhumans.com</a></span>
-<span>Data: Central Bank of Kosovo time series &middot; Kosovo Banking Intelligence v4</span>
+<span>Curated by Orik Drancolli</span>
 </div>
-<div class="footer-inner"><span class="footer-note">Designed with a clean strategic research aesthetic for executive decision support.</span></div>
 </div>
 
 <script>
