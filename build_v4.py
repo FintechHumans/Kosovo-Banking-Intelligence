@@ -3,7 +3,9 @@
 Build Kosovo Banking Intelligence v4 — Analytically Corrected Dashboard
 Fixes: stock/flow separation, LTD delta, proxy labels, formatting, branding
 """
-import json, os
+import json, os, base64
+from PIL import Image
+import io
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 
@@ -11,6 +13,17 @@ with open(os.path.join(BASE, 'clean_data_v3.json'), 'r', encoding='utf-8') as f:
     DATA = json.load(f)
 
 data_js = json.dumps(DATA, separators=(',',':'))
+
+# Load and resize logo
+logo_path = os.path.join(BASE, '..', 'Fintech Humans Web', 'Fintech Humans logo.PNG')
+img = Image.open(logo_path)
+h = 120
+img2 = img.resize((int(img.width * h / img.height), h), Image.LANCZOS)
+if img2.mode != 'RGBA':
+    img2 = img2.convert('RGBA')
+buf = io.BytesIO()
+img2.save(buf, format='PNG', optimize=True)
+LOGO_B64 = base64.b64encode(buf.getvalue()).decode()
 
 CSS = r"""
 :root{
@@ -28,7 +41,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
 .hdr{background:#fff;border-bottom:1px solid var(--border);padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between}
 .hdr-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-.hdr-brand .logo-mark{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;letter-spacing:-1px}
+.hdr-brand .logo-mark{height:36px;width:auto;object-fit:contain}
 .hdr-brand .logo-text{font-size:15px;font-weight:600;letter-spacing:-.3px}
 .hdr-brand .logo-text span{font-weight:400;color:var(--text-3);margin-left:6px}
 .hdr-meta{font-size:11px;color:var(--text-3);display:flex;gap:20px}
@@ -1028,7 +1041,7 @@ html = f"""<!DOCTYPE html>
 
 <div class="hdr">
 <a href="https://fintechhumans.com" target="_blank" rel="noopener" class="hdr-brand">
-<div class="logo-mark">FH</div>
+<img class="logo-mark" src="data:image/png;base64,{LOGO_B64}" alt="Fintech Humans">
 <div class="logo-text">Kosovo Banking Intelligence<span>v4</span></div>
 </a>
 <div class="hdr-meta"><span>Source: Central Bank of Kosovo</span><span>Analytically corrected</span></div>
