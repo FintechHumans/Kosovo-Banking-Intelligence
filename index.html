@@ -346,6 +346,9 @@ Janar:'01',Shkurt:'02',Mars:'03',Prill:'04',Maj:'05',Qershor:'06',Korrik:'07',
 Gusht:'08',Shtator:'09',Tetor:'10','\u004e\u00ebntor':'11',Nentor:'11',Dhjetor:'12'};
 const MN={'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'};
 
+// ---- REMITTANCE CLEANER: exclude annual/quarterly, deduplicate monthly ----
+function isMonthlyPeriod(p){var s=String(p).replace(/\s*\(p\)\s*/,'').split(' ');if(s.length<2)return false;if(/^T\d$/i.test(s[1]))return false;return /^\d{4}$/.test(s[0])&&(MM[s[1]]||MM[s.slice(1).join(' ')]);}
+function dedupRemit(arr){var map={};arr.forEach(function(r){if(!isMonthlyPeriod(r.period))return;var ch=r.channel||r.country||'';var key=r.period+'|'+ch;if(!map[key]||r.value>map[key].value)map[key]=r});return Object.values(map)}
 // ---- GLOBAL FORMATTERS ----
 function pk(p){if(!p)return'0000-00';var s=String(p).replace(/\s*\(p\)\s*/,'').split(' ');if(s.length===1&&/^\d{4}$/.test(s[0]))return s[0]+'-12';if(s.length>=2&&/^\d{4}$/.test(s[0])){var m=MM[s[1]]||MM[s.slice(1).join(' ')]||'00';return s[0]+'-'+m}return p}
 function sp(a){return a.slice().sort(function(x,y){return pk(x.period).localeCompare(pk(y.period))})}
@@ -515,7 +518,7 @@ if(moActive){
 var LC=D.loans_customer||[];var LS=D.loans_sector||[];var LM=D.loans_maturity||[];
 var NL=D.new_loans||[];var DS=D.dep_segments||[];var ND=D.new_deposits||[];
 var PY=D.payments||[];var FX=D.fx||[];var NR=D.neer||[];
-var RC=D.remit_channel||[];var RCO=D.remit_country||[];
+var RC=dedupRemit(D.remit_channel||[]);var RCO=dedupRemit(D.remit_country||[]);
 var IRL=D.int_rates_loans||[];var IRD=D.int_rates_deposits||[];
 
 // === NON-OVERLAPPING PAYMENT INDICATORS ===
