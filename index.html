@@ -130,21 +130,21 @@ tr:hover td{background:#f8f9fb}
 <div class="kpis" id="ov-k"></div>
 <div class="note"><div class="note-tag">Market Summary</div><h3 id="ov-h"></h3><p id="ov-p"></p></div>
 <div class="cgrid">
-<div class="ccard"><h3>Total banking credit</h3><div class="csub">Stock, EUR &mdash; source: ODC loans by maturity</div><canvas id="ch-ov-cr"></canvas></div>
+<div class="ccard"><h3>Total outstanding loans</h3><div class="csub">Stock, EUR &mdash; source: ODC loans by maturity</div><canvas id="ch-ov-cr"></canvas></div>
 <div class="ccard"><h3>Total EUR deposits</h3><div class="csub">Stock, EUR</div><canvas id="ch-ov-dp"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Loan-to-Deposit ratio</h3><div class="csub">Total credit / EUR deposits, %</div><canvas id="ch-ov-ltd"></canvas></div>
+<div class="ccard"><h3>Loan-to-Deposit ratio</h3><div class="csub">Total loans / EUR deposits, %</div><canvas id="ch-ov-ltd"></canvas></div>
 <div class="ccard"><h3>Remittance inflows</h3><div class="csub">All channels, EUR</div><canvas id="ch-ov-rm"></canvas></div>
 </div>
 </div>
 <div class="mod" id="mod-loans">
-<div class="pg-title"><h1>Loans &amp; Credit</h1>
-<p>Total banking credit, customer segmentation, maturity structure, corporate sector breakdown, and new lending flows.</p></div>
+<div class="pg-title"><h1>Loans</h1>
+<p>Total outstanding loans, customer segmentation, maturity structure, corporate sector breakdown, and new lending flows.</p></div>
 <div class="kpis" id="ln-k"></div>
-<div class="note"><div class="note-tag">Credit Structure</div><h3 id="ln-h"></h3><p id="ln-p"></p></div>
+<div class="note"><div class="note-tag">Loan Structure</div><h3 id="ln-h"></h3><p id="ln-p"></p></div>
 <div class="cgrid">
-<div class="ccard"><h3>Credit by customer segment</h3><div class="csub">Stock trend, EUR</div><canvas id="ch-ln-cust"></canvas></div>
+<div class="ccard"><h3>Loans by customer segment</h3><div class="csub">Stock trend, EUR</div><canvas id="ch-ln-cust"></canvas></div>
 <div class="ccard"><h3>Customer composition</h3><div class="csub">Share of total, latest period</div><canvas id="ch-ln-pie"></canvas></div>
 </div>
 <div class="cgrid">
@@ -173,24 +173,25 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard"><h3>Deposit stocks: Transferable &amp; Savings</h3><div class="csub">End-of-period balances (stock), EUR</div><canvas id="ch-dp-stock"></canvas></div>
 <div class="ccard"><h3>New time deposit origination (flow)</h3><div class="csub">Monthly new time deposits placed, EUR</div><canvas id="ch-dp-flow"></canvas></div>
 </div>
-<div class="note caveat"><div class="note-tag">Stock vs Flow</div><p>Transferable and savings deposits are stock measures (end-of-period balances). Time deposits in this source are flow-based (new originations per month). They are shown separately to avoid analytical misinterpretation. The type breakdown covers HH and Corporate segments only (~&euro;4.8B of ~&euro;7.6B total).</p></div>
-<div class="note warn"><div class="note-tag">Deposit Maturity</div><p>Deposit maturity bucketing (e.g. &lt;1 year, 1&ndash;2 years, etc.) is <strong>not available</strong> in the current CBK time series source. F08 provides segment-level EUR deposit stocks; F11a provides type-level stocks (Transferable, Savings) and flows (Time Deposits). Neither source breaks deposits by remaining or original maturity. This section will be added if CBK publishes maturity-bucketed deposit data.</p></div>
+<div class="note caveat"><div class="note-tag">Stock vs Flow</div><p>Transferable and savings deposits are stock measures (end-of-period balances). Time deposits in this source are flow-based (new originations per month). They are shown separately to avoid analytical misinterpretation. The type breakdown covers HH and Corporate segments only (~&euro;5.0B of ~&euro;7.6B total F08 deposits).</p></div>
+<div class="note warn"><div class="note-tag">Deposit Maturity</div><p>Deposit maturity bucketing (e.g. &lt;1 year, 1&ndash;2 years, etc.) is <strong>not available</strong> in the current CBK time series source. F08 provides segment-level EUR deposit stocks; F11a provides type-level stocks (Transferable, Savings) and flows (Time Deposits). Neither source breaks deposits by remaining or original maturity.</p></div>
 </div>
 <div class="mod" id="mod-rates">
 <div class="pg-title"><h1>Interest Rates</h1>
-<p>Effective rates on new lending and new time deposits, rate dynamics, and pricing gap analysis.</p></div>
+<p>Effective rates on new lending and new time deposits, repricing gap, and broad funding cost proxy.</p></div>
 <div class="kpis" id="rt-k"></div>
-<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>The pricing gap indicator is derived from lending and deposit rates on new business. It is <strong>not</strong> equivalent to Net Interest Margin (NIM) and should not be interpreted as a direct profitability measure. It excludes legacy book rates, non-interest income, provisioning, and funding from transferable/savings deposits.</p></div>
+<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Neither pricing gap shown here equals Net Interest Margin (NIM). Both exclude legacy book rates, non-interest income, and provisioning. The <strong>narrow gap</strong> compares only new-business rates (new loans vs new time deposits). The <strong>broad funding cost proxy</strong> weights all three deposit categories (CA, SA, TDA) using F11a balances, applying the published TDA rate to the time deposit portion and treating transferable and savings deposits as non-remunerated (CBK does not publish CA or SA rates). The TDA weight uses F11a monthly flow rather than outstanding stock, which <strong>underweights</strong> time deposits and produces a <strong>lower-bound estimate</strong> of true blended cost.</p></div>
 <div class="note"><div class="note-tag">Rate Environment</div><h3 id="rt-h"></h3><p id="rt-p"></p></div>
 <div class="cgrid">
 <div class="ccard"><h3>Lending rates by product</h3><div class="csub">Effective rates on new loans, %</div><canvas id="ch-rt-prod"></canvas></div>
 <div class="ccard"><h3>Deposit rates by customer</h3><div class="csub">Effective rates on new time deposits, %</div><canvas id="ch-rt-dep"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Pricing gap trend (proxy)</h3><div class="csub">Lending rate minus deposit rate, pp</div><canvas id="ch-rt-spread"></canvas></div>
-<div class="ccard"><h3>Household vs Corporate lending rates</h3><div class="csub">HH consumer rate vs Corp lending rate, %</div><canvas id="ch-rt-hhcorp"></canvas></div>
+<div class="ccard full"><h3>Pricing gap trend (proxy)</h3><div class="csub">Lending rate, deposit rates, narrow gap (vs TDA only), and broad gap (vs weighted funding cost)</div><canvas id="ch-rt-spread"></canvas></div>
 </div>
+<div class="kpis" id="rt-fund-k"></div>
 <div class="cgrid">
+<div class="ccard"><h3>Household vs Corporate lending rates</h3><div class="csub">HH consumer rate vs Corp lending rate, %</div><canvas id="ch-rt-hhcorp"></canvas></div>
 <div class="ccard full"><h3>EUR/USD &amp; effective exchange rates</h3><div class="csub">NEER and REER indices (2005=100)</div><canvas id="ch-rt-neer"></canvas></div>
 </div>
 </div>
@@ -236,15 +237,20 @@ tr:hover td{background:#f8f9fb}
 </div>
 </div>
 <div class="mod" id="mod-cards">
-<div class="pg-title"><h1>Cards</h1>
-<p>Card usage patterns derived from ATM and POS payment channels.</p></div>
-<div class="note caveat"><div class="note-tag">Scope</div><p>Card issuance and card stock data (active cards, debit vs credit split, contactless share) are not available in CBK time series. This page analyzes card <em>usage</em> patterns from ATM and POS transaction data.</p></div>
+<div class="pg-title"><h1>Cards &amp; Accounts</h1>
+<p>Card usage patterns, spending analytics, and account-level metrics derived from available CBK data.</p></div>
+<div class="note caveat"><div class="note-tag">Data Availability</div><p>The following data is <strong>not available</strong> in CBK public time series: card stock counts, card scheme breakdown (Visa/Mastercard), debit vs credit split, active card counts, contactless share, account counts, new account openings, or bank-level card issuance. The analytics below use <em>transaction-level</em> data from F15 (ATM/POS counts and amounts) which measures card <em>usage</em>, not card <em>issuance</em>.</p></div>
 <div class="kpis" id="cd-k"></div>
 <div class="note"><div class="note-tag">Card Activity</div><h3 id="cd-h"></h3><p id="cd-p"></p></div>
 <div class="cgrid">
 <div class="ccard"><h3>Card-based transactions: domestic vs cross-border</h3><div class="csub">All card activity at ATM + POS, EUR</div><canvas id="ch-cd-geo"></canvas></div>
 <div class="ccard"><h3>Foreign cards in Kosovo vs Kosovo cards abroad</h3><div class="csub">Cross-border card flow direction, EUR</div><canvas id="ch-cd-flow"></canvas></div>
 </div>
+<div class="cgrid">
+<div class="ccard"><h3>Average ticket size: ATM vs POS</h3><div class="csub">Avg EUR per transaction, domestic channels</div><canvas id="ch-cd-ticket"></canvas></div>
+<div class="ccard"><h3>POS vs ATM transaction count trend</h3><div class="csub">Thousands of transactions per month</div><canvas id="ch-cd-txcount"></canvas></div>
+</div>
+<div class="note warn"><div class="note-tag">Unavailable Metrics</div><p><strong>Card scheme (Visa/Mastercard):</strong> Not in CBK data. <strong>Debit vs Credit split:</strong> Not in CBK data. <strong>Spending per card:</strong> Cannot compute &mdash; card stock count not published. <strong>Cards per account:</strong> Cannot compute &mdash; neither card count nor account count published. <strong>New accounts / account growth:</strong> Cannot compute &mdash; account count not published. <strong>Deposit or loan per account:</strong> Cannot compute. These metrics require bank-level supervisory data not available in the public CBK time series.</p></div>
 </div>
 <div class="mod" id="mod-remittances">
 <div class="pg-title"><h1>Remittances</h1>
@@ -278,10 +284,12 @@ tr:hover td{background:#f8f9fb}
 <div class="meth-section">
 <h3>KPI Definitions</h3>
 <table><thead><tr><th>KPI</th><th>Definition</th><th>Status</th></tr></thead><tbody>
-<tr><td>Total Banking Credit</td><td>Sum of all outstanding loans across customer segments (F10 Col 2). Includes all currencies.</td><td>Verified</td></tr>
+<tr><td>Total Outstanding Loans</td><td>Sum of all outstanding loans across customer segments (F10 Col 2). Includes all currencies.</td><td>Verified</td></tr>
 <tr><td>Total EUR Deposits</td><td>Sum of all EUR deposit balances across segments (F08 Col 2). EUR only.</td><td>Verified</td></tr>
-<tr><td>LTD Ratio</td><td>Total credit / Total EUR deposits &times; 100. Numerator includes ~&euro;0.97M non-EUR loans (0.015%).</td><td>Market Proxy</td></tr>
-<tr><td>Pricing Gap</td><td>All new loans rate (F13 series T) minus time deposit rate (F13a series T_3). New-business rates only.</td><td>Proxy &mdash; not NIM</td></tr>
+<tr><td>LTD Ratio</td><td>Total loans / Total EUR deposits &times; 100. Numerator includes ~&euro;0.97M non-EUR loans (0.015%).</td><td>Market Proxy</td></tr>
+<tr><td>Narrow Gap (Proxy)</td><td>All new loans rate (F13) minus time deposit rate (F13a). New-business rates only. Not NIM.</td><td>Proxy</td></tr>
+<tr><td>Broad Funding Cost</td><td>(TDA_rate &times; TDA_amount) / (CA + SA + TDA). CA and SA rates not published by CBK, treated as non-remunerated. TDA weight is F11a monthly flow (not stock). Lower-bound estimate.</td><td>Proxy</td></tr>
+<tr><td>Broad Gap (Proxy)</td><td>All new loans rate minus broad funding cost proxy. Wider than narrow gap because denominator dilutes TDA rate across non-remunerated CA/SA base.</td><td>Proxy</td></tr>
 <tr><td>Remittances Total</td><td>Pre-computed Total row from source. Not summed from channels.</td><td>Verified</td></tr>
 <tr><td>Retail Digital Share</td><td>(E-Banking + POS) / (E-Banking + POS + ATM) &times; 100. Excludes Interbank and ATM Deposits.</td><td>Verified</td></tr>
 <tr><td>Total Payment Volume</td><td>Sum of 7 non-overlapping indicators. Parent totals for ATM/POS Abroad; children excluded from sum.</td><td>Verified</td></tr>
@@ -295,7 +303,8 @@ tr:hover td{background:#f8f9fb}
 <li>All data represents aggregate banking sector totals as published by CBK. No individual bank breakdowns.</li>
 <li>Deposits are EUR only (F08 is titled &ldquo;Depozitat n&euml; Euro&rdquo;).</li>
 <li>Loans include a negligible non-EUR component (~&euro;0.97M, 0.015% of total).</li>
-<li>The pricing gap is a proxy comparing new-business rates. It is not NIM.</li>
+<li>The narrow gap compares new-business rates only (new loans vs new time deposits). The broad funding cost proxy weights TDA rate across CA+SA+TDA amounts, treating CA and SA as non-remunerated (rates not published by CBK). TDA weight uses F11a flow, not stock, producing a lower-bound estimate. Neither gap equals NIM.</li>
+<li>Card stock counts, scheme breakdown (Visa/Mastercard), debit/credit split, account counts, and new account openings are not published in CBK public time series.</li>
 <li>Deposit type breakdown from F11a: Transferable and Savings are stock; Time Deposits are flow. Never combined.</li>
 <li>Sector breakdown covers corporate loans only (~&euro;3.8B, not total market ~&euro;6.6B).</li>
 <li>Card issuance data (active cards, debit/credit split) is not available.</li>
@@ -537,9 +546,9 @@ var ltd=lCr&&lDp&&lDp.value>0?(lCr.value/lDp.value*100):null;
 var pLTD=pCr&&pDp&&pDp.value>0?(pCr.value/pDp.value*100):null;
 var ltdDeltaPP=ltd!=null&&pLTD!=null?(ltd-pLTD):null;
 
-addK('ov-k','Total Banking Credit',lCr?fmtMoney(lCr.value):'\u2014',lCr&&pCr?pctChange(lCr.value,pCr.value):null,'%',lCr?fmtP(lCr.period):'');
+addK('ov-k','Total Outstanding Loans',lCr?fmtMoney(lCr.value):'\u2014',lCr&&pCr?pctChange(lCr.value,pCr.value):null,'%',lCr?fmtP(lCr.period):'');
 addK('ov-k','Total EUR Deposits',lDp?fmtMoney(lDp.value):'\u2014',lDp&&pDp?pctChange(lDp.value,pDp.value):null,'%',lDp?fmtP(lDp.period):'');
-addK('ov-k','LTD Ratio (Market Proxy)',ltd!=null?fmtPct(ltd):'\u2014',ltdDeltaPP,' pp','Credit / EUR deposits');
+addK('ov-k','LTD Ratio (Market Proxy)',ltd!=null?fmtPct(ltd):'\u2014',ltdDeltaPP,' pp','Loans / EUR deposits');
 
 var lRm=latest(RC,function(r){return r.channel==='Total'});
 var pRm=lRm?prior12(RC,lRm.period,function(r){return r.channel==='Total'}):null;
@@ -555,18 +564,18 @@ addK('ov-k','Deposit Rate',lDR?fmtPct(lDR.value):'\u2014',lDR&&pDR?(lDR.value-pD
 // Commentary
 var oh=document.getElementById('ov-h'),op=document.getElementById('ov-p');
 if(lCr&&lDp&&ltd!=null){
-  oh.textContent='Credit '+fmtMoney(lCr.value)+' | Deposits '+fmtMoney(lDp.value)+' | LTD '+fmtPct(ltd);
-  var t='As of '+fmtP(lCr.period)+', total banking credit stands at '+fmtMoney(lCr.value)+' against EUR deposits of '+fmtMoney(lDp.value)+'.';
-  if(pCr)t+=' Credit changed '+fmtDelta(pctChange(lCr.value,pCr.value))+' YoY.';
-  t+=' LTD of '+fmtPct(ltd)+' means '+ltd.toFixed(0)+' cents of every EUR in deposits is deployed as credit.';
-  if(lLR&&lDR)t+=' Lending rate: '+fmtPct(lLR.value)+', deposit rate: '+fmtPct(lDR.value)+', pricing gap: '+fmtPP(lLR.value-lDR.value)+'.';
+  oh.textContent='Loans '+fmtMoney(lCr.value)+' | Deposits '+fmtMoney(lDp.value)+' | LTD '+fmtPct(ltd);
+  var t='As of '+fmtP(lCr.period)+', total outstanding loans stand at '+fmtMoney(lCr.value)+' against EUR deposits of '+fmtMoney(lDp.value)+'.';
+  if(pCr)t+=' Loans changed '+fmtDelta(pctChange(lCr.value,pCr.value))+' YoY.';
+  t+=' LTD of '+fmtPct(ltd)+' means '+ltd.toFixed(0)+' cents of every EUR in deposits is deployed as loans.';
+  if(lLR&&lDR)t+=' Lending rate: '+fmtPct(lLR.value)+', time deposit rate: '+fmtPct(lDR.value)+', narrow gap: '+fmtPP(lLR.value-lDR.value)+'.';
   op.textContent=t;
 } else {oh.textContent='No data in selected period';op.textContent='Adjust filters above.'}
 
 // Overview charts
 var crF=sp(flt(LC.filter(function(r){return r.segment==='Total'})));
-if(crF.length){showCanvas('ch-ov-cr');lc('ch-ov-cr',crF.map(function(r){return r.period}),[{label:'Total Credit',data:crF.map(function(r){return r.value}),borderColor:C1,backgroundColor:C1+'10',fill:true,tension:.3}],{plugins:{legend:{display:false},tooltip:ttMoney}})}
-else noData('ch-ov-cr','No credit data in selected period');
+if(crF.length){showCanvas('ch-ov-cr');lc('ch-ov-cr',crF.map(function(r){return r.period}),[{label:'Total Loans',data:crF.map(function(r){return r.value}),borderColor:C1,backgroundColor:C1+'10',fill:true,tension:.3}],{plugins:{legend:{display:false},tooltip:ttMoney}})}
+else noData('ch-ov-cr','No loan data in selected period');
 
 var dpF=sp(flt(DS.filter(function(r){return r.segment==='Total'})));
 if(dpF.length){showCanvas('ch-ov-dp');lc('ch-ov-dp',dpF.map(function(r){return r.period}),[{label:'Total Deposits',data:dpF.map(function(r){return r.value}),borderColor:C2,backgroundColor:C2+'10',fill:true,tension:.3}],{plugins:{legend:{display:false},tooltip:ttMoney}})}
@@ -590,7 +599,7 @@ var pHH=lHH?prior12(LC,lHH.period,function(r){return r.segment==='Households'}):
 var lNFC=latest(LC,function(r){return r.segment==='Non-Financial Corporations'});
 var pNFC=lNFC?prior12(LC,lNFC.period,function(r){return r.segment==='Non-Financial Corporations'}):null;
 
-addK('ln-k','Total Credit',lCr?fmtMoney(lCr.value):'\u2014',lCr&&pCr?pctChange(lCr.value,pCr.value):null,'%',lCr?fmtP(lCr.period):'');
+addK('ln-k','Total Loans',lCr?fmtMoney(lCr.value):'\u2014',lCr&&pCr?pctChange(lCr.value,pCr.value):null,'%',lCr?fmtP(lCr.period):'');
 addK('ln-k','Households',lHH?fmtMoney(lHH.value):'\u2014',lHH&&pHH?pctChange(lHH.value,pHH.value):null,'%',lHH?fmtP(lHH.period):'');
 addK('ln-k','Corporates (NFC)',lNFC?fmtMoney(lNFC.value):'\u2014',lNFC&&pNFC?pctChange(lNFC.value,pNFC.value):null,'%',lNFC?fmtP(lNFC.period):'');
 if(lCr&&lHH){addK('ln-k','HH Share',fmtPct(lHH.value/lCr.value*100),null,null,'')}
@@ -600,14 +609,14 @@ var lNLT=latest(NL,function(r){return r.type==='Total New Loans'});
 var pNLT=lNLT?prior12(NL,lNLT.period,function(r){return r.type==='Total New Loans'}):null;
 addK('ln-k','New Lending (Flow)',lNLT?fmtMoney(lNLT.value):'\u2014',lNLT&&pNLT?pctChange(lNLT.value,pNLT.value):null,'%',lNLT?fmtP(lNLT.period):'');
 
-// Revolving credit stock KPI (separated from flow)
+// Revolving loans stock KPI (separated from flow)
 var lOD=latest(NL,function(r){return r.type==='Overdrafts & Credit Cards'});
-addK('ln-k','Revolving Credit (Stock)',lOD?fmtMoney(lOD.value):'\u2014',null,null,lOD?fmtP(lOD.period)+' | End-of-period balance':'');
+addK('ln-k','Revolving Loans (Stock)',lOD?fmtMoney(lOD.value):'\u2014',null,null,lOD?fmtP(lOD.period)+' | End-of-period balance':'');
 
 var lh=document.getElementById('ln-h'),lp2=document.getElementById('ln-p');
 if(lCr&&lHH&&lNFC){
   lh.textContent='Households: '+fmtPct(lHH.value/lCr.value*100)+' of total ('+fmtMoney(lHH.value)+'). Corporates: '+fmtPct(lNFC.value/lCr.value*100)+' ('+fmtMoney(lNFC.value)+').';
-  lp2.textContent='Total credit '+fmtMoney(lCr.value)+' as of '+fmtP(lCr.period)+'. Customer segmentation from ODC loans file. Sector breakdown covers corporate loans only.';
+  lp2.textContent='Total loans '+fmtMoney(lCr.value)+' as of '+fmtP(lCr.period)+'. Customer segmentation from ODC loans file. Sector breakdown covers corporate loans only.';
 }
 
 // Customer segment trends
@@ -724,9 +733,26 @@ if(flowP.length){
 } else noData('ch-dp-flow','No time deposit flow data');
 
 // ===================== RATES =====================
+// Broad funding cost proxy: weight TDA rate by deposit composition
+// CA rate = not published (non-remunerated), SA rate = not published (non-remunerated)
+// TDA rate = published new-business time deposit rate
+// Weights: CA = F11a Total Transferable (stock), SA = F11a Total Savings (stock), TDA = F11a Total Time Deposits (flow)
+// Limitation: TDA weight is flow not stock, underweighting time deposits -> lower-bound estimate
+var lCA=latest(ND,function(r){return r.type==='Total Transferable'});
+var lSA=latest(ND,function(r){return r.type==='Total Savings'});
+var lTDA=latest(ND,function(r){return r.type==='Total Time Deposits'});
+var caAmt=lCA?lCA.value:0, saAmt=lSA?lSA.value:0, tdaAmt=lTDA?lTDA.value:0;
+var totalDepWt=caAmt+saAmt+tdaAmt;
+var tdaRate=lDR?lDR.value:0;
+var broadFC=totalDepWt>0?(tdaRate*tdaAmt)/totalDepWt:null;
+var narrowGap=lLR&&lDR?(lLR.value-lDR.value):null;
+var broadGap=lLR&&broadFC!=null?(lLR.value-broadFC):null;
+
 addK('rt-k','Lending Rate',lLR?fmtPct(lLR.value):'\u2014',lLR&&pLR?(lLR.value-pLR.value):null,' pp',lLR?fmtP(lLR.period)+' | New loans':'');
-addK('rt-k','Deposit Rate',lDR?fmtPct(lDR.value):'\u2014',lDR&&pDR?(lDR.value-pDR.value):null,' pp',lDR?fmtP(lDR.period)+' | New time deposits':'');
-if(lLR&&lDR){addK('rt-k','Pricing Gap (Proxy)',fmtPP(lLR.value-lDR.value),null,null,'Lending minus deposit rate')}
+addK('rt-k','Time Deposit Rate',lDR?fmtPct(lDR.value):'\u2014',lDR&&pDR?(lDR.value-pDR.value):null,' pp',lDR?fmtP(lDR.period)+' | New time deposits':'');
+addK('rt-k','Broad Funding Cost',broadFC!=null?fmtPct(broadFC):'\u2014',null,null,'Weighted proxy (lower bound)');
+if(narrowGap!=null){addK('rt-k','Narrow Gap',fmtPP(narrowGap),null,null,'Loans minus TDA rate only')}
+if(broadGap!=null){addK('rt-k','Broad Gap',fmtPP(broadGap),null,null,'Loans minus broad funding cost')}
 
 var lCons=latest(IRL,function(r){return r.type==='Consumer Loan Rate'});
 var lMort=latest(IRL,function(r){return r.type==='Mortgage Rate'});
@@ -736,10 +762,16 @@ addK('rt-k','Consumer Rate',lCons?fmtPct(lCons.value):'\u2014',null,null,'');
 addK('rt-k','Mortgage Rate',lMort?fmtPct(lMort.value):'\u2014',null,null,'');
 addK('rt-k','Corp Lending',lCorpR?fmtPct(lCorpR.value):'\u2014',null,null,'');
 
+// Funding proxy composition cards
+addK('rt-fund-k','Transferable (CA)',lCA?fmtMoney(lCA.value):'\u2014',null,null,'Stock | Rate: not published');
+addK('rt-fund-k','Savings (SA)',lSA?fmtMoney(lSA.value):'\u2014',null,null,'Stock | Rate: not published');
+addK('rt-fund-k','Time Deposits (TDA)',lTDA?fmtMoney(lTDA.value):'\u2014',null,null,'Flow | Rate: '+fmtPct(tdaRate));
+addK('rt-fund-k','Total Weighted Base',totalDepWt>0?fmtMoney(totalDepWt):'\u2014',null,null,'CA(stock)+SA(stock)+TDA(flow)');
+
 var rth=document.getElementById('rt-h'),rtp=document.getElementById('rt-p');
 if(lLR&&lDR){
-  rth.textContent='Lending '+fmtPct(lLR.value)+' | Deposit '+fmtPct(lDR.value)+' | Gap '+fmtPP(lLR.value-lDR.value);
-  rtp.textContent='Effective rates on new business. Consumer: '+fmtPct(lCons?lCons.value:0)+', mortgage: '+fmtPct(lMort?lMort.value:0)+', corporate: '+fmtPct(lCorpR?lCorpR.value:0)+'.';
+  rth.textContent='Lending '+fmtPct(lLR.value)+' | TDA rate '+fmtPct(lDR.value)+' | Narrow gap '+fmtPP(narrowGap)+(broadGap!=null?' | Broad gap '+fmtPP(broadGap):'');
+  rtp.textContent='Narrow gap = new loans rate minus new TDA rate. Broad gap = new loans rate minus weighted funding cost (CA+SA non-remunerated, TDA at published rate). Consumer: '+fmtPct(lCons?lCons.value:0)+', mortgage: '+fmtPct(lMort?lMort.value:0)+', corporate: '+fmtPct(lCorpR?lCorpR.value:0)+'.';
 }
 
 // Lending rates by product
@@ -766,7 +798,7 @@ if(drP.length){
   }));
 } else noData('ch-rt-dep','No deposit rate data');
 
-// [C1] Pricing gap trend with shaded area
+// Pricing gap trend: narrow (vs TDA) and broad (vs weighted funding cost)
 var spreadP=lrP.filter(function(p){
   var lr=lrF.find(function(r){return r.period===p&&r.type==='All Loans Rate'});
   var dr=drF.find(function(r){return r.period===p&&r.type==='Time Deposit Rate'});
@@ -776,11 +808,22 @@ if(spreadP.length){
   var lrMap={},drMap2={};
   lrF.filter(function(r){return r.type==='All Loans Rate'}).forEach(function(r){lrMap[r.period]=r.value});
   drF.filter(function(r){return r.type==='Time Deposit Rate'}).forEach(function(r){drMap2[r.period]=r.value});
+  // Build per-period broad funding cost from deposit weights
+  var caM={},saM={},tdM={};
+  ndF.filter(function(r){return r.type==='Total Transferable'}).forEach(function(r){caM[r.period]=r.value});
+  ndF.filter(function(r){return r.type==='Total Savings'}).forEach(function(r){saM[r.period]=r.value});
+  ndF.filter(function(r){return r.type==='Total Time Deposits'}).forEach(function(r){tdM[r.period]=r.value});
   showCanvas('ch-rt-spread');
   lcPct('ch-rt-spread',spreadP,[
-    {label:'Lending Rate',data:spreadP.map(function(p){return lrMap[p]||null}),borderColor:C1,tension:.3},
-    {label:'Deposit Rate',data:spreadP.map(function(p){return drMap2[p]||null}),borderColor:C3,tension:.3},
-    {label:'Gap',data:spreadP.map(function(p){return lrMap[p]&&drMap2[p]?(lrMap[p]-drMap2[p]):null}),borderColor:GOLD,backgroundColor:GOLD+'20',fill:true,tension:.3}
+    {label:'Lending Rate',data:spreadP.map(function(p){return lrMap[p]||null}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:0},
+    {label:'Time Deposit Rate',data:spreadP.map(function(p){return drMap2[p]||null}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:0},
+    {label:'Narrow Gap (vs TDA)',data:spreadP.map(function(p){return lrMap[p]&&drMap2[p]?(lrMap[p]-drMap2[p]):null}),borderColor:GOLD,backgroundColor:GOLD+'15',fill:true,tension:.3,borderWidth:1.8,pointRadius:0},
+    {label:'Broad Gap (vs funding proxy)',data:spreadP.map(function(p){
+      var dr=drMap2[p],ca=caM[p]||0,sa=saM[p]||0,td=tdM[p]||0,tot=ca+sa+td;
+      if(!lrMap[p]||!dr||tot===0)return null;
+      var bfc=(dr*td)/tot;
+      return lrMap[p]-bfc;
+    }),borderColor:'#dc2626',backgroundColor:'#dc262608',fill:true,tension:.3,borderWidth:1.8,borderDash:[6,3],pointRadius:0}
   ]);
 } else noData('ch-rt-spread','No spread data');
 
@@ -964,6 +1007,31 @@ if(cardTrendP.length){
     {label:'Kosovo cards abroad',data:cardTrendP.map(function(k){return kaCardMap[k]||0}),borderColor:C3,borderDash:[4,2],tension:.3}
   ]);
 } else noData('ch-cd-flow','No card flow data');
+
+// Average ticket size: ATM vs POS (domestic)
+var atmDomF=sp(flt(PY.filter(function(r){return r.indicator==='ATM Domestic'})));
+var posDomF=sp(flt(PY.filter(function(r){return r.indicator==='POS Domestic'})));
+var ticketP=[...new Set(atmDomF.map(function(r){return r.period}).concat(posDomF.map(function(r){return r.period})))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
+if(ticketP.length){
+  var atmTicketMap={},posTicketMap={};
+  atmDomF.forEach(function(r){if(r.count>0)atmTicketMap[r.period]=r.amount/r.count*1000});
+  posDomF.forEach(function(r){if(r.count>0)posTicketMap[r.period]=r.amount/r.count*1000});
+  showCanvas('ch-cd-ticket');lc('ch-cd-ticket',ticketP,[
+    {label:'ATM Avg Ticket (EUR)',data:ticketP.map(function(p){return atmTicketMap[p]||null}),borderColor:C1,borderWidth:2.2,tension:.3},
+    {label:'POS Avg Ticket (EUR)',data:ticketP.map(function(p){return posTicketMap[p]||null}),borderColor:GOLD,borderWidth:2.2,tension:.3}
+  ],{plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+': \u20AC'+ctx.parsed.y.toFixed(2)}}}}});
+} else noData('ch-cd-ticket','No ticket data');
+
+// POS vs ATM transaction count trend
+var atmCountMap={},posCountMap={};
+atmDomF.forEach(function(r){atmCountMap[r.period]=parseFloat(r.count)});
+posDomF.forEach(function(r){posCountMap[r.period]=parseFloat(r.count)});
+if(ticketP.length){
+  showCanvas('ch-cd-txcount');lc('ch-cd-txcount',ticketP,[
+    {label:'ATM Domestic (K txns)',data:ticketP.map(function(p){return atmCountMap[p]||null}),borderColor:C1,borderWidth:2.2,tension:.3},
+    {label:'POS Domestic (K txns)',data:ticketP.map(function(p){return posCountMap[p]||null}),borderColor:GOLD,borderWidth:2.2,tension:.3}
+  ]);
+} else noData('ch-cd-txcount','No transaction data');
 
 // ===================== REMITTANCES =====================
 addK('rm-k','Total',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.value,pRm.value):null,'%',lRm?fmtP(lRm.period):'');
