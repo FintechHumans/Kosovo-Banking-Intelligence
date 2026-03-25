@@ -205,7 +205,7 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard"><h3>E-banking adoption</h3><div class="csub">E-banking accounts and penetration rate</div><canvas id="ch-ac-digital"></canvas></div>
 <div class="ccard"><h3>Net monthly change in accounts</h3><div class="csub">Month-on-month change in total account stock</div><canvas id="ch-ac-change"></canvas></div>
 </div>
-<div class="note warn"><div class="note-tag">Data Scope</div><p>Account figures are <strong>end-of-period stock</strong>, not gross openings. Net changes reflect new openings minus closures. E-banking penetration = e-banking accounts / current accounts. Individual + business may not sum to total due to other categories. Source: CBK F-Payments Table 1.</p></div>
+<div class="note warn"><div class="note-tag">Data Scope</div><p>Account figures are <strong>end-of-period stock</strong>, not gross openings. Net changes reflect new openings minus closures. E-banking penetration = e-banking accounts / current accounts. Individual + business may not sum to total due to other categories. Source: CBK Payments Workbook &mdash; Table 1 (Client Accounts).</p></div>
 </div>
 <div class="mod" id="mod-cards">
 <div class="pg-title"><h1>Cards &amp; Card Usage</h1>
@@ -224,7 +224,7 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard"><h3>Spend per issued payment card (proxy)</h3><div class="csub">Monthly card payment value / payment-function cards</div><canvas id="ch-cr-spend"></canvas></div>
 <div class="ccard"><h3>Average card ticket</h3><div class="csub">Card payment value / card payment count</div><canvas id="ch-cr-ticket"></canvas></div>
 </div>
-<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Spending metrics use <strong>issued card stock</strong> as denominator, not active cards. Active card counts are not published by CBK. These are stock-based utilisation proxies and understate true per-active-card spending. Card counts are issued and valid at end of period. Source: CBK F-Payments Tables 2 &amp; 5.</p></div>
+<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Spending metrics use <strong>issued card stock</strong> as denominator, not active cards. Active card counts are not published by CBK. These are stock-based utilisation proxies and understate true per-active-card spending. Card counts are issued and valid at end of period. Source: CBK Payments Workbook &mdash; Table 2 (Cards) &amp; Table 4 (Payments).</p></div>
 </div>
 <div class="mod" id="mod-payments">
 <div class="pg-title"><h1>Payments</h1>
@@ -243,7 +243,7 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard"><h3>Digital channels trend</h3><div class="csub">E-commerce, digital wallet, e-money payment count</div><canvas id="ch-pm-digital"></canvas></div>
 <div class="ccard"><h3>International card payments</h3><div class="csub">Incoming vs outgoing cross-border card payments, EUR</div><canvas id="ch-pm-intl"></canvas></div>
 </div>
-<div class="note warn"><div class="note-tag">Data Scope</div><p>Payment data covers customer-initiated transactions only. Credit transfers dominate by value (~90%) while card payments dominate by count (~70%). E-commerce refers to payments at Kosovo-based online merchants. Digital wallet and e-money are separate categories. Source: CBK F-Payments Table 5.</p></div>
+<div class="note warn"><div class="note-tag">Data Scope</div><p>Payment data covers customer-initiated transactions only. Credit transfers dominate by value (~90%) while card payments dominate by count (~70%). E-commerce refers to payments at Kosovo-based online merchants. Digital wallet and e-money are separate categories. Source: CBK Payments Workbook &mdash; Table 4 (Payments by Instrument).</p></div>
 </div>
 <div class="mod" id="mod-acceptance">
 <div class="pg-title"><h1>Acceptance Network</h1>
@@ -262,7 +262,7 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard"><h3>Terminal transaction volume</h3><div class="csub">Monthly transactions by terminal type</div><canvas id="ch-an-txvol"></canvas></div>
 <div class="ccard"><h3>Terminal transaction value</h3><div class="csub">Monthly EUR value by terminal type, EUR</div><canvas id="ch-an-txval"></canvas></div>
 </div>
-<div class="note warn"><div class="note-tag">Data Scope</div><p>Terminal counts are end-of-period stock. ATM deposit capability has grown significantly. POS contactless share measures terminal readiness, not transaction share. Merchant counts represent unique businesses accepting card payments. Source: CBK F-Payments Tables 3 &amp; 4.</p></div>
+<div class="note warn"><div class="note-tag">Data Scope</div><p>Terminal counts are end-of-period stock. ATM deposit capability has grown significantly. POS contactless share measures terminal readiness, not transaction share. Merchant counts represent unique businesses accepting card payments. Source: CBK Payments Workbook &mdash; Table 3 (Terminals) &amp; Table 5 (Terminal Transactions).</p></div>
 </div>
 <div class="mod" id="mod-remittances">
 <div class="pg-title"><h1>Remittances</h1>
@@ -341,9 +341,18 @@ tr:hover td{background:#f8f9fb}
 <tr><td>Funding Cost (Proxy)</td><td>(CA_rate&times;CA + SA_rate&times;SA + TDA_rate&times;TDA) / (CA+SA+TDA). CA rate assumed 0% (non-remunerated). SA rate assumed 0.05% (near-zero estimate). TDA rate from CBK F11a. TDA weight is monthly flow (not stock). Lower-bound estimate.</td><td>Proxy</td></tr>
 <tr><td>Funding Gap (Illustrative)</td><td>All new loans rate minus funding cost proxy. Wider than narrow gap because denominator dilutes TDA rate across low-cost CA/SA base. Illustrative only &mdash; not NIM.</td><td>Proxy</td></tr>
 <tr><td>Remittances Total</td><td>Pre-computed Total row from source. Not summed from channels.</td><td>Verified</td></tr>
-<tr><td>Retail Digital Share</td><td>(E-Banking + POS) / (E-Banking + POS + ATM) &times; 100. Excludes Interbank and ATM Deposits.</td><td>Verified</td></tr>
-<tr><td>Total Payment Volume</td><td>Sum of 7 non-overlapping indicators. Parent totals for ATM/POS Abroad; children excluded from sum.</td><td>Verified</td></tr>
-<tr><td>Avg EUR/Transaction</td><td>(amount in M / count in K) &times; 1000. Same period, same indicator.</td><td>Verified</td></tr>
+<tr><td>Retail Digital Share (Legacy)</td><td>(E-Banking + POS) / (E-Banking + POS + ATM) &times; 100. Excludes Interbank and ATM Deposits. Legacy F15 data.</td><td>Verified</td></tr>
+<tr><td>Total Payment Volume (Legacy)</td><td>Sum of 7 non-overlapping indicators. Parent totals for ATM/POS Abroad; children excluded from sum. Legacy F15 data.</td><td>Verified</td></tr>
+<tr><td>Avg EUR/Transaction (Legacy)</td><td>(amount in M / count in K) &times; 1000. Same period, same indicator. Legacy F15 data.</td><td>Verified</td></tr>
+<tr><td>E-Banking Penetration</td><td>E-banking accounts / current accounts &times; 100. Source: Table 1 (Accounts).</td><td>Direct</td></tr>
+<tr><td>Visa Share</td><td>Visa cards / total cards &times; 100. Source: Table 2 (Cards).</td><td>Direct</td></tr>
+<tr><td>Contactless Share</td><td>Contactless cards / total cards &times; 100. Source: Table 2 (Cards).</td><td>Direct</td></tr>
+<tr><td>Spend per Issued Payment Card</td><td>Card payment value / payment-function cards. Proxy &mdash; denominator is issued stock, not active cards. Source: Table 2 (Cards) &amp; Table 4 (Payments).</td><td>Proxy</td></tr>
+<tr><td>Average Card Ticket</td><td>Card payment value / card payment count. Same-period direct calculation. Source: Table 4 (Payments).</td><td>Direct</td></tr>
+<tr><td>Card Share (count)</td><td>Card payments / total customer payments &times; 100. Source: Table 4 (Payments).</td><td>Direct</td></tr>
+<tr><td>Card Share (value)</td><td>Card payment value / total payment value &times; 100. Source: Table 4 (Payments).</td><td>Direct</td></tr>
+<tr><td>POS per 1,000 Payment Cards</td><td>Total POS terminals / payment-function cards &times; 1000. Source: Table 3 (Terminals) &amp; Table 2 (Cards).</td><td>Direct</td></tr>
+<tr><td>Deposit-Capable ATM Share</td><td>Deposit-capable ATMs / total ATMs &times; 100. Source: Table 3 (Terminals).</td><td>Direct</td></tr>
 </tbody></table>
 </div>
 
@@ -357,7 +366,7 @@ tr:hover td{background:#f8f9fb}
 <li>Legacy payment data (F15) provides transaction-level ATM/POS data. New payments workbook data covers accounts, card issuance, terminals, and payment flows from 2025-01 onwards.</li>
 <li>Deposit type breakdown from F11a: Transferable and Savings are stock; Time Deposits are flow. Never combined.</li>
 <li>Sector breakdown covers corporate loans only (~&euro;3.8B, not total market ~&euro;6.6B).</li>
-<li>Card issuance data (active cards, debit/credit split) is not available.</li>
+<li>Card counts are issued-and-valid stock, not active cards. Active card counts are not published by CBK. Spending proxies use issued stock as denominator and understate true per-active-card spending.</li>
 <li>Remittance country data is percentage shares, not EUR amounts.</li>
 <li>Monthly filter may not apply to quarterly remittance or annual payment data.</li>
 <li>Maturity data uses original maturity buckets, not residual maturity.</li>
@@ -1181,7 +1190,7 @@ if(allMat.total>0){
   var commentary='As of '+fmtP(matPeriod)+', '+fmtPct(longPct)+' of outstanding loans mature beyond 5 years ('+fmtMoney(longTerm)+'), while only '+fmtPct(shortPct)+' mature within 1 year ('+fmtMoney(shortTerm)+'). ';
   commentary+='The largest bucket is '+longestBucket+' at '+fmtMoney(allMat[longestBucket])+'. ';
   if(longPct>50) commentary+='The loan book is heavily skewed toward longer maturities, reflecting mortgage and long-term corporate lending. This creates significant duration pressure and repricing risk if funding remains short-dated.';
-  else if(longPct>30) commentary+='The asset side shows moderate long-term concentration. Maturity transformation risk depends on the deposit maturity profile, which is currently unavailable.';
+  else if(longPct>30) commentary+='The asset side shows moderate long-term concentration. Maturity transformation risk can be assessed against the deposit maturity profile (see Maturity tab, deposit section).';
   else commentary+='The loan book is relatively balanced across maturities.';
   // HH vs NFC comparison
   var hhLong=hhMat['5-10 years']+hhMat['Over 10 years'];
