@@ -366,10 +366,10 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard full"><h3>Loan loss provisions trend</h3><div class="csub">Annual cumulative provisions for credit losses (EUR M)</div><canvas id="ch-cr2-prov"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Cost of Risk</h3><div class="csub">Loan loss provisions / total loans outstanding %</div><canvas id="ch-cr2-cor"></canvas></div>
-<div class="ccard"><h3>Provisioning Intensity</h3><div class="csub">Loan loss provisions / net interest income %</div><canvas id="ch-cr2-int"></canvas></div>
+<div class="ccard"><h3>Cost of Risk</h3><div class="csub">Annual cumulative provisions (T14) / year-end loan stock (T02), %</div><canvas id="ch-cr2-cor"></canvas></div>
+<div class="ccard"><h3>Provisioning Intensity</h3><div class="csub">Cumulative provisions / cumulative net interest income, %</div><canvas id="ch-cr2-int"></canvas></div>
 </div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Provisions from Table 14 (cumulative income statement). Cost of Risk uses year-end provisions divided by year-end total loan stock from Table 02. Provisioning Intensity = provisions as share of net interest income, indicating how much of the interest margin is consumed by credit losses.</p></div>
+<div class="note caveat"><div class="note-tag">Data Note</div><p>Provisions from CBK Table 14, column 19 (cumulative year-to-date income statement). <strong>Cost of Risk</strong> = full-year cumulative provisions (December) divided by year-end loan stock from Table 02, column 24. Denominator is end-of-period stock, not average loan stock &mdash; this is a proxy. No annualization is applied because the numerator already spans 12 months. <strong>Provisioning Intensity</strong> = cumulative provisions as a share of cumulative net interest income; both are YTD from Table 14, so the ratio is internally consistent. Sector-level CoR (HH vs NFC) is not available &mdash; Table 14 reports provisions as a single aggregate. If a month filter is active, the fallback uses the latest available period, which may show a partial-year cumulative figure rather than full-year CoR.</p></div>
 </div>
 
 <div class="mod" id="mod-assets">
@@ -1704,12 +1704,12 @@ var niiCR=latCR.interest_income-latCR.interest_expense;
 var provInt=niiCR>0?(latCR.loan_loss_provisions/niiCR*100):null;
 
 addK('cr2-k','Loan Loss Provisions',latCR.loan_loss_provisions?fmtMoney(latCR.loan_loss_provisions):'\u2014',null,null,'EUR, cumulative');
-addK('cr2-k','Cost of Risk',costOfRisk!=null?(costOfRisk.toFixed(2)+'%'):'\u2014',prevCoR!=null?costOfRisk-prevCoR:null,' pp','Provisions / Loans');
+addK('cr2-k','Cost of Risk',costOfRisk!=null?(costOfRisk.toFixed(2)+'%'):'\u2014',prevCoR!=null?costOfRisk-prevCoR:null,' pp','YTD Provisions / Year-End Loans');
 addK('cr2-k','Provisioning Intensity',provInt!=null?fmtPct(provInt):'\u2014',null,null,'Provisions / NII');
-addK('cr2-k','Total Loans',latLoans?fmtMoney(latLoans):'\u2014',null,null,'EUR, Table 02');
+addK('cr2-k','Total Loans',latLoans?fmtMoney(latLoans):'\u2014',null,null,'Year-end stock, Table 02');
 
 document.getElementById('cr2-h').textContent='Credit Risk — '+latCR.period;
-document.getElementById('cr2-p').textContent='Loan loss provisions '+fmtMoney(latCR.loan_loss_provisions)+'. Cost of risk '+(costOfRisk!=null?costOfRisk.toFixed(2)+'%':'N/A')+' of total loan stock. Provisioning consumes '+(provInt!=null?provInt.toFixed(1)+'%':'N/A')+' of net interest income.';
+document.getElementById('cr2-p').textContent='Loan loss provisions '+fmtMoney(latCR.loan_loss_provisions)+' (cumulative). Cost of risk '+(costOfRisk!=null?costOfRisk.toFixed(2)+'%':'N/A')+' (annual cumulative provisions / year-end loan stock). Provisioning absorbs '+(provInt!=null?provInt.toFixed(1)+'%':'N/A')+' of net interest income.';
 
 var crPeriods=decInc2.map(function(r){return r.period});
 
