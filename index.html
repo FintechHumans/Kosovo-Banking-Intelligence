@@ -175,16 +175,16 @@ tr:hover td{background:#f8f9fb}
 </div>
 <div class="mod" id="mod-rates">
 <div class="pg-title"><h1>Interest Rates</h1>
-<p>Effective rates on new lending and new time deposits, repricing gap, and funding cost proxy.</p></div>
+<p>Effective rates on new lending and new time deposits, repricing gap, and WACF (Weighted Average Cost of Funds).</p></div>
 <div class="kpis" id="rt-k"></div>
-<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Neither pricing gap shown here equals Net Interest Margin (NIM). Both exclude legacy book rates, non-interest income, and provisioning. The <strong>narrow gap</strong> compares only new-business rates (new loans vs new time deposits). The <strong>funding cost proxy</strong> (illustrative) weights all three deposit categories (CA, SA, TDA) using F11a balances: CA at 0% (non-remunerated), SA at 0.05% (assumed near-zero), TDA at the published CBK rate. The TDA weight uses F11a monthly flow rather than outstanding stock, which <strong>underweights</strong> time deposits and produces a <strong>lower-bound estimate</strong> of true blended cost.</p></div>
+<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Neither pricing gap shown here equals Net Interest Margin (NIM). Both exclude legacy book rates, non-interest income, and provisioning. The <strong>narrow gap</strong> compares only new-business rates (new loans vs new time deposits). <strong>WACF</strong> (Weighted Average Cost of Funds) weights all three deposit categories using outstanding stock balances: CA from F11a (stock, at 0% non-remunerated), SA from F11a (stock, at 0.05% proxy &mdash; CBK does not publish SA rate), TDA from F08 deposit maturity (stock, at published CBK new-business time deposit rate). The WACF gap = lending rate minus WACF.</p></div>
 <div class="note"><div class="note-tag">Rate Environment</div><h3 id="rt-h"></h3><p id="rt-p"></p></div>
 <div class="cgrid">
 <div class="ccard"><h3>Lending rates by product</h3><div class="csub">Effective rates on new loans, %</div><canvas id="ch-rt-prod"></canvas></div>
 <div class="ccard"><h3>Deposit rates by customer</h3><div class="csub">Effective rates on new time deposits, %</div><canvas id="ch-rt-dep"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard full"><h3>Pricing gap trend (proxy)</h3><div class="csub">Lending rate, deposit rates, narrow gap (vs TDA only), and funding gap (illustrative, vs weighted funding cost)</div><canvas id="ch-rt-spread"></canvas></div>
+<div class="ccard full"><h3>Pricing gap trend</h3><div class="csub">Lending rate, TDA rate, narrow gap (vs TDA only), WACF gap (vs stock-weighted cost of funds)</div><canvas id="ch-rt-spread"></canvas></div>
 </div>
 <div class="kpis" id="rt-fund-k"></div>
 <div class="cgrid">
@@ -262,7 +262,17 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard"><h3>Terminal transaction volume</h3><div class="csub">Monthly transactions by terminal type</div><canvas id="ch-an-txvol"></canvas></div>
 <div class="ccard"><h3>Terminal transaction value</h3><div class="csub">Monthly EUR value by terminal type, EUR</div><canvas id="ch-an-txval"></canvas></div>
 </div>
-<div class="note warn"><div class="note-tag">Data Scope</div><p>Terminal counts are end-of-period stock. ATM deposit capability has grown significantly. POS contactless share measures terminal readiness, not transaction share. Merchant counts represent unique businesses accepting card payments. Source: CBK Payments Workbook &mdash; Table 3 (Terminals) &amp; Table 5 (Terminal Transactions).</p></div>
+<div class="note"><div class="note-tag">Cashless Transition</div><h3 id="cl-h"></h3><p id="cl-p"></p></div>
+<div class="kpis" id="cl-k"></div>
+<div class="cgrid">
+<div class="ccard"><h3>ATM Recycling Rate</h3><div class="csub">ATM deposit value / ATM withdrawal value, %</div><canvas id="ch-cl-recycle"></canvas></div>
+<div class="ccard"><h3>Digital vs Physical card payments</h3><div class="csub">E-money + digital wallet vs physical POS card payments (count)</div><canvas id="ch-cl-digmix"></canvas></div>
+</div>
+<div class="cgrid">
+<div class="ccard"><h3>Average ticket by channel</h3><div class="csub">Avg transaction value: physical POS vs e-commerce vs ATM withdrawal</div><canvas id="ch-cl-ticket"></canvas></div>
+<div class="ccard"><h3>Cash substitution trend</h3><div class="csub">Card payment count / ATM withdrawal count ratio</div><canvas id="ch-cl-cashsub"></canvas></div>
+</div>
+<div class="note warn"><div class="note-tag">Data Scope</div><p>Terminal counts are end-of-period stock. ATM deposit capability has grown significantly. POS contactless share measures terminal readiness, not transaction share. Merchant counts represent unique businesses accepting card payments. ATM Recycling Rate = deposit value / withdrawal value; higher means more cash deposited relative to withdrawn. Source: CBK Payments Workbook &mdash; Tables 3, 4, 5.</p></div>
 </div>
 <div class="mod" id="mod-remittances">
 <div class="pg-title"><h1>Remittances</h1>
@@ -276,7 +286,12 @@ tr:hover td{background:#f8f9fb}
 <div class="cgrid">
 <div class="ccard full"><h3>Channel composition</h3><div class="csub">Banks vs MTOs vs Other, EUR</div><canvas id="ch-rm-ch"></canvas></div>
 </div>
-<div class="note caveat"><div class="note-tag">Data Notes</div><p>Remittance transaction counts are not available &mdash; only value (EUR) is reported. Country breakdown shows percentage shares (Total=100%), not absolute EUR amounts. Pre-2014 data is quarterly/annual only; monthly filter may return no results for those periods.</p></div>
+<div class="kpis" id="rm-adv-k"></div>
+<div class="cgrid">
+<div class="ccard"><h3>Channel dominance trend</h3><div class="csub">Banks vs MTOs vs Other — share of total remittances, %</div><canvas id="ch-rm-dom"></canvas></div>
+<div class="ccard"><h3>Germany + Switzerland concentration</h3><div class="csub">Combined share of total remittance inflows, %</div><canvas id="ch-rm-conc"></canvas></div>
+</div>
+<div class="note caveat"><div class="note-tag">Data Notes</div><p>Remittance transaction counts are not available &mdash; only value (EUR) is reported. Country breakdown shows percentage shares (Total=100%), not absolute EUR amounts. Pre-2014 data is quarterly/annual only; monthly filter may return no results for those periods. MTO Share = agencies/transfer operators as % of total. Germany + Switzerland concentration measures diaspora corridor dominance.</p></div>
 </div>
 <div class="mod" id="mod-maturity">
 <div class="pg-title"><h1>Maturity Analysis</h1>
@@ -313,7 +328,11 @@ tr:hover td{background:#f8f9fb}
 <h3>Term Deposit Maturity Detail</h3>
 <div class="tw"><table><thead><tr><th>Maturity Bucket</th><th class="num">HH (EUR M)</th><th class="num">NFC (EUR M)</th><th class="num">Total (EUR M)</th><th class="num">Share %</th></tr></thead><tbody id="dm-table"></tbody></table></div>
 </div>
-<div class="note caveat"><div class="note-tag">Asset-Liability Maturity</div><p id="mt-alm">Loan maturity uses 5 buckets (up to 1Y through over 10Y). Deposit maturity uses 6 finer buckets (up to 1 month through over 2 years). The different granularity limits direct comparison, but broad alignment is visible: loans are predominantly long-dated (&gt;5Y) while time deposits concentrate in the 6&ndash;12 month range, highlighting significant maturity transformation.</p></div>
+<div class="cgrid">
+<div class="ccard full"><h3>Contractual Maturity Gap</h3><div class="csub">Loans vs time deposits by aligned bucket, EUR M &mdash; gap = loans minus deposits</div><canvas id="ch-mt-gap"></canvas></div>
+</div>
+<div class="kpis" id="mt-gap-k"></div>
+<div class="note caveat"><div class="note-tag">Contractual Maturity Gap</div><p id="mt-alm">Deposit maturity buckets (6 buckets from F08) are re-bucketed to match loan maturity (5 buckets from F10). First 4 deposit buckets (up to 1 month through 6&ndash;12 months) are combined into &ldquo;Up to 1 Year&rdquo;. Positive gap = more loans than deposits in that bucket (funding shortfall). This is <strong>contractual</strong> (original) maturity, not residual maturity, and does not constitute a full liquidity risk assessment.</p></div>
 <div class="note caveat"><div class="note-tag">Deposit Maturity Scope</div><p>Maturity bucketing applies only to <strong>time deposits</strong> (Depozita tjera). Transferable and savings deposits have no fixed maturity term. Values are end-of-period stocks in EUR millions from F08. NFC combines public and private non-financial corporations.</p></div>
 </div>
 <div class="mod" id="mod-methodology">
@@ -338,8 +357,8 @@ tr:hover td{background:#f8f9fb}
 <tr><td>Total EUR Deposits</td><td>Sum of all EUR deposit balances across segments (F08 Col 2). EUR only.</td><td>Verified</td></tr>
 <tr><td>LTD Ratio</td><td>Total loans / Total EUR deposits &times; 100. Numerator includes ~&euro;0.97M non-EUR loans (0.015%).</td><td>Market Proxy</td></tr>
 <tr><td>Narrow Gap (Proxy)</td><td>All new loans rate (F13) minus time deposit rate (F13a). New-business rates only. Not NIM.</td><td>Proxy</td></tr>
-<tr><td>Funding Cost (Proxy)</td><td>(CA_rate&times;CA + SA_rate&times;SA + TDA_rate&times;TDA) / (CA+SA+TDA). CA rate assumed 0% (non-remunerated). SA rate assumed 0.05% (near-zero estimate). TDA rate from CBK F11a. TDA weight is monthly flow (not stock). Lower-bound estimate.</td><td>Proxy</td></tr>
-<tr><td>Funding Gap (Illustrative)</td><td>All new loans rate minus funding cost proxy. Wider than narrow gap because denominator dilutes TDA rate across low-cost CA/SA base. Illustrative only &mdash; not NIM.</td><td>Proxy</td></tr>
+<tr><td>WACF</td><td>Weighted Average Cost of Funds = (0%&times;CA_stock + 0.05%&times;SA_stock + TDA_rate&times;TDA_stock) / (CA+SA+TDA). CA and SA stock from F11a. TDA stock from F08 deposit maturity (sum of all buckets, HH+NFC). TDA rate from F13a. SA rate 0.05% is a proxy assumption &mdash; CBK does not publish system-wide SA pricing.</td><td>Proxy</td></tr>
+<tr><td>WACF Gap</td><td>All new loans rate minus WACF. Uses stock-weighted funding cost. Not NIM.</td><td>Proxy</td></tr>
 <tr><td>Remittances Total</td><td>Pre-computed Total row from source. Not summed from channels.</td><td>Verified</td></tr>
 <tr><td>Retail Digital Share (Legacy)</td><td>(E-Banking + POS) / (E-Banking + POS + ATM) &times; 100. Excludes Interbank and ATM Deposits. Legacy F15 data.</td><td>Verified</td></tr>
 <tr><td>Total Payment Volume (Legacy)</td><td>Sum of 7 non-overlapping indicators. Parent totals for ATM/POS Abroad; children excluded from sum. Legacy F15 data.</td><td>Verified</td></tr>
@@ -353,6 +372,11 @@ tr:hover td{background:#f8f9fb}
 <tr><td>Card Share (value)</td><td>Card payment value / total payment value &times; 100. Source: Table 4 (Payments).</td><td>Direct</td></tr>
 <tr><td>POS per 1,000 Payment Cards</td><td>Total POS terminals / payment-function cards &times; 1000. Source: Table 3 (Terminals) &amp; Table 2 (Cards).</td><td>Direct</td></tr>
 <tr><td>Deposit-Capable ATM Share</td><td>Deposit-capable ATMs / total ATMs &times; 100. Source: Table 3 (Terminals).</td><td>Direct</td></tr>
+<tr><td>Contractual Maturity Gap</td><td>Loans minus aligned time deposits per maturity bucket. Deposit buckets re-bucketed: first 4 deposit buckets (&le;1M, 1-3M, 3-6M, 6-12M) combined into &ldquo;Up to 1 Year&rdquo;. Source: F10 (loans) &amp; F08 (deposits).</td><td>Direct</td></tr>
+<tr><td>ATM Recycling Rate</td><td>ATM deposit value / ATM withdrawal value &times; 100. Higher = more cash deposited relative to withdrawn. Source: Table 5 (Terminal Transactions).</td><td>Direct</td></tr>
+<tr><td>Card-to-ATM Ratio</td><td>Card payment count / ATM withdrawal count. Measures card substitution of cash. Source: Table 4 (Payments) &amp; Table 5 (Terminal Tx).</td><td>Direct</td></tr>
+<tr><td>MTO Share of Remittances</td><td>MTO (agencies) channel value / total remittance value &times; 100. Source: CBK Tables 31-32.</td><td>Direct</td></tr>
+<tr><td>DE+CH Concentration</td><td>Germany share + Switzerland share of total remittance inflows. Country data is percentage shares. Source: CBK Table 32.</td><td>Direct</td></tr>
 </tbody></table>
 </div>
 
@@ -362,9 +386,9 @@ tr:hover td{background:#f8f9fb}
 <li>All data represents aggregate banking sector totals as published by CBK. No individual bank breakdowns.</li>
 <li>Deposits are EUR only (F08 is titled &ldquo;Depozitat n&euml; Euro&rdquo;).</li>
 <li>Loans include a negligible non-EUR component (~&euro;0.97M, 0.015% of total).</li>
-<li>The narrow gap compares new-business rates only (new loans vs new time deposits). The funding cost proxy weights TDA rate across CA+SA+TDA amounts, with CA at 0% and SA at 0.05% (assumed; CBK does not publish CA/SA rates). TDA weight uses F11a flow, not stock, producing a lower-bound estimate. Neither gap equals NIM. The funding gap is illustrative only.</li>
+<li>The narrow gap compares new-business rates only (new loans vs new time deposits). WACF weights TDA rate across CA+SA+TDA using outstanding stock balances: CA and SA from F11a (stock), TDA from F08 deposit maturity (stock). CA at 0% (non-remunerated), SA at 0.05% (proxy; CBK does not publish SA rate). Neither gap equals NIM.</li>
 <li>Legacy payment data (F15) provides transaction-level ATM/POS data. New payments workbook data covers accounts, card issuance, terminals, and payment flows from 2025-01 onwards.</li>
-<li>Deposit type breakdown from F11a: Transferable and Savings are stock; Time Deposits are flow. Never combined.</li>
+<li>Deposit type breakdown from F11a: Transferable and Savings are stock; Time Deposits are flow (new originations). WACF uses F08 TDA stock (from maturity buckets) instead of F11a flow.</li>
 <li>Sector breakdown covers corporate loans only (~&euro;3.8B, not total market ~&euro;6.6B).</li>
 <li>Card counts are issued-and-valid stock, not active cards. Active card counts are not published by CBK. Spending proxies use issued stock as denominator and understate true per-active-card spending.</li>
 <li>Remittance country data is percentage shares, not EUR amounts.</li>
@@ -585,7 +609,7 @@ var allMods=document.querySelectorAll('.mod');
 var activeMod=document.querySelector('.mod.active');
 allMods.forEach(function(m){m.classList.add('active')});
 void document.body.offsetHeight; // force synchronous reflow
-['ov-k','ln-k','dp-k','rt-k','ac-k','cr-k','pm-k','an-k','rm-k','mt-k','dm-k','rt-fund-k'].forEach(function(id){var e=document.getElementById(id);if(e)e.innerHTML=''});
+['ov-k','ln-k','dp-k','rt-k','ac-k','cr-k','pm-k','an-k','rm-k','mt-k','dm-k','rt-fund-k','mt-gap-k','cl-k','rm-adv-k'].forEach(function(id){var e=document.getElementById(id);if(e)e.innerHTML=''});
 document.querySelectorAll('.no-data').forEach(function(e){e.remove()});
 document.querySelectorAll('.filter-note').forEach(function(e){e.remove()});
 document.querySelectorAll('canvas').forEach(function(e){e.style.display=''});
@@ -802,28 +826,32 @@ if(flowP.length){
 } else noData('ch-dp-flow','No time deposit flow data');
 
 // ===================== RATES =====================
-// Broad funding cost proxy: weight TDA rate by deposit composition
-// CA rate = not published (non-remunerated), SA rate = not published (non-remunerated)
-// TDA rate = published new-business time deposit rate
-// Weights: CA = F11a Total Transferable (stock), SA = F11a Total Savings (stock), TDA = F11a Total Time Deposits (flow)
-// Limitation: TDA weight is flow not stock, underweighting time deposits -> lower-bound estimate
+// WACF: Weighted Average Cost of Funds (stock-based)
+// CA_stock = F11a Total Transferable (stock), SA_stock = F11a Total Savings (stock)
+// TDA_stock = F08 dep_maturity sum (all buckets, HH+NFC — actual outstanding time deposit stock)
+// TDA_rate = F13a published new-business time deposit rate
+// SA rate = 0.05% proxy assumption (near-zero; CBK does not publish SA rate)
+// CA rate = 0% (non-remunerated)
 var lCA=latest(ND,function(r){return r.type==='Total Transferable'});
 var lSA=latest(ND,function(r){return r.type==='Total Savings'});
-var lTDA=latest(ND,function(r){return r.type==='Total Time Deposits'});
-var caAmt=lCA?lCA.value:0, saAmt=lSA?lSA.value:0, tdaAmt=lTDA?lTDA.value:0;
+// TDA stock from F08 dep_maturity (sum all maturity buckets for latest period)
+var dmLatestP=latest(DM,function(r){return true});
+var tdaStock=0;
+if(dmLatestP){var dmLP=dmLatestP.period;DM.forEach(function(r){if(r.period===dmLP)tdaStock+=r.value})}
+var caAmt=lCA?lCA.value:0, saAmt=lSA?lSA.value:0, tdaAmt=tdaStock;
 var totalDepWt=caAmt+saAmt+tdaAmt;
 var tdaRate=lDR?lDR.value:0;
-var saRate=0.05; // SA assumed 0.05% (near-zero remuneration estimate)
+var saRate=0.05; // SA assumed 0.05% (near-zero remuneration proxy)
 var caRate=0;    // CA assumed non-remunerated
-var broadFC=totalDepWt>0?((caRate*caAmt)+(saRate*saAmt)+(tdaRate*tdaAmt))/totalDepWt:null;
+var wacf=totalDepWt>0?((caRate*caAmt)+(saRate*saAmt)+(tdaRate*tdaAmt))/totalDepWt:null;
 var narrowGap=lLR&&lDR?(lLR.value-lDR.value):null;
-var broadGap=lLR&&broadFC!=null?(lLR.value-broadFC):null;
+var wacfGap=lLR&&wacf!=null?(lLR.value-wacf):null;
 
 addK('rt-k','Lending Rate',lLR?fmtPct(lLR.value):'\u2014',lLR&&pLR?(lLR.value-pLR.value):null,' pp',lLR?fmtP(lLR.period)+' | New loans':'');
 addK('rt-k','Time Deposit Rate',lDR?fmtPct(lDR.value):'\u2014',lDR&&pDR?(lDR.value-pDR.value):null,' pp',lDR?fmtP(lDR.period)+' | New time deposits':'');
-addK('rt-k','Funding Cost (proxy)',broadFC!=null?fmtPct(broadFC):'\u2014',null,null,'Weighted estimate (lower bound)');
+addK('rt-k','WACF',wacf!=null?fmtPct(wacf):'\u2014',null,null,'Weighted Avg Cost of Funds (stock-based)');
 if(narrowGap!=null){addK('rt-k','Narrow Gap',fmtPP(narrowGap),null,null,'Loans minus TDA rate only')}
-if(broadGap!=null){addK('rt-k','Funding Gap',fmtPP(broadGap),null,null,'Loans minus funding cost proxy')}
+if(wacfGap!=null){addK('rt-k','WACF Gap',fmtPP(wacfGap),null,null,'Loans minus WACF')}
 
 var lCons=latest(IRL,function(r){return r.type==='Consumer Loan Rate'});
 var lMort=latest(IRL,function(r){return r.type==='Mortgage Rate'});
@@ -834,15 +862,15 @@ addK('rt-k','Mortgage Rate',lMort?fmtPct(lMort.value):'\u2014',null,null,'');
 addK('rt-k','Corp Lending',lCorpR?fmtPct(lCorpR.value):'\u2014',null,null,'');
 
 // Funding proxy composition cards
-addK('rt-fund-k','Transferable (CA)',lCA?fmtMoney(lCA.value):'\u2014',null,null,'Stock | Rate: not published');
-addK('rt-fund-k','Savings (SA)',lSA?fmtMoney(lSA.value):'\u2014',null,null,'Stock | Rate: 0.05% (assumed)');
-addK('rt-fund-k','Time Deposits (TDA)',lTDA?fmtMoney(lTDA.value):'\u2014',null,null,'Flow | Rate: '+fmtPct(tdaRate));
-addK('rt-fund-k','Total Weighted Base',totalDepWt>0?fmtMoney(totalDepWt):'\u2014',null,null,'CA(stock)+SA(stock)+TDA(flow)');
+addK('rt-fund-k','Transferable (CA)',lCA?fmtMoney(lCA.value):'\u2014',null,null,'F11a stock | Rate: 0% (non-remunerated)');
+addK('rt-fund-k','Savings (SA)',lSA?fmtMoney(lSA.value):'\u2014',null,null,'F11a stock | Rate: 0.05% (proxy)');
+addK('rt-fund-k','Time Deposits (TDA)',tdaStock>0?fmtMoney(tdaStock):'\u2014',null,null,'F08 stock | Rate: '+fmtPct(tdaRate));
+addK('rt-fund-k','Total Weighted Base',totalDepWt>0?fmtMoney(totalDepWt):'\u2014',null,null,'CA+SA (F11a stock) + TDA (F08 stock)');
 
 var rth=document.getElementById('rt-h'),rtp=document.getElementById('rt-p');
 if(lLR&&lDR){
-  rth.textContent='Lending '+fmtPct(lLR.value)+' | TDA rate '+fmtPct(lDR.value)+' | Narrow gap '+fmtPP(narrowGap)+(broadGap!=null?' | Funding gap '+fmtPP(broadGap):'');
-  rtp.textContent='Narrow gap = new loans rate minus new TDA rate. Broad gap = new loans rate minus weighted funding cost (CA+SA non-remunerated, TDA at published rate). Consumer: '+fmtPct(lCons?lCons.value:0)+', mortgage: '+fmtPct(lMort?lMort.value:0)+', corporate: '+fmtPct(lCorpR?lCorpR.value:0)+'.';
+  rth.textContent='Lending '+fmtPct(lLR.value)+' | TDA rate '+fmtPct(lDR.value)+' | Narrow gap '+fmtPP(narrowGap)+(wacfGap!=null?' | WACF gap '+fmtPP(wacfGap):'');
+  rtp.textContent='Narrow gap = new loans rate minus new TDA rate. WACF = stock-weighted cost of funds (CA at 0%, SA at 0.05% proxy, TDA at published rate, all using outstanding stock balances). Consumer: '+fmtPct(lCons?lCons.value:0)+', mortgage: '+fmtPct(lMort?lMort.value:0)+', corporate: '+fmtPct(lCorpR?lCorpR.value:0)+'.';
 }
 
 // Lending rates by product
@@ -869,7 +897,7 @@ if(drP.length){
   }));
 } else noData('ch-rt-dep','No deposit rate data');
 
-// Pricing gap trend: narrow (vs TDA) and broad (vs weighted funding cost)
+// Pricing gap trend: narrow (vs TDA) and WACF gap (vs stock-weighted cost of funds)
 var spreadP=lrP.filter(function(p){
   var lr=lrF.find(function(r){return r.period===p&&r.type==='All Loans Rate'});
   var dr=drF.find(function(r){return r.period===p&&r.type==='Time Deposit Rate'});
@@ -879,7 +907,7 @@ if(spreadP.length){
   var lrMap={},drMap2={};
   lrF.filter(function(r){return r.type==='All Loans Rate'}).forEach(function(r){lrMap[r.period]=r.value});
   drF.filter(function(r){return r.type==='Time Deposit Rate'}).forEach(function(r){drMap2[r.period]=r.value});
-  // Build per-period broad funding cost from deposit weights
+  // Build per-period WACF from deposit stock weights
   var caM={},saM={},tdM={};
   ndF.filter(function(r){return r.type==='Total Transferable'}).forEach(function(r){caM[r.period]=r.value});
   ndF.filter(function(r){return r.type==='Total Savings'}).forEach(function(r){saM[r.period]=r.value});
@@ -889,11 +917,15 @@ if(spreadP.length){
     {label:'Lending Rate',data:spreadP.map(function(p){return lrMap[p]||null}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:0},
     {label:'Time Deposit Rate',data:spreadP.map(function(p){return drMap2[p]||null}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:0},
     {label:'Narrow Gap (vs TDA)',data:spreadP.map(function(p){return lrMap[p]&&drMap2[p]?(lrMap[p]-drMap2[p]):null}),borderColor:GOLD,backgroundColor:GOLD+'15',fill:true,tension:.3,borderWidth:1.8,pointRadius:0},
-    {label:'Funding Gap (illustrative)',data:spreadP.map(function(p){
-      var dr=drMap2[p],ca=caM[p]||0,sa=saM[p]||0,td=tdM[p]||0,tot=ca+sa+td;
+    {label:'WACF Gap (stock-based)',data:spreadP.map(function(p){
+      var dr=drMap2[p],ca=caM[p]||0,sa=saM[p]||0;
+      // TDA stock from dep_maturity for this period
+      var tdStock=0;DM.forEach(function(r){if(r.period===p)tdStock+=r.value});
+      if(tdStock===0){tdStock=tdM[p]||0} // fallback to F11a if no maturity data for this period
+      var tot=ca+sa+tdStock;
       if(!lrMap[p]||!dr||tot===0)return null;
-      var bfc=((0*ca)+(0.05*sa)+(dr*td))/tot;
-      return lrMap[p]-bfc;
+      var wcf=((0*ca)+(0.05*sa)+(dr*tdStock))/tot;
+      return lrMap[p]-wcf;
     }),borderColor:'#dc2626',backgroundColor:'#dc262608',fill:true,tension:.3,borderWidth:1.8,borderDash:[6,3],pointRadius:0}
   ]);
 } else noData('ch-rt-spread','No spread data');
@@ -921,8 +953,8 @@ if(nrP.length){
 } else noData('ch-rt-neer','No NEER/REER data');
 
 // ========== ACCOUNTS MODULE ==========
-var acF=ACCT; // no filter needed for 14-month workbook data
-var acPeriods=acF.map(function(r){return r.period}).sort();
+var acF=sp(flt(ACCT));
+var acPeriods=acF.map(function(r){return r.period});
 if(acPeriods.length){
   var lac=acF[acF.length-1];
   var pac=acF.length>1?acF[acF.length-2]:null;
@@ -959,8 +991,8 @@ if(acPeriods.length){
 }
 
 // ========== CARDS MODULE ==========
-var crF=CARDS;
-var crPeriods=crF.map(function(r){return r.period}).sort();
+var crF=sp(flt(CARDS));
+var crPeriods=crF.map(function(r){return r.period});
 if(crPeriods.length){
   var lcr=crF[crF.length-1];
   var pcr=crF.length>1?crF[crF.length-2]:null;
@@ -996,9 +1028,10 @@ if(crPeriods.length){
   ],oCountCr);
   // Contactless trend as % of total
   showCanvas('ch-cr-ctless');lcDual('ch-cr-ctless',crPeriods,'Contactless Cards',crF.map(function(r){return r.contactless}),'% of Total',crF.map(function(r){return r.total>0?r.contactless/r.total*100:0}));
-  // Spend per issued card proxies - need PV and PC data
-  var pvMap={};PV.forEach(function(r){pvMap[r.period]=r});
-  var pcMap2={};PC.forEach(function(r){pcMap2[r.period]=r});
+  // Spend per issued card proxies - need PV and PC data (filtered)
+  var crPVF=sp(flt(PV)),crPCF=sp(flt(PC));
+  var pvMap={};crPVF.forEach(function(r){pvMap[r.period]=r});
+  var pcMap2={};crPCF.forEach(function(r){pcMap2[r.period]=r});
   var spendPerCard=crPeriods.map(function(p){var pv=pvMap[p],cr2=crF.find(function(r){return r.period===p});if(pv&&cr2&&cr2.payment_fn>0)return pv.card_total/cr2.payment_fn;return null});
   var avgTicket=crPeriods.map(function(p){var pv=pvMap[p],pc3=pcMap2[p];if(pv&&pc3&&pc3.card_total>0)return pv.card_total/pc3.card_total;return null});
   showCanvas('ch-cr-spend');lc('ch-cr-spend',crPeriods,[{label:'EUR per issued payment card',data:spendPerCard,borderColor:GOLD,borderWidth:2.5,tension:.3,pointRadius:2}],{scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,ticks:{font:{size:10},callback:function(v){return '\u20AC'+v.toFixed(0)}}}}});
@@ -1006,9 +1039,10 @@ if(crPeriods.length){
 }
 
 // ========== PAYMENTS MODULE ==========
-var pmPeriods=PC.map(function(r){return r.period}).sort();
+var pcF=sp(flt(PC)),pvF=sp(flt(PV));
+var pmPeriods=pcF.map(function(r){return r.period});
 if(pmPeriods.length){
-  var lpc=PC[PC.length-1],lpv=PV[PV.length-1];
+  var lpc=pcF[pcF.length-1],lpv=pvF.length?pvF[pvF.length-1]:null;
   var cardShareCnt=lpc.total>0?lpc.card_total/lpc.total*100:0;
   var cardShareVal=lpv&&lpv.total>0?lpv.card_total/lpv.total*100:0;
   var ectShare=lpc.credit_transfer>0?lpc.electronic_ct/lpc.credit_transfer*100:0;
@@ -1029,40 +1063,41 @@ if(pmPeriods.length){
   var oPmCnt={plugins:{tooltip:ttCount},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtCount(v)}}}}};
   var oPmVal={plugins:{tooltip:ttEur},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtEur(v)}}}}};
   showCanvas('ch-pm-cnt');lc('ch-pm-cnt',pmPeriods,[
-    {label:'Credit Transfers',data:PC.map(function(r){return r.credit_transfer}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Card Payments',data:PC.map(function(r){return r.card_total}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'E-Money',data:PC.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Other',data:PC.map(function(r){return r.other}),borderColor:'#94a3b8',borderWidth:1.5,tension:.3,pointRadius:0}
+    {label:'Credit Transfers',data:pcF.map(function(r){return r.credit_transfer}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Card Payments',data:pcF.map(function(r){return r.card_total}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'E-Money',data:pcF.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Other',data:pcF.map(function(r){return r.other}),borderColor:'#94a3b8',borderWidth:1.5,tension:.3,pointRadius:0}
   ],oPmCnt);
   showCanvas('ch-pm-val');lc('ch-pm-val',pmPeriods,[
-    {label:'Credit Transfers',data:PV.map(function(r){return r.credit_transfer}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Card Payments',data:PV.map(function(r){return r.card_total}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'E-Money',data:PV.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'Credit Transfers',data:pvF.map(function(r){return r.credit_transfer}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Card Payments',data:pvF.map(function(r){return r.card_total}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'E-Money',data:pvF.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1}
   ],oPmVal);
   showCanvas('ch-pm-paper');lc('ch-pm-paper',pmPeriods,[
-    {label:'Paper',data:PC.map(function(r){return r.paper_ct}),borderColor:'#94a3b8',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Electronic',data:PC.map(function(r){return r.electronic_ct}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'Paper',data:pcF.map(function(r){return r.paper_ct}),borderColor:'#94a3b8',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Electronic',data:pcF.map(function(r){return r.electronic_ct}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1}
   ],oPmCnt);
   showCanvas('ch-pm-channel');lc('ch-pm-channel',pmPeriods,[
-    {label:'Physical (EFTPOS)',data:PC.map(function(r){return r.physical_card}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Remote (online)',data:PC.map(function(r){return r.remote_card}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'Physical (EFTPOS)',data:pcF.map(function(r){return r.physical_card}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Remote (online)',data:pcF.map(function(r){return r.remote_card}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
   ],oPmCnt);
   showCanvas('ch-pm-digital');lc('ch-pm-digital',pmPeriods,[
-    {label:'E-Commerce (Kosovo)',data:PC.map(function(r){return r.ecommerce}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Digital Wallet',data:PC.map(function(r){return r.digital_wallet}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'E-Money',data:PC.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'E-Commerce (Kosovo)',data:pcF.map(function(r){return r.ecommerce}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Digital Wallet',data:pcF.map(function(r){return r.digital_wallet}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'E-Money',data:pcF.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1}
   ],oPmCnt);
   showCanvas('ch-pm-intl');lc('ch-pm-intl',pmPeriods,[
-    {label:'Incoming (EUR)',data:PV.map(function(r){return r.intl_incoming}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Outgoing (EUR)',data:PV.map(function(r){return r.intl_outgoing}),borderColor:'#dc2626',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'Incoming (EUR)',data:pvF.map(function(r){return r.intl_incoming}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Outgoing (EUR)',data:pvF.map(function(r){return r.intl_outgoing}),borderColor:'#dc2626',borderWidth:2,tension:.3,pointRadius:1}
   ],oPmVal);
 }
 
 // ========== ACCEPTANCE MODULE ==========
-var anPeriods=TERMS.map(function(r){return r.period}).sort();
+var trF=sp(flt(TERMS)),txF=sp(flt(TTX));
+var anPeriods=trF.map(function(r){return r.period});
 if(anPeriods.length){
-  var ltr=TERMS[TERMS.length-1];
-  var ptr=TERMS.length>1?TERMS[TERMS.length-2]:null;
+  var ltr=trF[trF.length-1];
+  var ptr=trF.length>1?trF[trF.length-2]:null;
   var depCapPct=ltr.total_atm>0?ltr.atm_deposit/ltr.total_atm*100:0;
   var ctlessPOSPct=ltr.total_pos>0?ltr.pos_contactless/ltr.total_pos*100:0;
   var lcr2=CARDS.length?CARDS[CARDS.length-1]:null;
@@ -1082,30 +1117,85 @@ if(anPeriods.length){
   // Charts
   var oCountAn={plugins:{tooltip:ttCount},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtCount(v)}}}}};
   showCanvas('ch-an-atm');lc('ch-an-atm',anPeriods,[
-    {label:'Total ATMs',data:TERMS.map(function(r){return r.total_atm}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:2},
-    {label:'Deposit-Capable',data:TERMS.map(function(r){return r.atm_deposit}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'Total ATMs',data:trF.map(function(r){return r.total_atm}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:2},
+    {label:'Deposit-Capable',data:trF.map(function(r){return r.atm_deposit}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1}
   ],oCountAn);
   showCanvas('ch-an-pos');lc('ch-an-pos',anPeriods,[
-    {label:'Physical POS',data:TERMS.map(function(r){return r.eftpos}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Virtual POS',data:TERMS.map(function(r){return r.virtual_pos}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'Physical POS',data:trF.map(function(r){return r.eftpos}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Virtual POS',data:trF.map(function(r){return r.virtual_pos}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
   ],oCountAn);
-  showCanvas('ch-an-ctless');lcDual('ch-an-ctless',anPeriods,'Contactless Terminals',TERMS.map(function(r){return r.pos_contactless}),'% of POS',TERMS.map(function(r){return r.total_pos>0?r.pos_contactless/r.total_pos*100:0}));
+  showCanvas('ch-an-ctless');lcDual('ch-an-ctless',anPeriods,'Contactless Terminals',trF.map(function(r){return r.pos_contactless}),'% of POS',trF.map(function(r){return r.total_pos>0?r.pos_contactless/r.total_pos*100:0}));
   showCanvas('ch-an-merch');lc('ch-an-merch',anPeriods,[
-    {label:'Physical Merchants',data:TERMS.map(function(r){return r.merchants_physical}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Virtual Merchants',data:TERMS.map(function(r){return r.merchants_virtual}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
+    {label:'Physical Merchants',data:trF.map(function(r){return r.merchants_physical}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+    {label:'Virtual Merchants',data:trF.map(function(r){return r.merchants_virtual}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
   ],oCountAn);
   // Terminal transactions
   var oTxVal={plugins:{tooltip:ttEur},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtEur(v)}}}}};
   showCanvas('ch-an-txvol');lc('ch-an-txvol',anPeriods,[
-    {label:'ATM Withdrawal',data:TTX.map(function(r){return r.atm_cash_count}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'POS Card Payment',data:TTX.map(function(r){return r.pos_card_count}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'ATM Deposit',data:TTX.map(function(r){return r.atm_deposit_count}),borderColor:'#059669',borderWidth:1.5,tension:.3,pointRadius:0}
+    {label:'ATM Withdrawal',data:txF.map(function(r){return r.atm_cash_count}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+    {label:'POS Card Payment',data:txF.map(function(r){return r.pos_card_count}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'ATM Deposit',data:txF.map(function(r){return r.atm_deposit_count}),borderColor:'#059669',borderWidth:1.5,tension:.3,pointRadius:0}
   ],oCountAn);
   showCanvas('ch-an-txval');lc('ch-an-txval',anPeriods,[
-    {label:'ATM Withdrawal',data:TTX.map(function(r){return r.atm_cash_value}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'POS Card Payment',data:TTX.map(function(r){return r.pos_card_value}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'ATM Deposit',data:TTX.map(function(r){return r.atm_deposit_value}),borderColor:'#059669',borderWidth:1.5,tension:.3,pointRadius:0}
+    {label:'ATM Withdrawal',data:txF.map(function(r){return r.atm_cash_value}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+    {label:'POS Card Payment',data:txF.map(function(r){return r.pos_card_value}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
+    {label:'ATM Deposit',data:txF.map(function(r){return r.atm_deposit_value}),borderColor:'#059669',borderWidth:1.5,tension:.3,pointRadius:0}
   ],oTxVal);
+
+  // ========== CASHLESS TRANSITION TRACKER ==========
+  var clh=document.getElementById('cl-h'),clp=document.getElementById('cl-p');
+  var clkEl=document.getElementById('cl-k');if(clkEl)clkEl.innerHTML='';
+  // ATM Recycling Rate = deposit value / withdrawal value
+  var ltx=txF[txF.length-1];
+  var recycleRate=ltx&&ltx.atm_cash_value>0?(ltx.atm_deposit_value/ltx.atm_cash_value*100):null;
+  addK('cl-k','ATM Recycling Rate',recycleRate!=null?fmtPct(recycleRate):'\u2014',null,null,'Deposit value / withdrawal value');
+  // Card-to-ATM substitution: card payment count / ATM withdrawal count
+  var lpcCL=pcF.length?pcF[pcF.length-1]:null;
+  var cardToATM=lpcCL&&ltx&&ltx.atm_cash_count>0?(lpcCL.card_total/ltx.atm_cash_count):null;
+  addK('cl-k','Card-to-ATM Ratio',cardToATM!=null?cardToATM.toFixed(2)+'x':'\u2014',null,null,'Card payments per ATM withdrawal');
+  // Avg tickets
+  var lpvCL=pvF.length?pvF[pvF.length-1]:null;
+  var avgPOS=lpcCL&&lpvCL&&lpcCL.physical_card>0?(lpvCL.physical_card/lpcCL.physical_card):null;
+  var avgEcom=lpcCL&&lpvCL&&lpcCL.ecommerce>0?(lpvCL.ecommerce_val||0)/(lpcCL.ecommerce||1):null;
+  var avgATMwd=ltx&&ltx.atm_cash_count>0?(ltx.atm_cash_value/ltx.atm_cash_count):null;
+  addK('cl-k','Avg POS Ticket',avgPOS!=null?fmtEur(avgPOS):'\u2014',null,null,'Physical card payment');
+  addK('cl-k','Avg ATM Withdrawal',avgATMwd!=null?fmtEur(avgATMwd):'\u2014',null,null,'Per ATM transaction');
+  // Commentary
+  if(clh)clh.textContent='Recycling: '+(recycleRate!=null?fmtPct(recycleRate):'N/A')+' | Card/ATM: '+(cardToATM!=null?cardToATM.toFixed(2)+'x':'N/A');
+  if(clp)clp.textContent='The cashless transition is measured by ATM recycling (how much cash goes back in vs comes out), card-to-ATM substitution (card payments per ATM withdrawal), and average ticket sizes by channel.';
+
+  // ATM Recycling Rate trend
+  if(txF.length>1){
+    showCanvas('ch-cl-recycle');lcPct('ch-cl-recycle',anPeriods,[{
+      label:'Recycling Rate %',data:txF.map(function(r){return r.atm_cash_value>0?r.atm_deposit_value/r.atm_cash_value*100:null}),
+      borderColor:GOLD,borderWidth:2.5,tension:.3,pointRadius:2
+    }],{scales:{y:{suggestedMin:0}}});
+  } else noData('ch-cl-recycle','Insufficient data');
+
+  // Digital vs Physical mix
+  if(pcF.length>1){
+    showCanvas('ch-cl-digmix');lc('ch-cl-digmix',pmPeriods.length?pmPeriods:anPeriods,[
+      {label:'Physical POS Cards',data:pcF.map(function(r){return r.physical_card||0}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+      {label:'E-Money + Wallet',data:pcF.map(function(r){return(r.emoney||0)+(r.digital_wallet||0)}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
+    ],{plugins:{tooltip:ttCount},scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,ticks:{callback:function(v){return fmtCount(v)}}}}});
+  } else noData('ch-cl-digmix','Insufficient data');
+
+  // Average ticket by channel
+  if(pcF.length>1&&pvF.length>1){
+    showCanvas('ch-cl-ticket');lc('ch-cl-ticket',pmPeriods.length?pmPeriods:anPeriods,[
+      {label:'POS Ticket',data:pcF.map(function(r,i){var pv=pvF[i];return pv&&r.physical_card>0?pv.physical_card/r.physical_card:null}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
+      {label:'ATM Withdrawal',data:txF.map(function(r){return r.atm_cash_count>0?r.atm_cash_value/r.atm_cash_count:null}),borderColor:'#dc2626',borderWidth:2,tension:.3,pointRadius:1}
+    ],{plugins:{tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+fmtEur(c.parsed.y)}}}},scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,ticks:{callback:function(v){return fmtEur(v)}}}}});
+  } else noData('ch-cl-ticket','Insufficient data');
+
+  // Cash substitution trend (card payments / ATM withdrawals)
+  if(pcF.length>1&&txF.length>1){
+    var subPeriods=anPeriods;
+    showCanvas('ch-cl-cashsub');lc('ch-cl-cashsub',subPeriods,[{
+      label:'Card/ATM Ratio',data:txF.map(function(r,i){var pc2=pcF[i];return pc2&&r.atm_cash_count>0?pc2.card_total/r.atm_cash_count:null}),
+      borderColor:GRN,borderWidth:2.5,tension:.3,pointRadius:2
+    }],{plugins:{tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y.toFixed(2)+'x'}}}},scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,title:{display:true,text:'Ratio (x)',font:{size:10}}}}});
+  } else noData('ch-cl-cashsub','Insufficient data');
 }
 
 // ===================== REMITTANCES =====================
@@ -1144,6 +1234,59 @@ if(rmChP.length){
     return{label:ch,data:rmChP.map(function(p){return pm[p]||null}),borderColor:PAL[i],backgroundColor:PAL[i]+'15',fill:true,tension:.3,spanGaps:true};
   }));
 } else noData('ch-rm-ch','No channel data');
+
+// ========== ADVANCED REMITTANCE ANALYTICS ==========
+var rmAdvK=document.getElementById('rm-adv-k');if(rmAdvK)rmAdvK.innerHTML='';
+// MTO Share
+var lMTO=latest(RC,function(r){return r.channel==='MTOs'});
+var lRmTot=latest(RC,function(r){return r.channel==='Total'});
+var mtoShare=lMTO&&lRmTot&&lRmTot.value>0?(lMTO.value/lRmTot.value*100):null;
+addK('rm-adv-k','MTO Share of Remittances',mtoShare!=null?fmtPct(mtoShare):'\u2014',null,null,lMTO?fmtP(lMTO.period):'');
+// Bank share
+var lBank=latest(RC,function(r){return r.channel==='Banks'});
+var bankShare=lBank&&lRmTot&&lRmTot.value>0?(lBank.value/lRmTot.value*100):null;
+addK('rm-adv-k','Bank Share',bankShare!=null?fmtPct(bankShare):'\u2014',null,null,'Banks channel');
+// Germany + Switzerland concentration
+var rcoLatest=flt(RCO);
+var rcoAllPAdv=[...new Set(rcoLatest.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
+var rcoLPAdv=rcoAllPAdv[rcoAllPAdv.length-1];
+var deShare=0,chShare=0;
+rcoLatest.filter(function(r){return r.period===rcoLPAdv}).forEach(function(r){
+  if(r.country==='Germany')deShare=r.value;
+  if(r.country==='Switzerland')chShare=r.value;
+});
+var deCHConc=deShare+chShare;
+addK('rm-adv-k','DE+CH Concentration',deCHConc>0?fmtPct(deCHConc):'\u2014',null,null,'Germany '+fmtPct(deShare)+' + Switzerland '+fmtPct(chShare));
+
+// Channel dominance trend (% stacked)
+if(rmChP.length>1){
+  var bankM={},mtoM={},othM={},totM2={};
+  flt(RC).forEach(function(r){
+    if(r.channel==='Banks')bankM[r.period]=r.value;
+    if(r.channel==='MTOs')mtoM[r.period]=r.value;
+    if(r.channel==='Other')othM[r.period]=r.value;
+    if(r.channel==='Total')totM2[r.period]=r.value;
+  });
+  showCanvas('ch-rm-dom');lcPct('ch-rm-dom',rmChP,[
+    {label:'Banks %',data:rmChP.map(function(p){return totM2[p]>0?(bankM[p]||0)/totM2[p]*100:null}),borderColor:C1,backgroundColor:C1+'20',fill:true,tension:.3,pointRadius:0},
+    {label:'MTOs %',data:rmChP.map(function(p){return totM2[p]>0?(mtoM[p]||0)/totM2[p]*100:null}),borderColor:'#d97706',backgroundColor:'#d9770620',fill:true,tension:.3,pointRadius:0},
+    {label:'Other %',data:rmChP.map(function(p){return totM2[p]>0?(othM[p]||0)/totM2[p]*100:null}),borderColor:'#94a3b8',backgroundColor:'#94a3b820',fill:true,tension:.3,pointRadius:0}
+  ],{scales:{y:{max:100,ticks:{callback:function(v){return v+'%'}}}}});
+} else noData('ch-rm-dom','Insufficient data');
+
+// Germany + Switzerland concentration trend
+if(rcoAllPAdv.length>1){
+  var deTrend={},chTrend={};
+  rcoLatest.forEach(function(r){
+    if(r.country==='Germany')deTrend[r.period]=r.value;
+    if(r.country==='Switzerland')chTrend[r.period]=r.value;
+  });
+  showCanvas('ch-rm-conc');lcPct('ch-rm-conc',rcoAllPAdv,[
+    {label:'Germany %',data:rcoAllPAdv.map(function(p){return deTrend[p]||null}),borderColor:C1,borderWidth:2.2,tension:.3,pointRadius:1},
+    {label:'Switzerland %',data:rcoAllPAdv.map(function(p){return chTrend[p]||null}),borderColor:'#dc2626',borderWidth:2.2,tension:.3,pointRadius:1},
+    {label:'Combined %',data:rcoAllPAdv.map(function(p){return(deTrend[p]||0)+(chTrend[p]||0)||null}),borderColor:GOLD,borderWidth:2.5,borderDash:[4,2],tension:.3,pointRadius:0}
+  ]);
+} else noData('ch-rm-conc','Insufficient country data');
 
 // ===================== MATURITY ANALYSIS =====================
 var matBuckets=['Up to 1 year','1-2 years','2-5 years','5-10 years','Over 10 years'];
@@ -1348,6 +1491,41 @@ if(dmTbl&&allDM.total>0){
   trDT.innerHTML='<td>Total</td><td class="num">'+fmtMoney(hhDM.total)+'</td><td class="num">'+fmtMoney(nfcDM.total)+'</td><td class="num">'+fmtMoney(allDM.total)+'</td><td class="num">100.0%</td>';
   dmTbl.appendChild(trDT);
 }
+// ========== CONTRACTUAL MATURITY GAP ==========
+// Re-bucket deposits to match loan maturity buckets
+// Deposit: Up to 1M + 1-3M + 3-6M + 6-12M -> "Up to 1 year"
+// Deposit: 1-2Y -> "1-2 years"
+// Deposit: Over 2Y -> split conceptually into "2-5 years" (all assigned here; no finer data)
+// Loans have: Up to 1 year, 1-2 years, 2-5 years, 5-10 years, Over 10 years
+var depAligned={
+  'Up to 1 year':(allDM['Up to 1 month']||0)+(allDM['1-3 months']||0)+(allDM['3-6 months']||0)+(allDM['6-12 months']||0),
+  '1-2 years':allDM['1-2 years']||0,
+  '2-5 years':allDM['Over 2 years']||0,
+  '5-10 years':0,
+  'Over 10 years':0
+};
+var gapBuckets=['Up to 1 year','1-2 years','2-5 years','5-10 years','Over 10 years'];
+var gapLabels=['<1Y','1-2Y','2-5Y','5-10Y','>10Y'];
+var gapLoans=gapBuckets.map(function(b){return allMat[b]||0});
+var gapDeps=gapBuckets.map(function(b){return depAligned[b]||0});
+var gapNet=gapBuckets.map(function(b,i){return gapLoans[i]-gapDeps[i]});
+
+if(allMat.total>0&&allDM.total>0){
+  showCanvas('ch-mt-gap');
+  mc('ch-mt-gap','bar',{data:{labels:gapLabels,datasets:[
+    {label:'Loans',data:gapLoans,backgroundColor:'#1e40af',borderRadius:3,maxBarThickness:40},
+    {label:'Time Deposits',data:gapDeps,backgroundColor:'#059669',borderRadius:3,maxBarThickness:40},
+    {label:'Gap (L-D)',data:gapNet,backgroundColor:gapNet.map(function(v){return v>=0?'#dc262680':'#05966980'}),borderRadius:3,maxBarThickness:40}
+  ]},options:{responsive:true,animation:false,aspectRatio:2,plugins:{legend:{position:'top',labels:{font:{size:11}}},tooltip:ttMoney},scales:{x:{ticks:{font:{size:11}}},y:{ticks:{font:{size:10},callback:function(v){return fmtMoney(v)}}}}}});
+  // Gap KPIs
+  var gapEl=document.getElementById('mt-gap-k');if(gapEl)gapEl.innerHTML='';
+  var shortGap=gapNet[0];
+  var totalGap=gapNet.reduce(function(s,v){return s+v},0);
+  addK('mt-gap-k','Short-Term Gap (<1Y)',fmtMoney(shortGap),null,null,shortGap>0?'Funding shortfall':'Deposit surplus');
+  addK('mt-gap-k','Total Net Gap',fmtMoney(totalGap),null,null,'Loans minus aligned TDA stock');
+  addK('mt-gap-k','Loan Duration Bias',fmtPct(longPct),null,null,'Loans >5Y as % of total');
+  addK('mt-gap-k','Deposit Duration Bias',fmtPct(allDM.total>0?depAligned['Up to 1 year']/allDM.total*100:0),null,null,'TDA <1Y as % of total TDA');
+} else noData('ch-mt-gap','Insufficient maturity data for gap analysis');
 } // end if DM.length
 
 // ===================== METHODOLOGY TABLE =====================
