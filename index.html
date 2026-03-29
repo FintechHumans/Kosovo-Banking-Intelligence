@@ -1460,6 +1460,7 @@ if(mtPeriods.length>1){
 
 // Detail table
 var mtTbl=document.getElementById('mt-table');
+if(mtTbl){mtTbl.innerHTML='';}
 if(mtTbl&&allMat.total>0){
   matBuckets.forEach(function(m,i){
     var tr=document.createElement('tr');
@@ -1559,6 +1560,7 @@ if(dmPeriods.length>1){
 
 // Detail table
 var dmTbl=document.getElementById('dm-table');
+if(dmTbl){dmTbl.innerHTML='';}
 if(dmTbl&&allDM.total>0){
   dmBuckets.forEach(function(m){
     var tr=document.createElement('tr');
