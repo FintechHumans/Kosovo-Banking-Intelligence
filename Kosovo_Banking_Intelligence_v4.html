@@ -1653,22 +1653,22 @@ mkChart('ch-pf-income','bar',incPeriods,
 // Chart: Cost-to-Income ratio
 mkChart('ch-pf-cti','line',incPeriods,
 [{label:'Cost-to-Income %',data:decInc.map(function(r){return r.total_income>0?(r.total_expenses/r.total_income*100):null}),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: NIM proxy
 mkChart('ch-pf-nim','line',incPeriods,
 [{label:'NIM Proxy %',data:decInc.map(function(r){return r.total_income>0?((r.interest_income-r.interest_expense)/r.total_income*100):null}),borderColor:'#059669',backgroundColor:'#05966910',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: Fee dependency
 mkChart('ch-pf-fee','line',incPeriods,
 [{label:'Fee Dependency %',data:decInc.map(function(r){return r.total_income>0?(r.fee_commission_income/r.total_income*100):null}),borderColor:'#b8860b',backgroundColor:'#b8860b10',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: Net Profit Margin
 mkChart('ch-pf-npm','line',incPeriods,
 [{label:'Net Profit Margin %',data:decInc.map(function(r){return r.total_income>0?(r.net_profit/r.total_income*100):null}),borderColor:'#0f172a',backgroundColor:'#0f172a10',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: Expense breakdown
 mkChart('ch-pf-expense','bar',incPeriods,
@@ -1719,12 +1719,12 @@ mkChart('ch-cr2-prov','bar',crPeriods,
 // Chart: Cost of Risk
 mkChart('ch-cr2-cor','line',crPeriods,
 [{label:'Cost of Risk %',data:decInc2.map(function(r){var ls=loanMap[r.period]||0;return ls>0?(r.loan_loss_provisions/ls*100):null}),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: Provisioning Intensity
 mkChart('ch-cr2-int','line',crPeriods,
 [{label:'Prov. Intensity %',data:decInc2.map(function(r){var ni=r.interest_income-r.interest_expense;return ni>0?(r.loan_loss_provisions/ni*100):null}),borderColor:'#b8860b',backgroundColor:'#b8860b10',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 } // end credit risk
 
 // ===================== ASSET COMPOSITION (Table 02) =====================
@@ -1768,12 +1768,12 @@ mkChart('ch-as-comp','line',asPeriods,
 // Chart: Loan-to-Asset ratio
 mkChart('ch-as-lta','line',asPeriods,
 [{label:'Loan-to-Asset %',data:decAS.map(function(r){var t=Math.abs(r.claims_nonresidents)+Math.abs(r.domestic_credit)+Math.abs(r.other_claims);return t>0?(r.loans/t*100):null}),borderColor:'#0f172a',backgroundColor:'#0f172a10',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: Capital ratio proxy
 mkChart('ch-as-cap','line',asPeriods,
 [{label:'Capital/Assets %',data:decAS.map(function(r){var t=Math.abs(r.claims_nonresidents)+Math.abs(r.domestic_credit)+Math.abs(r.other_claims);return t>0?(r.capital/t*100):null}),borderColor:'#059669',backgroundColor:'#05966910',fill:true,tension:.3,pointRadius:2}],
-{scales:{y:{title:{display:true,text:'%'}}}});
+{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: Domestic credit vs foreign assets
 mkChart('ch-as-domfor','line',asPeriods,
