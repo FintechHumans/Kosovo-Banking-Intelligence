@@ -337,14 +337,14 @@ tr:hover td{background:#f8f9fb}
 </div>
 <div class="mod" id="mod-profitability">
 <div class="pg-title"><h1>Profitability &amp; Efficiency</h1>
-<p>Income statement analysis: net interest margin proxy, cost-to-income ratio, fee income dependency, and net profit margin trends from CBK Table 14 (ODC Income Statement).</p></div>
+<p>Income statement analysis: net interest margin proxy, cost-to-income ratio (G&amp;A expenses / operating income), fee income dependency, and net profit margin trends from CBK Table 14 (ODC Income Statement, cumulative YTD).</p></div>
 <div class="kpis" id="pf-k"></div>
 <div class="note"><div class="note-tag">Income Statement</div><h3 id="pf-h"></h3><p id="pf-p"></p></div>
 <div class="cgrid">
 <div class="ccard full"><h3>Income composition trend</h3><div class="csub">Annual cumulative: interest income, non-interest income, total expenses (EUR M)</div><canvas id="ch-pf-income"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Cost-to-Income ratio</h3><div class="csub">Total expenses / total income, year-end cumulative %</div><canvas id="ch-pf-cti"></canvas></div>
+<div class="ccard"><h3>Cost-to-Income ratio</h3><div class="csub">G&amp;A expenses / operating income, December cumulative %</div><canvas id="ch-pf-cti"></canvas></div>
 <div class="ccard"><h3>Net Interest Margin proxy</h3><div class="csub">Net interest income / total income, year-end %</div><canvas id="ch-pf-nim"></canvas></div>
 </div>
 <div class="cgrid">
@@ -354,7 +354,7 @@ tr:hover td{background:#f8f9fb}
 <div class="cgrid">
 <div class="ccard full"><h3>Expense breakdown trend</h3><div class="csub">Personnel, general &amp; admin, provisions, interest expense (EUR M, year-end cumulative)</div><canvas id="ch-pf-expense"></canvas></div>
 </div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Income data from CBK Table 14 is <strong>cumulative</strong> (year-to-date). December values represent full-year totals. Ratios computed from cumulative figures. NIM proxy uses net interest income / total income (not average earning assets, which are unavailable).</p></div>
+<div class="note caveat"><div class="note-tag">Data Note</div><p>Income data from CBK Table 14 is <strong>cumulative</strong> (year-to-date). December values represent full-year totals. Ratios computed from cumulative figures. <strong>Cost-to-Income</strong> = general &amp; administrative expenses (col 21) / operating income, where operating income = interest income (col 3) + non-interest income (col 8) + revaluation income (col 11) &minus; interest expense (col 13) &minus; non-interest expense (col 17). NIM proxy uses net interest income / total income (not average earning assets, which are unavailable).</p></div>
 </div>
 
 <div class="mod" id="mod-credit-risk">
@@ -366,7 +366,7 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard full"><h3>Loan loss provisions trend</h3><div class="csub">Annual cumulative provisions for credit losses (EUR M)</div><canvas id="ch-cr2-prov"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Cost of Risk</h3><div class="csub">Annual cumulative provisions (T14) / year-end loan stock (T02), %</div><canvas id="ch-cr2-cor"></canvas></div>
+<div class="ccard"><h3>Cost of Risk</h3><div class="csub">December cumulative provisions (T14) / December loan stock (T02), %</div><canvas id="ch-cr2-cor"></canvas></div>
 <div class="ccard"><h3>Provisioning Intensity</h3><div class="csub">Cumulative provisions / cumulative net interest income, %</div><canvas id="ch-cr2-int"></canvas></div>
 </div>
 <div class="note caveat"><div class="note-tag">Data Note</div><p>Provisions from CBK Table 14, column 19 (cumulative year-to-date income statement). <strong>Cost of Risk</strong> = full-year cumulative provisions (December) divided by year-end loan stock from Table 02, column 24. Denominator is end-of-period stock, not average loan stock &mdash; this is a proxy. No annualization is applied because the numerator already spans 12 months. <strong>Provisioning Intensity</strong> = cumulative provisions as a share of cumulative net interest income; both are YTD from Table 14, so the ratio is internally consistent. Sector-level CoR (HH vs NFC) is not available &mdash; Table 14 reports provisions as a single aggregate. If a month filter is active, the fallback uses the latest available period, which may show a partial-year cumulative figure rather than full-year CoR.</p></div>
@@ -374,20 +374,19 @@ tr:hover td{background:#f8f9fb}
 
 <div class="mod" id="mod-assets">
 <div class="pg-title"><h1>Asset Composition</h1>
-<p>Balance sheet structure of Kosovo&rsquo;s depository corporations: loan-to-asset ratio, asset mix, and capital adequacy proxy from CBK Table 02 (DC Survey).</p></div>
+<p>Balance sheet structure of Kosovo&rsquo;s depository corporations: loan-to-asset ratio and asset mix from CBK Table 02 (DC Survey).</p></div>
 <div class="kpis" id="as-k"></div>
 <div class="note"><div class="note-tag">Asset Structure</div><h3 id="as-h"></h3><p id="as-p"></p></div>
 <div class="cgrid">
 <div class="ccard full"><h3>Asset composition trend</h3><div class="csub">Loans, securities, cash &amp; deposits, other (EUR M)</div><canvas id="ch-as-comp"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Loan-to-Asset ratio</h3><div class="csub">Domestic loans / total identified assets %</div><canvas id="ch-as-lta"></canvas></div>
-<div class="ccard"><h3>Capital ratio proxy</h3><div class="csub">Capital &amp; reserves / total identified assets %</div><canvas id="ch-as-cap"></canvas></div>
+<div class="ccard full"><h3>Loan-to-Asset ratio</h3><div class="csub">Domestic loans / total identified assets %</div><canvas id="ch-as-lta"></canvas></div>
 </div>
 <div class="cgrid">
 <div class="ccard full"><h3>Domestic credit vs foreign assets</h3><div class="csub">Domestic credit claims vs net foreign assets (EUR M)</div><canvas id="ch-as-domfor"></canvas></div>
 </div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Asset data from CBK Table 02 (DC Survey). Total identified assets = claims on non-residents + domestic credit claims + other claims. This is a monetary statistics presentation (not a full balance sheet), so the &ldquo;Loan-to-Asset&rdquo; and &ldquo;Capital ratio&rdquo; are proxies, not regulatory ratios.</p></div>
+<div class="note caveat"><div class="note-tag">Data Note</div><p>Asset data from CBK Table 02 (DC Survey). Total identified assets = claims on non-residents + domestic credit claims + other claims. This is a monetary statistics presentation (not a full balance sheet), so the &ldquo;Loan-to-Asset&rdquo; ratio is a proxy, not a regulatory ratio.</p></div>
 </div>
 
 <div class="mod" id="mod-residual-mat">
@@ -1622,7 +1621,8 @@ var prevInc=decInc.length>1?decInc[decInc.length-2]:null;
 // KPIs
 var nii=latestInc.interest_income-latestInc.interest_expense;
 var nimProxy=latestInc.total_income>0?(nii/latestInc.total_income*100):null;
-var cti=latestInc.total_income>0?(latestInc.total_expenses/latestInc.total_income*100):null;
+var opIncome=latestInc.interest_income+latestInc.non_interest_income+latestInc.revaluation_income-latestInc.interest_expense-latestInc.non_interest_expense;
+var cti=opIncome>0?(latestInc.gen_admin_expense/opIncome*100):null;
 var feeDep=latestInc.total_income>0?(latestInc.fee_commission_income/latestInc.total_income*100):null;
 var npm=latestInc.total_income>0?(latestInc.net_profit/latestInc.total_income*100):null;
 
@@ -1630,18 +1630,19 @@ var prevNim=null,prevCti=null;
 if(prevInc){
   var pnii=prevInc.interest_income-prevInc.interest_expense;
   prevNim=prevInc.total_income>0?(pnii/prevInc.total_income*100):null;
-  prevCti=prevInc.total_income>0?(prevInc.total_expenses/prevInc.total_income*100):null;
+  var pOpInc=prevInc.interest_income+prevInc.non_interest_income+prevInc.revaluation_income-prevInc.interest_expense-prevInc.non_interest_expense;
+  prevCti=pOpInc>0?(prevInc.gen_admin_expense/pOpInc*100):null;
 }
 
 addK('pf-k','NIM Proxy',nimProxy!=null?fmtPct(nimProxy):'\u2014',prevNim!=null?nimProxy-prevNim:null,' pp','NII / Total Income');
-addK('pf-k','Cost-to-Income',cti!=null?fmtPct(cti):'\u2014',prevCti!=null?cti-prevCti:null,' pp','Expenses / Income');
+addK('pf-k','Cost-to-Income',cti!=null?fmtPct(cti):'\u2014',prevCti!=null?cti-prevCti:null,' pp','G&A expenses / operating income');
 addK('pf-k','Fee Dependency',feeDep!=null?fmtPct(feeDep):'\u2014',null,null,'Fee Income / Total');
 addK('pf-k','Net Profit Margin',npm!=null?fmtPct(npm):'\u2014',null,null,'Net Profit / Income');
 addK('pf-k','Net Profit',latestInc.net_profit?fmtMoney(latestInc.net_profit):'\u2014',null,null,'EUR, cumulative');
 addK('pf-k','Total Income',latestInc.total_income?fmtMoney(latestInc.total_income):'\u2014',null,null,'EUR, cumulative');
 
 document.getElementById('pf-h').textContent='Income Statement — '+latestInc.period;
-document.getElementById('pf-p').textContent='Full-year cumulative: Total income '+fmtMoney(latestInc.total_income)+', Net interest income '+fmtMoney(nii)+', Net profit '+fmtMoney(latestInc.net_profit)+'. Cost-to-income ratio '+(cti!=null?cti.toFixed(1)+'%':'N/A')+'.';
+document.getElementById('pf-p').textContent='Full-year cumulative: Total income '+fmtMoney(latestInc.total_income)+', Net interest income '+fmtMoney(nii)+', Net profit '+fmtMoney(latestInc.net_profit)+'. Cost-to-income ratio '+(cti!=null?cti.toFixed(1)+'%':'N/A')+' (G&A expenses / operating income).';
 
 // Chart: Income composition trend
 var incPeriods=decInc.map(function(r){return r.period});
@@ -1654,7 +1655,7 @@ mkChart('ch-pf-income','bar',incPeriods,
 
 // Chart: Cost-to-Income ratio
 mkChart('ch-pf-cti','line',incPeriods,
-[{label:'Cost-to-Income %',data:decInc.map(function(r){return r.total_income>0?(r.total_expenses/r.total_income*100):null}),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
+[{label:'Cost-to-Income %',data:decInc.map(function(r){var oi=r.interest_income+r.non_interest_income+r.revaluation_income-r.interest_expense-r.non_interest_expense;return oi>0?(r.gen_admin_expense/oi*100):null}),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
 {plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: NIM proxy
@@ -1704,12 +1705,12 @@ var niiCR=latCR.interest_income-latCR.interest_expense;
 var provInt=niiCR>0?(latCR.loan_loss_provisions/niiCR*100):null;
 
 addK('cr2-k','Loan Loss Provisions',latCR.loan_loss_provisions?fmtMoney(latCR.loan_loss_provisions):'\u2014',null,null,'EUR, cumulative');
-addK('cr2-k','Cost of Risk',costOfRisk!=null?(costOfRisk.toFixed(2)+'%'):'\u2014',prevCoR!=null?costOfRisk-prevCoR:null,' pp','YTD Provisions / Year-End Loans');
+addK('cr2-k','Cost of Risk',costOfRisk!=null?(costOfRisk.toFixed(2)+'%'):'\u2014',prevCoR!=null?costOfRisk-prevCoR:null,' pp','Dec cumulative provisions / Dec loans');
 addK('cr2-k','Provisioning Intensity',provInt!=null?fmtPct(provInt):'\u2014',null,null,'Provisions / NII');
 addK('cr2-k','Total Loans',latLoans?fmtMoney(latLoans):'\u2014',null,null,'Year-end stock, Table 02');
 
 document.getElementById('cr2-h').textContent='Credit Risk — '+latCR.period;
-document.getElementById('cr2-p').textContent='Loan loss provisions '+fmtMoney(latCR.loan_loss_provisions)+' (cumulative). Cost of risk '+(costOfRisk!=null?costOfRisk.toFixed(2)+'%':'N/A')+' (annual cumulative provisions / year-end loan stock). Provisioning absorbs '+(provInt!=null?provInt.toFixed(1)+'%':'N/A')+' of net interest income.';
+document.getElementById('cr2-p').textContent='Loan loss provisions '+fmtMoney(latCR.loan_loss_provisions)+' (Dec cumulative). Cost of risk '+(costOfRisk!=null?costOfRisk.toFixed(2)+'%':'N/A')+' (Dec cumulative provisions / Dec loan stock). Provisioning absorbs '+(provInt!=null?provInt.toFixed(1)+'%':'N/A')+' of net interest income.';
 
 var crPeriods=decInc2.map(function(r){return r.period});
 
@@ -1745,13 +1746,11 @@ var prevTotal=prevAS?(Math.abs(prevAS.claims_nonresidents)+Math.abs(prevAS.domes
 
 var lta=totalAssets>0?(latAS.loans/totalAssets*100):null;
 var prevLta=prevTotal>0?(prevAS.loans/prevTotal*100):null;
-var capRatio=totalAssets>0?(latAS.capital/totalAssets*100):null;
 var secShare=totalAssets>0?(latAS.securities/totalAssets*100):null;
 
 addK('as-k','Loans',latAS.loans?fmtMoney(latAS.loans):'\u2014',prevAS?pctChange(latAS.loans,prevAS.loans):null,'%','EUR');
 addK('as-k','Securities',latAS.securities?fmtMoney(latAS.securities):'\u2014',null,null,'EUR');
 addK('as-k','Loan-to-Asset Ratio',lta!=null?fmtPct(lta):'\u2014',prevLta!=null?lta-prevLta:null,' pp','Loans / Total Assets');
-addK('as-k','Capital Ratio Proxy',capRatio!=null?fmtPct(capRatio):'\u2014',null,null,'Capital / Assets');
 addK('as-k','Securities Share',secShare!=null?fmtPct(secShare):'\u2014',null,null,'Securities / Assets');
 addK('as-k','Cash & Deposits',fmtMoney(latAS.cash+latAS.deposits_foreign),null,null,'EUR');
 
@@ -1770,11 +1769,6 @@ mkChart('ch-as-comp','line',asPeriods,
 // Chart: Loan-to-Asset ratio
 mkChart('ch-as-lta','line',asPeriods,
 [{label:'Loan-to-Asset %',data:decAS.map(function(r){var t=Math.abs(r.claims_nonresidents)+Math.abs(r.domestic_credit)+Math.abs(r.other_claims);return t>0?(r.loans/t*100):null}),borderColor:'#0f172a',backgroundColor:'#0f172a10',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-
-// Chart: Capital ratio proxy
-mkChart('ch-as-cap','line',asPeriods,
-[{label:'Capital/Assets %',data:decAS.map(function(r){var t=Math.abs(r.claims_nonresidents)+Math.abs(r.domestic_credit)+Math.abs(r.other_claims);return t>0?(r.capital/t*100):null}),borderColor:'#059669',backgroundColor:'#05966910',fill:true,tension:.3,pointRadius:2}],
 {plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: Domestic credit vs foreign assets
