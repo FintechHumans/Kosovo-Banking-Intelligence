@@ -1,0 +1,29 @@
+# Dev & build files
+node_modules/
+downloads/
+CBK_Time_Series/
+*.py
+*.json
+*.md
+*.xlsx
+*.docx
+*.xls
+logo_b64.txt
+_audit_js.js
+_parse_t10.js
+_temp_check.js
+_temp_validate.js
+create_report.js
+create_word.js
+create_word_final.js
+package.json
+package-lock.json
+
+# Legacy HTML versions
+Kosovo_Banking_Intelligence*.html
+CBK_*.html
+cbk_*.html
+
+# OS files
+.DS_Store
+Thumbs.db

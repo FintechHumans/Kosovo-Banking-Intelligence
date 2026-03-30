@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /app/_data_blob.js
+
+Sitemap: https://yourdomain.com/sitemap.xml

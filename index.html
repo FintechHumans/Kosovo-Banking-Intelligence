@@ -3,1903 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Kosovo Banking Intelligence</title>
+<title>Kosovo Banking Intelligence — Strategic Insight from CBK Open Data</title>
+<meta name="description" content="Kosovo Banking Intelligence transforms public Central Bank data into strategic banking sector insight. Loans, deposits, rates, payments, profitability, and credit risk — all in one interactive dashboard.">
+<link rel="canonical" href="https://yourdomain.com/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Kosovo Banking Intelligence">
+<meta property="og:description" content="Strategic banking sector intelligence from CBK open data. Loans, deposits, rates, payments, profitability, and credit risk.">
+<meta property="og:image" content="https://yourdomain.com/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://yourdomain.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kosovo Banking Intelligence">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kosovo Banking Intelligence">
+<meta name="twitter:description" content="Strategic banking sector intelligence from CBK open data.">
+<meta name="twitter:image" content="https://yourdomain.com/og-preview.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<noscript><div style="padding:40px;font-family:sans-serif">This dashboard requires JavaScript.</div></noscript>
 <style>
-:root{
-  --bg:#fafbfc;--card:#ffffff;--border:#eef0f4;--border-s:#e2e5eb;
-  --text:#0f172a;--text-2:#475569;--text-3:#94a3b8;
-  --accent:#0f172a;--accent-2:#334155;--gold:#b8860b;
-  --green:#059669;--green-bg:#ecfdf5;
-  --red:#dc2626;--red-bg:#fef2f2;
-  --c1:#0f172a;--c2:#475569;--c3:#94a3b8;--c4:#cbd5e1;--c5:#e2e8f0;
-  --shadow:0 1px 2px rgba(0,0,0,.04);
-  --r:6px;
-}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#0f172a;background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
 
-.hdr{background:#fff;border-bottom:1px solid var(--border);padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between}
-.hdr-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-.hdr-brand .logo-mark{height:36px;width:auto;object-fit:contain}
-.hdr-brand .logo-text{font-size:15px;font-weight:600;letter-spacing:-.3px}
-.hdr-brand .logo-text span{font-weight:400;color:var(--text-3);margin-left:6px}
-.hdr-meta{font-size:11px;color:var(--text-3);display:flex;gap:20px}
+/* Header */
+.header{padding:20px 48px;display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto}
+.header-brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#0f172a}
+.header-brand img{height:32px}
+.header-brand span{font-size:13px;font-weight:600;letter-spacing:-.2px}
+.header-nav{display:flex;gap:28px;align-items:center}
+.header-nav a{font-size:13px;font-weight:500;color:#475569;text-decoration:none;transition:color .15s}
+.header-nav a:hover{color:#0f172a}
+.header-cta{font-size:13px;font-weight:600;color:#fff;background:#0f172a;padding:8px 20px;border-radius:6px;text-decoration:none;transition:background .15s}
+.header-cta:hover{background:#1e293b}
 
-.nav{background:#fff;border-bottom:1px solid var(--border);padding:0 48px;overflow-x:auto}
-.nav-inner{display:flex;gap:0;max-width:1440px;margin:0 auto}
-.nav-item{padding:11px 18px;font-size:12px;font-weight:500;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;letter-spacing:.1px}
-.nav-item:hover{color:var(--text-2)}
-.nav-item.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:600}
+/* Hero */
+.hero{max-width:1200px;margin:0 auto;padding:80px 48px 64px;text-align:center}
+.hero-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#475569;background:#f1f5f9;padding:6px 16px;border-radius:100px;margin-bottom:24px}
+.hero h1{font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-.5px;line-height:1.15;color:#0f172a;margin-bottom:20px}
+.hero h1 span{color:#1e40af}
+.hero-sub{font-size:clamp(16px,2vw,19px);color:#475569;max-width:640px;margin:0 auto 40px;line-height:1.7;font-weight:400}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#fff;background:#0f172a;padding:14px 32px;border-radius:8px;text-decoration:none;transition:background .15s,transform .1s}
+.btn-primary:hover{background:#1e293b;transform:translateY(-1px)}
+.btn-primary svg{width:18px;height:18px}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:#334155;background:#fff;border:1.5px solid #e2e8f0;padding:14px 32px;border-radius:8px;text-decoration:none;transition:border-color .15s}
+.btn-secondary:hover{border-color:#94a3b8}
 
-.main{max-width:1440px;margin:0 auto;padding:32px 48px}
+/* Preview */
+.preview{max-width:1100px;margin:0 auto;padding:0 48px 80px}
+.preview-frame{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(15,23,42,.08),0 4px 16px rgba(15,23,42,.04)}
+.preview-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 16px;display:flex;align-items:center;gap:8px}
+.preview-dot{width:10px;height:10px;border-radius:50%;background:#e2e8f0}
+.preview-url{font-size:11px;color:#94a3b8;background:#f8fafc;border-radius:4px;padding:4px 12px;margin-left:8px;flex:1;text-align:center}
+.preview-img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#f1f5f9}
+.preview-placeholder{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#f8fafc 0%,#e2e8f0 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#94a3b8}
+.preview-placeholder svg{width:48px;height:48px;opacity:.4}
+.preview-placeholder span{font-size:13px;font-weight:500}
 
-.pg-title{margin-bottom:28px}
-.pg-title h1{font-size:24px;font-weight:700;letter-spacing:-.5px;color:var(--text)}
-.pg-title p{font-size:13px;color:var(--text-2);margin-top:4px;max-width:640px}
+/* Coverage */
+.coverage{max-width:1200px;margin:0 auto;padding:0 48px 80px}
+.coverage-header{text-align:center;margin-bottom:48px}
+.coverage-header h2{font-size:28px;font-weight:700;letter-spacing:-.3px;margin-bottom:12px}
+.coverage-header p{font-size:16px;color:#475569;max-width:540px;margin:0 auto}
+.coverage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.coverage-card{background:#fff;border:1px solid #eef0f4;border-radius:8px;padding:28px 24px;transition:border-color .15s,box-shadow .15s}
+.coverage-card:hover{border-color:#cbd5e1;box-shadow:0 4px 12px rgba(15,23,42,.04)}
+.coverage-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:18px}
+.coverage-card h3{font-size:15px;font-weight:600;margin-bottom:6px;color:#0f172a}
+.coverage-card p{font-size:13px;color:#64748b;line-height:1.6}
 
-.fbar{display:flex;gap:10px;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap}
-.fg{display:flex;flex-direction:column;gap:3px}
-.fg label{font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px}
-.fg select{padding:6px 10px;border:1px solid var(--border-s);border-radius:var(--r);font-size:12px;font-family:inherit;color:var(--text);background:#fff;min-width:100px}
-.fg select:focus{outline:none;border-color:var(--gold)}
-.fbar .spacer{flex:1}
-.fbtn{padding:7px 14px;border:1px solid var(--border-s);border-radius:var(--r);font-size:11px;font-weight:500;cursor:pointer;background:#fff;color:var(--text-2);font-family:inherit;transition:all .12s}
-.fbtn:hover{border-color:var(--accent);color:var(--accent)}
-.fbtn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* Methodology */
+.method{background:#f8fafc;border-top:1px solid #eef0f4;border-bottom:1px solid #eef0f4;padding:64px 48px}
+.method-inner{max-width:800px;margin:0 auto;text-align:center}
+.method-inner h2{font-size:24px;font-weight:700;margin-bottom:16px;letter-spacing:-.2px}
+.method-inner p{font-size:15px;color:#475569;line-height:1.8;margin-bottom:24px}
+.method-inner a{color:#1e40af;font-weight:500;text-decoration:none}
+.method-inner a:hover{text-decoration:underline}
 
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
-.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
-.kpi-l{font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.3px;margin-bottom:5px}
-.kpi-v{font-size:22px;font-weight:700;color:var(--text);line-height:1.1}
-.kpi-d{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;margin-top:4px;padding:2px 6px;border-radius:3px}
-.kpi-d.up{color:var(--green);background:var(--green-bg)}
-.kpi-d.dn{color:var(--red);background:var(--red-bg)}
-.kpi-s{font-size:10px;color:var(--text-3);margin-top:3px}
+/* Footer */
+.footer{background:#0f172a;padding:40px 48px;color:rgba(255,255,255,.6)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-brand{display:flex;align-items:center;gap:10px}
+.footer-brand img{height:24px;opacity:.7}
+.footer-brand span{font-size:12px;color:rgba(255,255,255,.5)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,.8)}
+.footer-copy{width:100%;text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
 
-.note{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r);padding:16px 20px;margin-bottom:24px}
-.note-tag{font-size:9px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.note h3{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
-.note p{font-size:12px;color:var(--text-2);line-height:1.65}
-.note.warn{border-left-color:var(--red)}
-.note.caveat{border-left-color:var(--gold);background:#fffbf0}
-
-.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
-.ccard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
-.ccard.full{grid-column:1/-1}
-.ccard h3{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
-.ccard .csub{font-size:10px;color:var(--text-3);margin-bottom:12px}
-.ccard canvas{width:100%!important;max-height:280px}
-
-.mod{display:none}.mod.active{display:block}
-
-.tw{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:24px}
-.th{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.th h3{font-size:13px;font-weight:600}
-.th input{padding:5px 10px;border:1px solid var(--border-s);border-radius:var(--r);font-size:12px;font-family:inherit;width:200px}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;padding:8px 14px;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);background:var(--bg);border-bottom:1px solid var(--border)}
-td{padding:8px 14px;border-bottom:1px solid var(--border)}
-tr:hover td{background:#f8f9fb}
-.num{text-align:right;font-variant-numeric:tabular-nums}
-
-.footer{background:var(--accent);border-top:1px solid var(--border);padding:20px 48px;margin-top:32px}
-.footer-inner{max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.footer-inner span{font-size:10px;color:rgba(255,255,255,.65);letter-spacing:.2px}
-.footer-inner a{color:var(--gold);text-decoration:none;font-weight:500}
-.footer-inner a:hover{text-decoration:underline}
-.footer-note{font-size:9px;color:rgba(255,255,255,.4);margin-top:4px}
-
-.meth-section{margin-bottom:24px}
-.meth-section h3{font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text)}
-.meth-section p,.meth-section li{font-size:12px;color:var(--text-2);line-height:1.7}
-.meth-section ul{padding-left:18px}
-.meth-section table{margin-top:8px}
-
-@media(max-width:1024px){.cgrid{grid-template-columns:1fr}.main{padding:20px}.hdr,.nav,.footer{padding-left:20px;padding-right:20px}}
-@media(max-width:768px){.kpis{grid-template-columns:1fr 1fr}.fbar{flex-direction:column;align-items:stretch}.hdr-meta{display:none}}
-@media print{body{font-size:11px}.hdr,.nav,.fbar,.fbtn{display:none!important}.mod{display:block!important;page-break-inside:avoid}.main{padding:10px}.ccard{break-inside:avoid}.kpis{grid-template-columns:repeat(3,1fr)}.note{break-inside:avoid}}
+@media(max-width:900px){.coverage-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .header{padding:16px 20px}
+  .header-nav{display:none}
+  .hero{padding:48px 20px 40px}
+  .preview{padding:0 20px 48px}
+  .coverage{padding:0 20px 48px}
+  .coverage-grid{grid-template-columns:1fr}
+  .method{padding:48px 20px}
+  .footer{padding:32px 20px}
+}
 </style>
 </head>
 <body>
 
-<div class="hdr">
-<a href="https://fintechhumans.com" target="_blank" rel="noopener" class="hdr-brand">
-<img class="logo-mark" src="data:image/png;base64,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" alt="Fintech Humans">
-<div class="logo-text">Kosovo Banking Intelligence</div>
-</a>
-<div class="hdr-meta"><span>Source: Central Bank of Kosovo</span><span>Analytically corrected</span></div>
-</div>
-<div class="nav"><div class="nav-inner"><div class="nav-item active" data-mod="overview">Overview</div><div class="nav-item" data-mod="loans">Loans</div><div class="nav-item" data-mod="deposits">Deposits</div><div class="nav-item" data-mod="rates">Rates</div><div class="nav-item" data-mod="accounts">Accounts</div><div class="nav-item" data-mod="cards">Cards</div><div class="nav-item" data-mod="payments">Payments</div><div class="nav-item" data-mod="acceptance">Acceptance</div><div class="nav-item" data-mod="remittances">Remittances</div><div class="nav-item" data-mod="maturity">Maturity</div><div class="nav-item" data-mod="profitability">Profitability</div><div class="nav-item" data-mod="credit-risk">Credit Risk</div><div class="nav-item" data-mod="assets">Assets</div><div class="nav-item" data-mod="residual-mat">Residual Mat.</div><div class="nav-item" data-mod="methodology">Methodology</div></div></div>
-<div class="main">
-<div class="fbar" id="fbar">
-<div class="fg"><label>From</label><select id="f-yf"></select></div>
-<div class="fg"><label>To</label><select id="f-yt"></select></div>
-<div class="fg"><label>Month</label><select id="f-mo"><option value="all">All</option><option value="01">Jan</option><option value="02">Feb</option><option value="03">Mar</option><option value="04">Apr</option><option value="05">May</option><option value="06">Jun</option><option value="07">Jul</option><option value="08">Aug</option><option value="09">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select></div>
-<div class="spacer"></div>
-<button class="fbtn" onclick="resetF()">Reset</button>
-<button class="fbtn" onclick="window.print()" title="Print or save as PDF">Print / PDF</button>
-<button class="fbtn pri" onclick="buildAll()">Apply</button>
-</div>
-<div class="mod active" id="mod-overview">
-<div class="pg-title"><h1>Executive Overview</h1>
-<p>Market-level snapshot of the Kosovo banking system. All KPIs use corrected source mapping with proxy disclosures where applicable.</p></div>
-<div class="kpis" id="ov-k"></div>
-<div class="note"><div class="note-tag">Market Summary</div><h3 id="ov-h"></h3><p id="ov-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Total outstanding loans</h3><div class="csub">Stock, EUR &mdash; source: ODC loans by maturity</div><canvas id="ch-ov-cr"></canvas></div>
-<div class="ccard"><h3>Total EUR deposits</h3><div class="csub">Stock, EUR</div><canvas id="ch-ov-dp"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Loan-to-Deposit ratio</h3><div class="csub">Total loans / EUR deposits, %</div><canvas id="ch-ov-ltd"></canvas></div>
-<div class="ccard"><h3>Remittance inflows</h3><div class="csub">All channels, EUR</div><canvas id="ch-ov-rm"></canvas></div>
-</div>
-</div>
-<div class="mod" id="mod-loans">
-<div class="pg-title"><h1>Loans</h1>
-<p>Total outstanding loans, customer segmentation, maturity structure, corporate sector breakdown, and new lending flows.</p></div>
-<div class="kpis" id="ln-k"></div>
-<div class="note"><div class="note-tag">Loan Structure</div><h3 id="ln-h"></h3><p id="ln-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Loans by customer segment</h3><div class="csub">Stock trend, EUR</div><canvas id="ch-ln-cust"></canvas></div>
-<div class="ccard"><h3>Customer composition</h3><div class="csub">Share of total, latest period</div><canvas id="ch-ln-pie"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>New lending by product (flow only)</h3><div class="csub">Consumer, mortgage, other &mdash; excludes revolving stock</div><canvas id="ch-ln-type"></canvas></div>
-<div class="ccard"><h3>New loans: Households vs Corporates</h3><div class="csub">HH total vs NFC total new lending, EUR</div><canvas id="ch-ln-hhcorp"></canvas></div>
-</div>
-<div class="note"><div class="note-tag">Maturity</div><p>For full loan maturity breakdown by segment and bucket, see the <strong>Maturity</strong> tab.</p></div>
-<div class="cgrid">
-<div class="ccard full"><h3>Corporate lending by economic sector</h3><div class="csub">Top sectors by latest value &mdash; corporate loans only, dynamically sorted</div><canvas id="ch-ln-sec"></canvas></div>
-</div>
-<div class="note caveat"><div class="note-tag">Caveat</div><p>The sector breakdown covers corporate/business lending only (~&euro;3.8B). Total market loans including households are ~&euro;6.6B. &ldquo;Overdrafts &amp; Credit Cards&rdquo; is an outstanding stock balance, not a new-lending flow, and is excluded from the product flow chart.</p></div>
-</div>
-<div class="mod" id="mod-deposits">
-<div class="pg-title"><h1>Deposits</h1>
-<p>EUR deposit base by segment, deposit type composition (stock vs flow separated), and maturity analysis where available.</p></div>
-<div class="kpis" id="dp-k"></div>
-<div class="note"><div class="note-tag">Deposit Structure</div><h3 id="dp-h"></h3><p id="dp-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Deposits by segment</h3><div class="csub">Main depositor categories, EUR</div><canvas id="ch-dp-seg"></canvas></div>
-<div class="ccard"><h3>Deposit share: Households vs Corporates</h3><div class="csub">% of total EUR deposits over time</div><canvas id="ch-dp-share"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Deposit stocks: Transferable &amp; Savings</h3><div class="csub">End-of-period balances (stock), EUR</div><canvas id="ch-dp-stock"></canvas></div>
-<div class="ccard"><h3>New time deposit origination (flow)</h3><div class="csub">Monthly new time deposits placed, EUR</div><canvas id="ch-dp-flow"></canvas></div>
-</div>
-<div class="note caveat"><div class="note-tag">Stock vs Flow</div><p>Transferable and savings deposits are stock measures (end-of-period balances). Time deposits in this source are flow-based (new originations per month). They are shown separately to avoid analytical misinterpretation. The type breakdown covers HH and Corporate segments only (~&euro;5.0B of ~&euro;7.6B total F08 deposits).</p></div>
-<div class="note"><div class="note-tag">Deposit Maturity</div><p>Term deposit maturity by original maturity is available in the <strong>Maturity</strong> tab. F08 provides 6 buckets (up to 1 month through over 2 years) for HH and NFC time deposits. Maturity applies only to time deposits &mdash; transferable and savings deposits have no fixed term.</p></div>
-</div>
-<div class="mod" id="mod-rates">
-<div class="pg-title"><h1>Interest Rates</h1>
-<p>Effective rates on new lending and new time deposits, repricing gap, and WACF (Weighted Average Cost of Funds).</p></div>
-<div class="kpis" id="rt-k"></div>
-<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Neither pricing gap shown here equals Net Interest Margin (NIM). Both exclude legacy book rates, non-interest income, and provisioning. The <strong>narrow gap</strong> compares only new-business rates (new loans vs new time deposits). <strong>WACF</strong> (Weighted Average Cost of Funds) weights all three deposit categories using outstanding stock balances: CA from F11a (stock, at 0% non-remunerated), SA from F11a (stock, at 0.05% proxy &mdash; CBK does not publish SA rate), TDA from F08 deposit maturity (stock, at published CBK new-business time deposit rate). The WACF gap = lending rate minus WACF.</p></div>
-<div class="note"><div class="note-tag">Rate Environment</div><h3 id="rt-h"></h3><p id="rt-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Lending rates by product</h3><div class="csub">Effective rates on new loans, %</div><canvas id="ch-rt-prod"></canvas></div>
-<div class="ccard"><h3>Deposit rates by customer</h3><div class="csub">Effective rates on new time deposits, %</div><canvas id="ch-rt-dep"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Pricing gap trend</h3><div class="csub">Lending rate, TDA rate, narrow gap (vs TDA only), WACF gap (vs stock-weighted cost of funds)</div><canvas id="ch-rt-spread"></canvas></div>
-</div>
-<div class="kpis" id="rt-fund-k"></div>
-<div class="cgrid">
-<div class="ccard"><h3>Household vs Corporate lending rates</h3><div class="csub">HH consumer rate vs Corp lending rate, %</div><canvas id="ch-rt-hhcorp"></canvas></div>
-<div class="ccard full"><h3>EUR/USD &amp; effective exchange rates</h3><div class="csub">NEER and REER indices (2005=100)</div><canvas id="ch-rt-neer"></canvas></div>
-</div>
-</div>
-<div class="mod" id="mod-accounts">
-<div class="pg-title"><h1>Accounts &amp; Digital Adoption</h1>
-<p>Client account stock, composition, and e-banking penetration. Source: CBK Payments Monthly Report.</p></div>
-<div class="kpis" id="ac-k"></div>
-<div class="note"><div class="note-tag">Account Trends</div><h3 id="ac-h"></h3><p id="ac-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Total accounts trend</h3><div class="csub">End-of-period stock, all account types</div><canvas id="ch-ac-total"></canvas></div>
-<div class="ccard"><h3>Account mix</h3><div class="csub">Current, savings, term, e-money accounts</div><canvas id="ch-ac-mix"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>E-banking adoption</h3><div class="csub">E-banking accounts and penetration rate</div><canvas id="ch-ac-digital"></canvas></div>
-<div class="ccard"><h3>Net monthly change in accounts</h3><div class="csub">Month-on-month change in total account stock</div><canvas id="ch-ac-change"></canvas></div>
-</div>
-<div class="note warn"><div class="note-tag">Data Scope</div><p>Account figures are <strong>end-of-period stock</strong>, not gross openings. Net changes reflect new openings minus closures. E-banking penetration = e-banking accounts / current accounts. Individual + business may not sum to total due to other categories. Source: CBK Payments Workbook &mdash; Table 1 (Client Accounts).</p></div>
-</div>
-<div class="mod" id="mod-cards">
-<div class="pg-title"><h1>Cards &amp; Card Usage</h1>
-<p>Card issuance stock, scheme and function mix, contactless adoption, and issued-card spending proxies.</p></div>
-<div class="kpis" id="cr-k"></div>
-<div class="note"><div class="note-tag">Card Issuance</div><h3 id="cr-h"></h3><p id="cr-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Total cards trend</h3><div class="csub">Issued and valid cards, end-of-period</div><canvas id="ch-cr-total"></canvas></div>
-<div class="ccard"><h3>Scheme mix</h3><div class="csub">Visa, Mastercard, local, other</div><canvas id="ch-cr-scheme"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Function mix</h3><div class="csub">Debit vs credit vs delayed debit</div><canvas id="ch-cr-func"></canvas></div>
-<div class="ccard"><h3>Contactless adoption</h3><div class="csub">Contact/contactless cards as share of total</div><canvas id="ch-cr-ctless"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Spend per issued payment card (proxy)</h3><div class="csub">Monthly card payment value / payment-function cards</div><canvas id="ch-cr-spend"></canvas></div>
-<div class="ccard"><h3>Average card ticket</h3><div class="csub">Card payment value / card payment count</div><canvas id="ch-cr-ticket"></canvas></div>
-</div>
-<div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Spending metrics use <strong>issued card stock</strong> as denominator, not active cards. Active card counts are not published by CBK. These are stock-based utilisation proxies and understate true per-active-card spending. Card counts are issued and valid at end of period. Source: CBK Payments Workbook &mdash; Table 2 (Cards) &amp; Table 4 (Payments).</p></div>
-</div>
-<div class="mod" id="mod-payments">
-<div class="pg-title"><h1>Payments</h1>
-<p>Payment flows by instrument, channel mix, digital adoption trends, and cross-border card activity.</p></div>
-<div class="kpis" id="pm-k"></div>
-<div class="note"><div class="note-tag">Payment Trends</div><h3 id="pm-h"></h3><p id="pm-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Payment mix by count</h3><div class="csub">Monthly transaction count by instrument</div><canvas id="ch-pm-cnt"></canvas></div>
-<div class="ccard"><h3>Payment mix by value</h3><div class="csub">Monthly transaction value by instrument, EUR</div><canvas id="ch-pm-val"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Paper vs electronic credit transfers</h3><div class="csub">Count trend: paper vs electronic</div><canvas id="ch-pm-paper"></canvas></div>
-<div class="ccard"><h3>Physical vs remote card payments</h3><div class="csub">EFTPOS vs online card payment count</div><canvas id="ch-pm-channel"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Digital channels trend</h3><div class="csub">E-commerce, digital wallet, e-money payment count</div><canvas id="ch-pm-digital"></canvas></div>
-<div class="ccard"><h3>International card payments</h3><div class="csub">Incoming vs outgoing cross-border card payments, EUR</div><canvas id="ch-pm-intl"></canvas></div>
-</div>
-<div class="note warn"><div class="note-tag">Data Scope</div><p>Payment data covers customer-initiated transactions only. Credit transfers dominate by value (~90%) while card payments dominate by count (~70%). E-commerce refers to payments at Kosovo-based online merchants. Digital wallet and e-money are separate categories. Source: CBK Payments Workbook &mdash; Table 4 (Payments by Instrument).</p></div>
-</div>
-<div class="mod" id="mod-acceptance">
-<div class="pg-title"><h1>Acceptance Network</h1>
-<p>ATM and POS infrastructure, contactless penetration, merchant acceptance, and terminal transaction activity.</p></div>
-<div class="kpis" id="an-k"></div>
-<div class="note"><div class="note-tag">Network Trends</div><h3 id="an-h"></h3><p id="an-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>ATM network</h3><div class="csub">Total ATMs and deposit-capable ATMs</div><canvas id="ch-an-atm"></canvas></div>
-<div class="ccard"><h3>POS network</h3><div class="csub">Physical POS and virtual POS terminals</div><canvas id="ch-an-pos"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Contactless POS trend</h3><div class="csub">Contact/contactless terminals as share of total POS</div><canvas id="ch-an-ctless"></canvas></div>
-<div class="ccard"><h3>Merchant acceptance</h3><div class="csub">Physical and virtual POS merchants</div><canvas id="ch-an-merch"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Terminal transaction volume</h3><div class="csub">Monthly transactions by terminal type</div><canvas id="ch-an-txvol"></canvas></div>
-<div class="ccard"><h3>Terminal transaction value</h3><div class="csub">Monthly EUR value by terminal type, EUR</div><canvas id="ch-an-txval"></canvas></div>
-</div>
-<div class="note"><div class="note-tag">Cashless Transition</div><h3 id="cl-h"></h3><p id="cl-p"></p></div>
-<div class="kpis" id="cl-k"></div>
-<div class="cgrid">
-<div class="ccard"><h3>ATM Recycling Rate</h3><div class="csub">ATM deposit value / ATM withdrawal value, %</div><canvas id="ch-cl-recycle"></canvas></div>
-<div class="ccard"><h3>Digital vs Physical card payments</h3><div class="csub">E-money + digital wallet vs physical POS card payments (count)</div><canvas id="ch-cl-digmix"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Average ticket by channel</h3><div class="csub">Avg transaction value: physical POS vs e-commerce vs ATM withdrawal</div><canvas id="ch-cl-ticket"></canvas></div>
-<div class="ccard"><h3>Cash substitution trend</h3><div class="csub">Card payment count / ATM withdrawal count ratio</div><canvas id="ch-cl-cashsub"></canvas></div>
-</div>
-<div class="note warn"><div class="note-tag">Data Scope</div><p>Terminal counts are end-of-period stock. ATM deposit capability has grown significantly. POS contactless share measures terminal readiness, not transaction share. Merchant counts represent unique businesses accepting card payments. ATM Recycling Rate = deposit value / withdrawal value; higher means more cash deposited relative to withdrawn. Source: CBK Payments Workbook &mdash; Tables 3, 4, 5.</p></div>
-</div>
-<div class="mod" id="mod-remittances">
-<div class="pg-title"><h1>Remittances</h1>
-<p>Diaspora remittance inflows by channel and origin country.</p></div>
-<div class="kpis" id="rm-k"></div>
-<div class="note"><div class="note-tag">Remittance Flows</div><h3 id="rm-h"></h3><p id="rm-p"></p></div>
-<div class="cgrid">
-<div class="ccard"><h3>Total remittance inflows</h3><div class="csub">All channels, EUR</div><canvas id="ch-rm-tr"></canvas></div>
-<div class="ccard"><h3>Source country share</h3><div class="csub">% of total, latest period</div><canvas id="ch-rm-co"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Channel composition</h3><div class="csub">Banks vs MTOs vs Other, EUR</div><canvas id="ch-rm-ch"></canvas></div>
-</div>
-<div class="kpis" id="rm-adv-k"></div>
-<div class="cgrid">
-<div class="ccard"><h3>Channel dominance trend</h3><div class="csub">Banks vs MTOs vs Other — share of total remittances, %</div><canvas id="ch-rm-dom"></canvas></div>
-<div class="ccard"><h3>Germany + Switzerland concentration</h3><div class="csub">Combined share of total remittance inflows, %</div><canvas id="ch-rm-conc"></canvas></div>
-</div>
-<div class="note caveat"><div class="note-tag">Data Notes</div><p>Remittance transaction counts are not available &mdash; only value (EUR) is reported. Country breakdown shows percentage shares (Total=100%), not absolute EUR amounts. Pre-2014 data is quarterly/annual only; monthly filter may return no results for those periods. MTO Share = agencies/transfer operators as % of total. Germany + Switzerland concentration measures diaspora corridor dominance.</p></div>
-</div>
-<div class="mod" id="mod-maturity">
-<div class="pg-title"><h1>Maturity Analysis</h1>
-<p>Asset and liability maturity structure: loan maturity by customer segment and maturity bucket, deposit maturity status, and maturity transformation assessment.</p></div>
-<div class="kpis" id="mt-k"></div>
-<div class="note"><div class="note-tag">Loan Maturity Profile</div><h3 id="mt-h"></h3><p id="mt-p"></p></div>
-<div class="cgrid">
-<div class="ccard full"><h3>Loan maturity: all segments</h3><div class="csub">Outstanding loans by original maturity bucket, EUR</div><canvas id="ch-mt-all"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Household loan maturity</h3><div class="csub">HH outstanding by maturity bucket, EUR</div><canvas id="ch-mt-hh"></canvas></div>
-<div class="ccard"><h3>Corporate loan maturity</h3><div class="csub">NFC outstanding by maturity bucket, EUR</div><canvas id="ch-mt-nfc"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Loan maturity trend: short-term vs long-term</h3><div class="csub">Under 1 year vs over 5 years, EUR</div><canvas id="ch-mt-trend"></canvas></div>
-</div>
-<div class="meth-section">
-<h3>Loan Maturity Detail</h3>
-<div class="tw"><table><thead><tr><th>Maturity Bucket</th><th class="num">HH (EUR M)</th><th class="num">NFC (EUR M)</th><th class="num">Total (EUR M)</th><th class="num">Share %</th></tr></thead><tbody id="mt-table"></tbody></table></div>
-</div>
-<div class="note"><div class="note-tag">Term Deposit Maturity Profile</div><h3 id="dm-h"></h3><p id="dm-p"></p></div>
-<div class="kpis" id="dm-k"></div>
-<div class="cgrid">
-<div class="ccard full"><h3>Term deposit maturity: all segments</h3><div class="csub">Time deposits by original maturity bucket, EUR M</div><canvas id="ch-dm-all"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Household term deposit maturity</h3><div class="csub">HH time deposits by maturity, EUR M</div><canvas id="ch-dm-hh"></canvas></div>
-<div class="ccard"><h3>Corporate term deposit maturity</h3><div class="csub">NFC time deposits by maturity, EUR M</div><canvas id="ch-dm-nfc"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Term deposit maturity trend: short vs long</h3><div class="csub">Under 6 months vs over 1 year, EUR M</div><canvas id="ch-dm-trend"></canvas></div>
-</div>
-<div class="meth-section">
-<h3>Term Deposit Maturity Detail</h3>
-<div class="tw"><table><thead><tr><th>Maturity Bucket</th><th class="num">HH (EUR M)</th><th class="num">NFC (EUR M)</th><th class="num">Total (EUR M)</th><th class="num">Share %</th></tr></thead><tbody id="dm-table"></tbody></table></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Contractual Maturity Gap</h3><div class="csub">Loans vs time deposits by aligned bucket, EUR M &mdash; gap = loans minus deposits</div><canvas id="ch-mt-gap"></canvas></div>
-</div>
-<div class="kpis" id="mt-gap-k"></div>
-<div class="note caveat"><div class="note-tag">Contractual Maturity Gap</div><p id="mt-alm">Deposit maturity buckets (6 buckets from F08) are re-bucketed to match loan maturity (5 buckets from F10). First 4 deposit buckets (up to 1 month through 6&ndash;12 months) are combined into &ldquo;Up to 1 Year&rdquo;. Positive gap = more loans than deposits in that bucket (funding shortfall). This is <strong>contractual</strong> (original) maturity, not residual maturity, and does not constitute a full liquidity risk assessment.</p></div>
-<div class="note caveat"><div class="note-tag">Deposit Maturity Scope</div><p>Maturity bucketing applies only to <strong>time deposits</strong> (Depozita tjera). Transferable and savings deposits have no fixed maturity term. Values are end-of-period stocks in EUR millions from F08. NFC combines public and private non-financial corporations.</p></div>
-</div>
-<div class="mod" id="mod-profitability">
-<div class="pg-title"><h1>Profitability &amp; Efficiency</h1>
-<p>Income statement analysis: net interest margin proxy, cost-to-income ratio (G&amp;A expenses / operating income), fee income dependency, and net profit margin trends from CBK Table 14 (ODC Income Statement, cumulative YTD).</p></div>
-<div class="kpis" id="pf-k"></div>
-<div class="note"><div class="note-tag">Income Statement</div><h3 id="pf-h"></h3><p id="pf-p"></p></div>
-<div class="cgrid">
-<div class="ccard full"><h3>Income composition trend</h3><div class="csub">Annual cumulative: interest income, non-interest income, total expenses (EUR M)</div><canvas id="ch-pf-income"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Cost-to-Income ratio</h3><div class="csub">G&amp;A expenses / operating income, December cumulative %</div><canvas id="ch-pf-cti"></canvas></div>
-<div class="ccard"><h3>Net Interest Margin proxy</h3><div class="csub">Net interest income / total income, year-end %</div><canvas id="ch-pf-nim"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Fee Income Dependency</h3><div class="csub">Fee &amp; commission income / total income %</div><canvas id="ch-pf-fee"></canvas></div>
-<div class="ccard"><h3>Net Profit Margin</h3><div class="csub">Net profit / total income %</div><canvas id="ch-pf-npm"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Expense breakdown trend</h3><div class="csub">Personnel, general &amp; admin, provisions, interest expense (EUR M, year-end cumulative)</div><canvas id="ch-pf-expense"></canvas></div>
-</div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Income data from CBK Table 14 is <strong>cumulative</strong> (year-to-date). December values represent full-year totals. Ratios computed from cumulative figures. <strong>Cost-to-Income</strong> = general &amp; administrative expenses (col 21) / operating income, where operating income = interest income (col 3) + non-interest income (col 8) + revaluation income (col 11) &minus; interest expense (col 13) &minus; non-interest expense (col 17). NIM proxy uses net interest income / total income (not average earning assets, which are unavailable).</p></div>
-</div>
+<!-- Header -->
+<header class="header">
+  <a href="/" class="header-brand">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAB4CAYAAABb59j9AAAZrElEQVR42u2deXgUxbqH356eJTOTSTJZCAlLABFk36IgCsIFN0BA9k0WcUEQPQqI55zrUS+K57jrFcFd8SgqIi6gqGyCKArIvgdIyEaAJGSdpZe6f0xmTELAux2DWu/zzJPumqmvqrp/Xf3VV9UdxTRNgUTyu0DBIg+C5PeDkIKW/L6QgpZIQUskUtASiRS0RCIFLZGClkikoCUSKWiJRApaIpGClkhBSyRS0BKJFLREIgUtkUhBS6SgJRIpaIlECloikYKWSKSgJVLQEokUtEQiBS2RSEFLJFLQEiloiUQKWiKRgpZIpKAlEiloiRS0RCIFLZFIQUsk/2usv4VKmqaJaZqAgqpaUBRFnjlJnSgX+j8NMk0TVVVrpBmGgcUiby6S31gPbZgmVlVl2/bdfLhsBXFxsUycMIKUhg2kqCW/LR/aMAysqsqTz77M4KETKTh5mm3bdtG953V8+dU6VFXFMAx5BiUXvsuh6zo2m40Vn69m8q2z2PbdSho0SMDpdLJu/XeMGj+NLZtW0qxZE3TdQFVlTy25QHtoXTew2WycOlXILdPm8N7iF0hLa8yqL9exZct2+vbpydzZ0xkx9rZQAyxK1YBRIrnABB3qma0UFhXT95qRNEiMp3+/XpimIDY2BpfLiWmaTJk0mkOHjzF6/B1YLBZUVUXXpfshuUAELYTAME1sNhtbt+3kyt5DGDtqKDdPHsM3GzZjsYTCdAKwWCysXrOBBc89gifazbUDxpB/4iQ2m1WKWlL/ghZCIARYVZVH5j/DkGETadEijb/++S4GXN+P7Tv3AGCaRsS9yDiSxdAh1/PqS0+Sk5tPj57Xs+yjldhsVjlQ/INjrW8xm6bAalUZM+EOdu/aw/fffk5WVjZvLl7CxAmj+bc+PRFCYLVasVqtaLrO0MHXomkaj/3jWd549RkMUzBsxM0cysjiz/dNlwNFKej6E7TVqnLHzL+wb38Ge3dtBKBpk0a0aN6UiopKOnZoGwrHKKHe2WG3065ta3bs2su4McNJS2sCwM6f1tK6XW8aN2rATeNHSFH/Qam3sJ1hmFitKt//sI2rrx/H4X0byc7JI94bS+NGqURFOQAIBoPY7Xa+2fAdDRs2oFWrlgjTjEyqBAJBDmccw+12kp2dx9CRUzm871vivXEIIeQ0ueyhf73eGeCZ516hc6c2pDRsQFZWDq+/voRKXwWapnP55d2ZMG5Y5LdCCBRA03Wef+ENsrOzUBSVlNQUxo+5kZ6Xp+Or9PHukuXMnHEzum5gtaryLEtB/6vFDFarimmabN+5B03TAejRvSs9unelvKKC3Jx8nnjmJTKOZPLQA/eiaToKCoZpcsu0++jQ7hLu+dM0EhMSiI52A3D0aBb+siI2bvqRmTNuRnbOMsrxa0kaRVEoLi7B43ZxpriE2+6YxclTpwGIdrtp3bolry56gv37D3E4I5NuXTtyUYtmLP9kFYmJ8cyZNY1maU0jYt5/4DC3T59Dg5RUKioqQo07x1oP0zTRdR3DMNB1IxIZ+XlVH5imOCtiYhhGVVRGoOsGelV+3ahpI2yzenr4DhP6zsSo9p0QZ5dVvS416lBHerhetbfDdgzDrLZt1OH+1cwTTgvnq2nLOGfen9se+lvb5u9+UKgbOh6Pm2uuvoodO/YwZ+48TD1IQmISV1xxGSOHD2L4jQPYunUHY8cMDQ3+du1j0oSRlJSW8cEHn3DkWDZ5ubnExMWRm5tPr6uuxPiFeLSqqmet4BNCRNJC2xbAgmGYkTi41frz4arrYgnbUNW6xwyqaqkzn6IoWCyWGgKoXpcaJ6xWuqIokXqFo0HVv6/ZJjVSl0hsv4481dPMqvFKzfw/Lwyrnreutv/aoq4XQYcHavHeOATQv9+VfLS8goUvPMaPP24nOyefVV+uIyMjk2uu7sWRI8ciA7zYGA+BYIDZc+eR6I2lZcvmjBw+kNTUZLZt28ml3Trx3eZtkZNRXbjh/Y8/WcX6dd9gj3KjaRpRUQ4enXc/a9d+S2FxMaNGDOa7zdvYvn03M+6YjKaFZjBfee0drurdg7KyCt5e/B5RbjeKYsGomuF8+ME5fLriK77d+D02RxSBQIDYGA9z59yJy+UkJyePl17+Jzl5eTjsNvpcdQUjht9AVlY2K79YzfQ7pmBU+f3LPlpBfLyX/v16R3pFVVVZ8v5y4r1x9O/XG9MU6LrOgkVvMvmmkSQmJvDEUwuYMG4EKSnJAGz89geOZR5n4oSRrFu/iSNHs7jl5nE1bL646C0uS+9EenrnSFsXLHwTrzeOcWOGomkaNpuNr77+hrz8AiZPHBVJW7joDfr3683FF1/Enr0Heenlt/EHfMTFxjD15vG0bnXRrzo4r7e4llk1M6hrJh07tMUUOl+sWkefPldw04QRvPbyU3Tt0p7S0jKaNmmMoigIIYiJdpGbm899s+7gsfl/5Zabx9Gta0cenf8sPS9PJy4uFmdVhKR27xAO6Cz54GMq/AFGDB/IsBsHMOD6fiiKwup1G/n0s68B2LvvIHdOv41HHnsem82KaZq8s2Q5P23fQ+NGKQwefB0Nk5N5/4PPGHB9P/r2uRJVVVn89lIcUVFMnDCSSTeNYsgN12Kz2Th4KINrBo4nOtrNtNsmcf11/diwcTOappGZlcMrb7yHVVVxOOyoqsqqr9azdv2mau5HqO4fLf+CH7bsQFVVbDYrTmcULyx8i8LCMwC8sPANCk6ejrR58w8/sXTZSgB27z3ArVMnsWHj5shd6suvv2HGHbeRcTSrSuAW9h/I4KnnXuHRvz/PiRMnI2Lcun03UyZNZdHLb2Oz2TBNk9feWEJuXgFlZeUMGjaFgQP68cBf76VL5w4UF5dEztvv3uUwTYHFAm63i6KiMzz8wGym3DqLIYOvrbqlqVx7TZ8afqaiKKSkJtP/33rjdIZ6QFVVKSg4xfsfruDAng3M//vzNG6Uct6yo91uGjduRIsWaQT8QeLiYlAUhSiHA4/HHQkHjpkwlR079zP3L/P5x/y/EO+Nw2JRSE5OIjk5iYTERFZ8voY+V/WM2I6JiaaiopK8/AIqKypo27Y1NpuVRx97jrGjbmDufTMivx0y+DoAHA4bmqaz5P1P0HUdh8NBVmY27dpdEr6nRfI0SE5i754DfLj8C7RgEL/fj9Vmxe6wA5CYEI+q/uy+OKIcxMV6IvkHDBrJQ/OeZsXHb1FYWMRTz77CdQOHYZpGxJX628NPsvjVZ8g4msnjTy/i6cf/FnIRNY0Zd9/NZ5+vpeDUaR786z3ExMZgVVVUq0pyopfvvt+CgsKggVcTE+NBCPGrrluvx5mH0AGPjnZx/Hgul/foRutWLZg1dx4OhwPTNDBNk+PZuWz7aSe6blBaWkZh0Rny8gswTYGiWLBarUyYfDcz7phCQryX3NwTeL1x5y3Z6Yxi1RdrePjRZ/j3v83nk8++rLrIDIQwq06eTownhg/fW8iqr9bz+FMv4vXGYZrhGU6TsrIKDEPHNE0CgUCVIFROny7k0KEjHDhwmPz8AgAKTp6mYcMGER+0pgtmIRgMkpObT27uCXJy8qgor0CNCOHnHs6iKBQXnyEz8ziZWdlk5+ShBYMRyft8AaKj3SiKgqIoOOw2/H4/AKUlZfTs2YMZ0yYxccrd3PmnB/j3+2fSsmVzyssrAVizdiObNm1GMzSSkuJ5/4PPOJxxrMq2n4R4Lx8vfYVlH33Bf774BvHeOCoqfbicTn7YtJKWFzXnq9XrGTR4PE8+sygyIfaHGBSGr3pVVTBNwZuvPk2bTn3p3LEtUyaNJqhp2G02lry3nJdfWUzA7+eSNm1ITUnGMHTsdht/utdBNE3noQfuRQiB3W77xUVKJ0+eZtToIdxz12010oOaRmWlP7JdfKYk5IeuXcaocXewbs1X3Djk2ohYhBD4/H4slp8He2dKSrimfx+mT5uEbhj4Kn0YhsHMGVO5d87DtG7Vko4d21JQcJo1azdy69Tx+Hx+4mJjmHPvtEhdMo4ci5RfvYcuKiqm/9VXMfue2yNpb7+zjEqfD4C0tCYsfOlt/nL/TMpKy1n8z6UMv3FgxHXJOp7DX/98F+99uIKL0prQu1d3Hn/yBTq0b4thGNz/wOOMGDaIbzf9gN1up1fPrtw75z/4bPkbaJpGaVk5NpuVDWs/ZNio29mwdi1z58ygtLSMNeu+ZczooUy8aSRPPr2Id9/7lNn3TPtjRDnCftmZklKSk5OwWBS83jjeevUZrrt2BHFxcdw45FoaNUrhmafm8elnq0hMTKDn5ZdGRt4Pz3uKRS8vJvPIj5G0hAQvhUXF5y2zU8c2JCclRsJMigI2m40WzdOIiQndnpulNSYQCIT89hgPH3/4KmPG30acNzZiLzbWQ7euHWvYviy9MytXrOLHbTvQDROb1cpj8+YyaEB/rKqV5/7zVaw2K1pQp2tVXq83li6d26PrOppuYLOqNEtrQsOGSTVsA7RvdwmJCV503cAUJsGgRo/uXYl2uwB47aUnefjRZ7nt9jnohsHAAVdz151TAWjevCkutwvTNFn67sKIyLt06UCri1uwd98hOnVsw/PPPlLjuA0beQsFBafo0KENxcUlCCGIi43hkw9fYeLkmURHRyOADRt/4N13P0KxWHA4onjrtaerXJ9fcULANE1RHx8hhNA0TbTr3Ffs2LlHmKYpgsGgEEKI6waNExAtXn9ziRBCiJycPLFw0evi3fc+En6/XwghxOy58wQoYsGiN4QQQlRWVgohhFj48mIxbNStQgghgpp2zrKFEOdNr75tGIaozvns1IVpmkLX9ch+uA11/e5/Usfz1Tt8LH+pvtXTw3XUNE0Eg6FP+Pvq9a99TGrb9vn85yzrX/2pF0HreuhgZGQcE+069RXZObkRUZumKZYt/1xY1CSBpYGYN/+5s078+MkzBZYGIq3lpeJMSYkwDEPoui52794nVq/ZKK7oe6MQQgjDMOos3zCMs74Lp4XTa/8mXEZdts5nu7o9TdMjwgjta9VsG79Yx/PVvfq2pmkRMQWDwXO2qbZNIcyz2hhud7jO5zsm4faELgq9zuP1r/7Uy6AwPPD6acduGjVqgKJYyM07UeWXQpfO7eicfiljx41k9dqN3DT5Tnbu2seGjZu54qpBGLrB0GGDSO/WkdiYmKqVdSoHDx0hNTUZny9AUfGZsyYrqk+KVL+Nhyc2wn5weD8cXQnbONekSF3b4ahMOE/IfmjfNE0URYnEyENP3Vhq+ObV7Z0r7BWuWzhPeFtV1ci+zWY76zhUn0CpHiMWghrlC2FGngiqXYfqxyRsp/bEVH08lV9PghaRGGmH9m2w221kZ+cCUFFZgWkYpHfrgNMdxfqvl+J2u5kweSZ/mvUgA66/miVvLyA7O4fLe6RX2QrZy8rOpWmTRjjsNvbvP3xOMVQPBYZCdAFOnzpNeXk5FouF8vJyfD5fROThTzi6YZrmWaKoPoMW/vj9fkpLS1EUhdLS0oiN6idaCEFJSQklJSVUlFdQUVERyR8WeO3t6nZqXjCWsy7c87Wldv7q9kPbKrquU1RUVKOM2h1AXWX/oRYnhVcNHc/OodeVPUhMiOfAwaMA2G02LrqoObEx0WQezwFg0YJ/EAxq2O22iAg0TSc5uUGkRyooOMWxY9m43S5cbieHM45xRc9Lz+qZLBYL69ato3fv3hw+fBiXy8WhQ4ex2aw0b96cvLw8MjMzsVqtNG2ahqYF8fn8NG3ahMTExLOasmfPHpxOJ6mpqWzfvp309HTy8vKIi4urqlcBu3btorCwkH79+hEdHc2ZM2fweDyoqsqBAwc4duwYzZs3x2a1YbPb0XWd06dP07hxaELpxIkTpKSkYhg6J06cIDo6msTERAoKCtA0jcaNG3PixAk8Hg8ulysyI7pn926KiovRgkEuvrgViUmJ5OfnEx+fgNcbx8mTJ4mKisLj8ZCXl0dsbCylpaV4PB58Ph979uylc+dO5OXmER8fz5EjR0hNTcVut5OXl4/DYadBgwacOnUKVVXxer1/TEGHb8zl5ZU47HYURcHtdrHk/U8YO3oIhmFy+EgmTZukIoTAHwjgjIpCCEEgECQqykFCQjwHDmRUrZFQefypRfTo3g0hBNFuJ2dKSiO30dr4fH7sdnvItt+PaRq43bF4Yjxs/n4zgwYNQtd1Vq5YyaWXXUpFeQWmEJSXl5ORkYFpChISEkhLa4rP58PlcmG32zENk71791JcVIxiUWjevAWVlZVUVlTSqFEjtmzZQmpqKmVlZaSnp4cG5YaBpmm4nC4qfZX4AwEOHzqE3WGnoKCA1q1bs3XrVpo1a4aiKBQVFWGxqKSkNKSgoIC0pk3ZunUrOdnZOKKi6N+/PzabjUAgwLHMY9xww2ACgQDr163HccyBw+EgPz+f6OhosrKyiIqKIi0tjf3799OnTx8OHTpEaUkJF7VsSVFRYehOE/CzdetWVFXl5MmTuFwuTp48ic1mo7j4DPv27qVd+3bEx8fXy4KkC8DlqJrgcLkoLStHCME9d93Ka2++z49bdqCqFgoLixgzcjCKomCvmmYNLYYJ+Wk3jR/O0aOZqKqFl159h5Onixg7egiKohAMajH3Q00rAACJJUlEQVTZsepLCMIH2+OJZufOXZw6dYqEqpOQkpKC2+UmJiaGXbt2sX37dho3aUxqairpl6bTICkJq9VKUmISSUlJeDwh+wkJCeTk5LBr1y48MR4Mw6BL1y7ExMRQXFyEYRgkJMbTrFkzWrduzfr162nRogV5eXkhQQtBUlIS3ngvuq4TDAZwupx0794dv99PxuEMbDYbpaUlGLpBt27diI3xUFpahsPhwOF0EgwGMUyB1+vl5MlTlJSUYLPZiI72sHfvXrZt3Upyw2QsioX4+HisViuVlZWYpklcnBdDN2jdujW6plFWVkZpWRkulwuv14umaVRWVhLwB3A6nQhT4PP5aN++PV6vF8PQSUlJITMzk/y8fILBYL0Kul6eWAm/SOaBh57k0OGjvP/OiwAcPHSEmybfzUN/m8WA6/qedzAU9tkee+JF1q3/juUfvIzb7SIY1Oh82TUsWbyATh3b1vnKMMMwOHDgALGxsTRp0oSCggKSk5MjdTt46BA2q5VWrVrVmOWqbSc8oDp69CiVlZW0bduWkjMlRDmj8Pv9VYMp0HUNp9NJUVERBw8epFev3hQWnqZhw4aUlpZitdpwu12UlIQmUjRNw+PxUFYWEu2JEyeIi4vDbrfjcDiorKwkNjaW3NxcAoEALVq0IDMzE4/HE3n2MiYmBk3TOHjwIKqq0qZNG9asWYPT6aRFixY0bNiQzMxMnE4nMTExBAIBoqOjOX78eNUETRqZmZnExsZitVpxu93s2bOHli1b1jiPFouFwsJCXC4XVqsVj8eD3W6vP0XXT9guFAbas/egSG3WTZSWlkXipscys0Wfq0eJN956v85Ycih0FAoN3XnPg2LMTTOFPxAQuqEL0xTi40+/FG069TlniKp2rDi8f67vzhXiqm67rnhsXRQXFwufz3fO+O3/J3W1pbS09L9d3v+lPvU1t2Gapqj3ZwqHjphKo9RkFjw/H5/Pj9MZRWVlJZOm3sOVPS/l7pm3oOk61kgoKrS2YezEu2l1cXMeeWhWZMbPbrfRql0v7ps9g1umjInkO9dqv+phstoht9phuF+K2oTvGtXDaLXDe9XDcLV/VztPzfDZz/WrXt/z5a2rndXXVdSV/5dshm3V9X1dZf9hXI7wajtFCS3aad+lH4te+Dsjhw+MiBrg9un307tXD8aPHRpZn2G1qsy4+wEuad2SmdMnoWla1RoOO9NmzOVwxlHWfLn0gnw7aX0/tPtHeGi43s64xRK6wlMaNmDlx29xy+2zWf7x5zidUaFBjmGwaMFjrF6zgV2796GqFqxWlRcXLSY5OYmZ0yfh94eWj9rtdmbNeYivV29g+dLXa/QkFxL13nv9AR6yrNcuzGKxoOs6Pbp35cuV7zBt+n38/fEXIoMKIQT/8eBsFv9zGYqikJt3gj17D/DAn2fi9weIinIggNHjbuPr1d/w43efR9bgytcX/DGp93uyqqpoVaL+cfOXvLvkI8aMnx4RfJMmqVzUvCmHDh9jy5btjB45GCEEUVEOjmUep0v61ei6wU9bV5OQ4JUvQpeCvgCmK9XQFGta00bs2LYaRYHO6f3Jq1oc37fvFWzdtpNAIEjnTu2wWCysWbeJyy4fxPixw1n2wWuoFosUs+TCeZ1u9TfyL/nni4wYNoj0HgPJOJLJJa1bknU8G1W1EBvr4f2lnzJk+M289spTzJ0zPTIwlGKWXFD/YyUc9tI0jQcfmEVCQjyX9xrCgd3rOXWqkFYXt2Djph+Zccts1n71Hj26dyUY1LDZrPJMSkID3wv1v2BpmobdbufRx55n1Vfr6djxEqKj3Xz08de8/OJ8+l7VU4pZ8tsRdEjUoecGp9x6Lx9+8AmKzcHTTzzILVNGSzFLfnuCNoUAIaj0+WmU1pVuXTuy7uulaJpW4y1GEskF6UOf5VMrCqYQeKLdLPvgVZKS4uXgT/Lb7aHDVBdxfa+3lcge+v9+1SlK5HUDsneW/OZ7aInkv+2mykMgkYKWSKSgJRIpaIlECloiBS2RSEFLJFLQEokUtEQiBS2RgpZIpKAlEiloiUQKWiKRgpZIQUskUtASiRS0RCIFLZFIQUukoCUSKWiJRApaIpGClkikoCVS0BKJFLREIgUtkUhBSyRS0BIpaIlECloikYKWSKSgJRIpaIkUtEQiBS2RSEFLJP9DFP4LWPhlADCjMaoAAAAASUVORK5CYII=" alt="Fintech Humans">
+    <span>Kosovo Banking Intelligence</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/app">Dashboard</a>
+    <a href="#methodology">Methodology</a>
+    <a href="/app" class="header-cta">Open Dashboard</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">Public CBK Data · Independent Analysis</div>
+  <h1>Kosovo <span>Banking</span> Intelligence</h1>
+  <p class="hero-sub">Turning Central Bank of Kosovo open data into strategic banking sector insight — loans, deposits, rates, payments, profitability, and credit risk in one interactive dashboard.</p>
+  <div class="hero-actions">
+    <a href="/app" class="btn-primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Open Dashboard
+    </a>
+    <a href="#methodology" class="btn-secondary">View Methodology</a>
+  </div>
+</section>
+
+<!-- Preview -->
+<section class="preview">
+  <div class="preview-frame">
+    <div class="preview-bar">
+      <div class="preview-dot"></div>
+      <div class="preview-dot"></div>
+      <div class="preview-dot"></div>
+      <div class="preview-url">yourdomain.com/app</div>
+    </div>
+    <div class="preview-placeholder" id="preview-area">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <span>Dashboard preview — replace with screenshot</span>
+    </div>
+  </div>
+</section>
+
+<!-- Coverage -->
+<section class="coverage">
+  <div class="coverage-header">
+    <h2>What it covers</h2>
+    <p>Eight analytical modules built from CBK published data, updated as new data becomes available.</p>
+  </div>
+  <div class="coverage-grid">
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#eff6ff;color:#1e40af"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <h3>Loans</h3>
+      <p>Outstanding balances, new lending flows, customer and sector breakdowns, maturity structure.</p>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#f0fdf4;color:#059669"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg></div>
+      <h3>Deposits</h3>
+      <p>EUR deposit stocks and flows, segment splits, time deposit origination, maturity bucketing.</p>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#fefce8;color:#b8860b"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      <h3>Interest Rates</h3>
+      <p>Lending and deposit rates, spread analysis, household vs corporate pricing, WACF proxy.</p>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#fdf2f8;color:#be123c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+      <h3>Cards &amp; Payments</h3>
+      <p>Card issuance, terminal infrastructure, transaction volumes, cashless adoption trends.</p>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#f5f3ff;color:#7c3aed"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+      <h3>Remittances</h3>
+      <p>Inflow channels, country concentration, MTO share, quarterly and monthly trends.</p>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#ecfdf5;color:#059669"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <h3>Profitability</h3>
+      <p>Income composition, cost-to-income ratio, NIM proxy, fee dependency, net profit margin.</p>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#fef2f2;color:#dc2626"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <h3>Credit Risk</h3>
+      <p>Loan loss provisions, cost of risk, provisioning intensity from cumulative YTD data.</p>
+    </div>
+    <div class="coverage-card">
+      <div class="coverage-icon" style="background:#f1f5f9;color:#334155"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <h3>Asset Structure</h3>
+      <p>Loan-to-asset ratio, securities allocation, domestic credit vs foreign asset trends.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology -->
+<section class="method" id="methodology">
+  <div class="method-inner">
+    <h2>Methodology</h2>
+    <p>All data is sourced from the Central Bank of Kosovo public statistical tables. KPIs are computed transparently — every chart and metric documents its formula, data source, and known limitations. No proprietary models or black boxes. The dashboard includes a full methodology page with KPI definitions, caveats, and data coverage.</p>
+    <a href="/app#mod-methodology">View full methodology in dashboard &rarr;</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAB4CAYAAABb59j9AAAZrElEQVR42u2deXgUxbqH356eJTOTSTJZCAlLABFk36IgCsIFN0BA9k0WcUEQPQqI55zrUS+K57jrFcFd8SgqIi6gqGyCKArIvgdIyEaAJGSdpZe6f0xmTELAux2DWu/zzJPumqmvqrp/Xf3VV9UdxTRNgUTyu0DBIg+C5PeDkIKW/L6QgpZIQUskUtASiRS0RCIFLZGClkikoCUSKWiJRApaIpGClkhBSyRS0BKJFLREIgUtkUhBS6SgJRIpaIlECloikYKWSKSgJVLQEokUtEQiBS2RSEFLJFLQEiloiUQKWiKRgpZIpKAlEiloiRS0RCIFLZFIQUsk/2usv4VKmqYJKKiqBUVR5JmT/P+RHDJ5EA+lAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI0LTA4LTMwVDEzOjU5OjU0KzAwOjAwmUo3CAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNC0wOC0zMFQxMzo1OTo1NCswMDow" alt="Fintech Humans">
+      <span>Curated by Orik Drancolli</span>
+    </div>
+    <div class="footer-links">
+      <a href="/app">Dashboard</a>
+      <a href="#methodology">Methodology</a>
+      <a href="https://fintechhumans.com" target="_blank" rel="noopener">Fintech Humans</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Kosovo Banking Intelligence. Data: Central Bank of Kosovo (CBK). Independent analysis — not affiliated with CBK.</div>
+  </div>
+</footer>
 
-<div class="mod" id="mod-credit-risk">
-<div class="pg-title"><h1>Credit Risk &amp; Provisioning</h1>
-<p>Loan loss provision trends, cost of risk, and provisioning intensity from CBK Table 14 (ODC Income Statement).</p></div>
-<div class="kpis" id="cr2-k"></div>
-<div class="note"><div class="note-tag">Credit Risk</div><h3 id="cr2-h"></h3><p id="cr2-p"></p></div>
-<div class="cgrid">
-<div class="ccard full"><h3>Loan loss provisions trend</h3><div class="csub">Annual cumulative provisions for credit losses (EUR M)</div><canvas id="ch-cr2-prov"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Cost of Risk</h3><div class="csub">December cumulative provisions (T14) / December loan stock (T02), %</div><canvas id="ch-cr2-cor"></canvas></div>
-<div class="ccard"><h3>Provisioning Intensity</h3><div class="csub">Cumulative provisions / cumulative net interest income, %</div><canvas id="ch-cr2-int"></canvas></div>
-</div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Provisions from CBK Table 14, column 19 (cumulative year-to-date income statement). <strong>Cost of Risk</strong> = full-year cumulative provisions (December) divided by year-end loan stock from Table 02, column 24. Denominator is end-of-period stock, not average loan stock &mdash; this is a proxy. No annualization is applied because the numerator already spans 12 months. <strong>Provisioning Intensity</strong> = cumulative provisions as a share of cumulative net interest income; both are YTD from Table 14, so the ratio is internally consistent. Sector-level CoR (HH vs NFC) is not available &mdash; Table 14 reports provisions as a single aggregate. If a month filter is active, the fallback uses the latest available period, which may show a partial-year cumulative figure rather than full-year CoR.</p></div>
-</div>
-
-<div class="mod" id="mod-assets">
-<div class="pg-title"><h1>Asset Composition</h1>
-<p>Balance sheet structure of Kosovo&rsquo;s depository corporations: loan-to-asset ratio and asset mix from CBK Table 02 (DC Survey).</p></div>
-<div class="kpis" id="as-k"></div>
-<div class="note"><div class="note-tag">Asset Structure</div><h3 id="as-h"></h3><p id="as-p"></p></div>
-<div class="cgrid">
-<div class="ccard full"><h3>Asset composition trend</h3><div class="csub">Loans, securities, cash &amp; deposits, other (EUR M)</div><canvas id="ch-as-comp"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Loan-to-Asset ratio</h3><div class="csub">Domestic loans / total identified assets %</div><canvas id="ch-as-lta"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Domestic credit vs foreign assets</h3><div class="csub">Domestic credit claims vs net foreign assets (EUR M)</div><canvas id="ch-as-domfor"></canvas></div>
-</div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Asset data from CBK Table 02 (DC Survey). Total identified assets = claims on non-residents + domestic credit claims + other claims. This is a monetary statistics presentation (not a full balance sheet), so the &ldquo;Loan-to-Asset&rdquo; ratio is a proxy, not a regulatory ratio.</p></div>
-</div>
-
-<div class="mod" id="mod-residual-mat">
-<div class="pg-title"><h1>Residual Maturity Analysis</h1>
-<p>Loan maturity distribution from CBK Table 10: residual maturity buckets across all sectors, household vs corporate breakdown, and short-term mismatch analysis.</p></div>
-<div class="kpis" id="rm2-k"></div>
-<div class="note"><div class="note-tag">Residual Maturity</div><h3 id="rm2-h"></h3><p id="rm2-p"></p></div>
-<div class="cgrid">
-<div class="ccard full"><h3>Loan residual maturity: all sectors</h3><div class="csub">Outstanding loans by residual maturity bucket (EUR M)</div><canvas id="ch-rm2-all"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard"><h3>Household residual maturity</h3><div class="csub">HH loans by residual maturity bucket (EUR M)</div><canvas id="ch-rm2-hh"></canvas></div>
-<div class="ccard"><h3>Corporate residual maturity</h3><div class="csub">Corp loans by residual maturity bucket (EUR M)</div><canvas id="ch-rm2-corp"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Short-term (&lt;1Y) vs Long-term (&gt;5Y) trend</h3><div class="csub">Residual maturity concentration over time (EUR M)</div><canvas id="ch-rm2-trend"></canvas></div>
-</div>
-<div class="cgrid">
-<div class="ccard full"><h3>Residual vs Contractual Maturity Gap</h3><div class="csub">Residual maturity loan distribution vs contractual deposit maturity (EUR M)</div><canvas id="ch-rm2-gap"></canvas></div>
-</div>
-<div class="kpis" id="rm2-gap-k"></div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Residual maturity from CBK Table 10 measures <strong>time remaining until repayment</strong>, unlike contractual (original) maturity from F10 which measures the original term. Residual maturity is more relevant for liquidity risk. Maturity buckets: Up to 1 year, 1&ndash;2 years, 2&ndash;5 years, 5&ndash;10 years, Over 10 years.</p></div>
-</div>
-
-<div class="mod" id="mod-methodology">
-<div class="pg-title"><h1>Methodology &amp; Data Notes</h1>
-<p>Data sources, KPI definitions, caveats, and formatting conventions.</p></div>
-
-<div class="meth-section">
-<h3>Data Coverage</h3>
-<div class="tw"><table id="ex-t"><thead><tr>
-<th onclick="sortC(0)" style="cursor:pointer">Module</th>
-<th onclick="sortC(1)" style="cursor:pointer" class="num">Records</th>
-<th onclick="sortC(2)" style="cursor:pointer">From</th>
-<th onclick="sortC(3)" style="cursor:pointer">To</th>
-<th>Frequency</th>
-</tr></thead><tbody id="ex-b"></tbody></table></div>
-</div>
-
-<div class="meth-section">
-<h3>KPI Definitions</h3>
-<table><thead><tr><th>KPI</th><th>Definition</th><th>Status</th></tr></thead><tbody>
-<tr><td>Total Outstanding Loans</td><td>Sum of all outstanding loans across customer segments (F10 Col 2). Includes all currencies.</td><td>Verified</td></tr>
-<tr><td>Total EUR Deposits</td><td>Sum of all EUR deposit balances across segments (F08 Col 2). EUR only.</td><td>Verified</td></tr>
-<tr><td>LTD Ratio</td><td>Total loans / Total EUR deposits &times; 100. Numerator includes ~&euro;0.97M non-EUR loans (0.015%).</td><td>Market Proxy</td></tr>
-<tr><td>Narrow Gap (Proxy)</td><td>All new loans rate (F13) minus time deposit rate (F13a). New-business rates only. Not NIM.</td><td>Proxy</td></tr>
-<tr><td>WACF</td><td>Weighted Average Cost of Funds = (0%&times;CA_stock + 0.05%&times;SA_stock + TDA_rate&times;TDA_stock) / (CA+SA+TDA). CA and SA stock from F11a. TDA stock from F08 deposit maturity (sum of all buckets, HH+NFC). TDA rate from F13a. SA rate 0.05% is a proxy assumption &mdash; CBK does not publish system-wide SA pricing.</td><td>Proxy</td></tr>
-<tr><td>WACF Gap</td><td>All new loans rate minus WACF. Uses stock-weighted funding cost. Not NIM.</td><td>Proxy</td></tr>
-<tr><td>Remittances Total</td><td>Pre-computed Total row from source. Not summed from channels.</td><td>Verified</td></tr>
-<tr><td>Retail Digital Share (Legacy)</td><td>(E-Banking + POS) / (E-Banking + POS + ATM) &times; 100. Excludes Interbank and ATM Deposits. Legacy F15 data.</td><td>Verified</td></tr>
-<tr><td>Total Payment Volume (Legacy)</td><td>Sum of 7 non-overlapping indicators. Parent totals for ATM/POS Abroad; children excluded from sum. Legacy F15 data.</td><td>Verified</td></tr>
-<tr><td>Avg EUR/Transaction (Legacy)</td><td>(amount in M / count in K) &times; 1000. Same period, same indicator. Legacy F15 data.</td><td>Verified</td></tr>
-<tr><td>E-Banking Penetration</td><td>E-banking accounts / current accounts &times; 100. Source: Table 1 (Accounts).</td><td>Direct</td></tr>
-<tr><td>Visa Share</td><td>Visa cards / total cards &times; 100. Source: Table 2 (Cards).</td><td>Direct</td></tr>
-<tr><td>Contactless Share</td><td>Contactless cards / total cards &times; 100. Source: Table 2 (Cards).</td><td>Direct</td></tr>
-<tr><td>Spend per Issued Payment Card</td><td>Card payment value / payment-function cards. Proxy &mdash; denominator is issued stock, not active cards. Source: Table 2 (Cards) &amp; Table 4 (Payments).</td><td>Proxy</td></tr>
-<tr><td>Average Card Ticket</td><td>Card payment value / card payment count. Same-period direct calculation. Source: Table 4 (Payments).</td><td>Direct</td></tr>
-<tr><td>Card Share (count)</td><td>Card payments / total customer payments &times; 100. Source: Table 4 (Payments).</td><td>Direct</td></tr>
-<tr><td>Card Share (value)</td><td>Card payment value / total payment value &times; 100. Source: Table 4 (Payments).</td><td>Direct</td></tr>
-<tr><td>POS per 1,000 Payment Cards</td><td>Total POS terminals / payment-function cards &times; 1000. Source: Table 3 (Terminals) &amp; Table 2 (Cards).</td><td>Direct</td></tr>
-<tr><td>Deposit-Capable ATM Share</td><td>Deposit-capable ATMs / total ATMs &times; 100. Source: Table 3 (Terminals).</td><td>Direct</td></tr>
-<tr><td>Contractual Maturity Gap</td><td>Loans minus aligned time deposits per maturity bucket. Deposit buckets re-bucketed: first 4 deposit buckets (&le;1M, 1-3M, 3-6M, 6-12M) combined into &ldquo;Up to 1 Year&rdquo;. Source: F10 (loans) &amp; F08 (deposits).</td><td>Direct</td></tr>
-<tr><td>ATM Recycling Rate</td><td>ATM deposit value / ATM withdrawal value &times; 100. Higher = more cash deposited relative to withdrawn. Source: Table 5 (Terminal Transactions).</td><td>Direct</td></tr>
-<tr><td>Card-to-ATM Ratio</td><td>Card payment count / ATM withdrawal count. Measures card substitution of cash. Source: Table 4 (Payments) &amp; Table 5 (Terminal Tx).</td><td>Direct</td></tr>
-<tr><td>MTO Share of Remittances</td><td>MTO (agencies) channel value / total remittance value &times; 100. Source: CBK Tables 31-32.</td><td>Direct</td></tr>
-<tr><td>DE+CH Concentration</td><td>Germany share + Switzerland share of total remittance inflows. Country data is percentage shares. Source: CBK Table 32.</td><td>Direct</td></tr>
-</tbody></table>
-</div>
-
-<div class="meth-section">
-<h3>Caveats &amp; Limitations</h3>
-<ul>
-<li>All data represents aggregate banking sector totals as published by CBK. No individual bank breakdowns.</li>
-<li>Deposits are EUR only (F08 is titled &ldquo;Depozitat n&euml; Euro&rdquo;).</li>
-<li>Loans include a negligible non-EUR component (~&euro;0.97M, 0.015% of total).</li>
-<li>The narrow gap compares new-business rates only (new loans vs new time deposits). WACF weights TDA rate across CA+SA+TDA using outstanding stock balances: CA and SA from F11a (stock), TDA from F08 deposit maturity (stock). CA at 0% (non-remunerated), SA at 0.05% (proxy; CBK does not publish SA rate). Neither gap equals NIM.</li>
-<li>Legacy payment data (F15) provides transaction-level ATM/POS data. New payments workbook data covers accounts, card issuance, terminals, and payment flows from 2025-01 onwards.</li>
-<li>Deposit type breakdown from F11a: Transferable and Savings are stock; Time Deposits are flow (new originations). WACF uses F08 TDA stock (from maturity buckets) instead of F11a flow.</li>
-<li>Sector breakdown covers corporate loans only (~&euro;3.8B, not total market ~&euro;6.6B).</li>
-<li>Card counts are issued-and-valid stock, not active cards. Active card counts are not published by CBK. Spending proxies use issued stock as denominator and understate true per-active-card spending.</li>
-<li>Remittance country data is percentage shares, not EUR amounts.</li>
-<li>Monthly filter may not apply to quarterly remittance or annual payment data.</li>
-<li>Maturity data uses original maturity buckets, not residual maturity.</li>
-<li>Payments pre-2008 are annual only (mapped to December).</li>
-</ul>
-</div>
-
-<div class="meth-section">
-<h3>Formatting Conventions</h3>
-<table><thead><tr><th>Symbol</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
-<tr><td>M</td><td>Million EUR</td><td>&euro;842 M</td></tr>
-<tr><td>B</td><td>Billion EUR</td><td>&euro;7.58 B</td></tr>
-<tr><td>%</td><td>Percentage</td><td>87.7%</td></tr>
-<tr><td>pp</td><td>Percentage points (absolute change)</td><td>+2.3 pp</td></tr>
-<tr><td>K txns</td><td>Thousand transactions</td><td>1,990.0K txns</td></tr>
-</tbody></table>
-</div>
-
-<div class="note"><div class="note-tag">Design</div><p>Designed with a clean strategic research aesthetic for executive decision support.</p></div>
-</div>
-</div>
-<div class="footer"><div class="footer-inner">
-<span>Curated by Orik Drancolli</span>
-</div>
-</div>
-
-<script src="_data_blob.js"></script>
-<script>
-
-const C1='#0f172a',C2='#1e40af',C3='#0d9488',C4='#d97706',C5='#be123c',GRN='#059669',GOLD='#b8860b';
-const PAL=[C1,C2,C3,C4,C5,GRN,'#7c3aed','#0284c7','#dc2626','#0891b2','#c026d3','#65a30d'];
-const PAL_BAR=['#0f172a','#1e40af','#0d9488','#d97706','#be123c','#059669','#7c3aed','#0284c7','#dc2626','#0891b2'];
-Chart.defaults.font.family="'Inter',system-ui,sans-serif";
-Chart.defaults.font.size=11;
-Chart.defaults.color='#475569';
-Chart.defaults.elements.line.borderWidth=2.2;
-Chart.defaults.elements.point.radius=1;
-Chart.defaults.elements.point.hoverRadius=5;
-Chart.defaults.scale.grid={color:'#e8ecf1'};
-Chart.defaults.scale.border={color:'#cbd5e1'};
-
-const MM={January:'01',February:'02',March:'03',April:'04',May:'05',June:'06',
-July:'07',August:'08',September:'09',October:'10',November:'11',December:'12',
-Janar:'01',Shkurt:'02',Mars:'03',Prill:'04',Maj:'05',Qershor:'06',Korrik:'07',
-Gusht:'08',Shtator:'09',Tetor:'10','\u004e\u00ebntor':'11',Nentor:'11',Dhjetor:'12'};
-const MN={'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'};
-
-// ---- REMITTANCE CLEANER: exclude annual/quarterly, deduplicate monthly ----
-function isMonthlyPeriod(p){var s=String(p).replace(/\s*\(p\)\s*/,'').split(' ');if(s.length<2)return false;if(/^T\d$/i.test(s[1]))return false;return /^\d{4}$/.test(s[0])&&(MM[s[1]]||MM[s.slice(1).join(' ')]);}
-function dedupRemit(arr){var map={};arr.forEach(function(r){if(!isMonthlyPeriod(r.period))return;var ch=r.channel||r.country||'';var key=r.period+'|'+ch;if(!map[key]||r.value>map[key].value)map[key]=r});return Object.values(map)}
-// ---- GLOBAL FORMATTERS ----
-function pk(p){if(!p)return'0000-00';var s=String(p).replace(/\s*\(p\)\s*/,'').split(' ');if(s.length===1&&/^\d{4}$/.test(s[0]))return s[0]+'-12';if(s.length>=2&&/^\d{4}$/.test(s[0])){var m=MM[s[1]]||MM[s.slice(1).join(' ')]||'00';return s[0]+'-'+m}return p}
-function sp(a){return a.slice().sort(function(x,y){return pk(x.period).localeCompare(pk(y.period))})}
-function fmtP(p){if(!p)return'';var k=pk(p);var parts=k.split('-');if(parts.length===2&&MN[parts[1]])return MN[parts[1]]+' '+parts[0];return String(p).replace(/\s*\(p\)\s*/,'')}
-
-function fmtMoney(v){
-  if(v==null||isNaN(v))return'\u2014';
-  var a=Math.abs(v);
-  if(a>=1000)return'\u20AC'+(v/1000).toFixed(2)+' B';
-  if(a>=1)return'\u20AC'+v.toFixed(1)+' M';
-  if(a>=0.01)return'\u20AC'+v.toFixed(2)+' M';
-  return'\u20AC'+(v*1000).toFixed(0)+' K';
-}
-function fmtPct(v){if(v==null||isNaN(v))return'\u2014';return v.toFixed(1)+'%'}
-function fmtPP(v){if(v==null||isNaN(v))return'\u2014';return(v>=0?'+':'')+v.toFixed(1)+' pp'}
-function fmtDelta(v){if(v==null||isNaN(v))return null;return(v>=0?'+':'')+parseFloat(v).toFixed(1)+'%'}
-function fmtAvgEur(amt,cnt){if(!cnt||cnt===0||!amt)return'\u2014';var e=(amt/cnt)*1000;return'\u20AC'+Math.round(e)}
-function fmtCount(v){if(v==null||isNaN(v))return'\u2014';if(Math.abs(v)>=1e6)return(v/1e6).toFixed(2)+'M';if(Math.abs(v)>=1e3)return(v/1e3).toFixed(1)+'K';return v.toLocaleString('en',{maximumFractionDigits:0})}
-function fmtNum(n){if(n==null||isNaN(n))return'\u2014';if(Math.abs(n)>=1e4)return n.toLocaleString('en',{maximumFractionDigits:0});if(Math.abs(n)>=1)return n.toFixed(1);return n.toFixed(4)}
-
-function fmtEur(v){if(v==null||isNaN(v))return'\u2014';var a=Math.abs(v);if(a>=1e9)return'\u20AC'+(v/1e9).toFixed(2)+' B';if(a>=1e6)return'\u20AC'+(v/1e6).toFixed(1)+' M';if(a>=1e3)return'\u20AC'+(v/1e3).toFixed(0)+' K';return'\u20AC'+v.toFixed(0)}
-
-// ---- TOOLTIP FORMATTERS ----
-var ttMoney={callbacks:{label:function(c){return c.dataset.label+': '+fmtMoney(c.parsed.y)}}};
-var ttCount={callbacks:{label:function(c){return c.dataset.label+': '+fmtCount(c.parsed.y)}}};
-var ttEur={callbacks:{label:function(c){return c.dataset.label+': '+fmtEur(c.parsed.y)}}};
-var ttPct={callbacks:{label:function(c){return c.dataset.label+': '+fmtPct(c.parsed.y)}}};
-var ttPP={callbacks:{label:function(c){return c.dataset.label+': '+fmtPP(c.parsed.y)}}};
-
-function pctChange(a,b){if(!b||!a||b===0)return null;return((a-b)/Math.abs(b)*100).toFixed(1)}
-
-// ---- FILTERS ----
-function getYears(){
-  var all=[];
-  Object.keys(D).forEach(function(k){
-    (D[k]||[]).forEach(function(r){if(!r.period)return;var y=parseInt(pk(r.period));if(y>1990&&y<2100&&all.indexOf(y)<0)all.push(y)});
-  });return all.sort();
-}
-function initFilters(){
-  var yrs=getYears();var yf=document.getElementById('f-yf'),yt=document.getElementById('f-yt');
-  yf.innerHTML='';yt.innerHTML='';
-  yrs.forEach(function(y){yf.innerHTML+='<option value="'+y+'">'+y+'</option>';yt.innerHTML+='<option value="'+y+'">'+y+'</option>'});
-  yf.value=Math.max(yrs[0]||2000,2020);yt.value=yrs[yrs.length-1]||2026;
-}
-function getFilterState(){
-  return{yf:parseInt(document.getElementById('f-yf').value)||2020,
-         yt:parseInt(document.getElementById('f-yt').value)||2026,
-         mo:document.getElementById('f-mo').value};
-}
-function flt(arr){
-  var s=getFilterState();
-  return arr.filter(function(r){var p=pk(r.period);var y=parseInt(p);var m=p.split('-')[1];
-    if(y<s.yf||y>s.yt)return false;if(s.mo!=='all'&&m!==s.mo)return false;return true});
-}
-function fltYearOnly(arr){
-  var s=getFilterState();
-  return arr.filter(function(r){var p=pk(r.period);var y=parseInt(p);
-    if(y<s.yf||y>s.yt)return false;return true});
-}
-function isMonthFiltered(){return getFilterState().mo!=='all'}
-function showFilterNote(containerId,msg){
-  var c=document.getElementById(containerId);if(!c)return;
-  var existing=c.querySelector('.filter-note');if(existing)existing.remove();
-  if(!msg)return;
-  var d=document.createElement('div');d.className='filter-note';
-  d.style.cssText='background:#fffbeb;border:1px solid #fcd34d;border-radius:4px;padding:8px 14px;margin-bottom:12px;font-size:11px;color:#92400e';
-  d.textContent=msg;c.prepend(d);
-}
-function latest(arr,fn){var f=fn?arr.filter(fn):arr;f=flt(f);if(!f.length)return null;return sp(f)[f.length-1]}
-function latestYearOnly(arr,fn){var f=fn?arr.filter(fn):arr;f=fltYearOnly(f);if(!f.length)return null;return sp(f)[f.length-1]}
-function prior12(arr,latP,fn){
-  if(!latP)return null;var p=pk(latP);var y=parseInt(p),m=parseInt(p.split('-')[1])||12;
-  var f=fn?arr.filter(fn):arr;var best=null,bd=999;
-  f.forEach(function(r){var rp=pk(r.period);var ry=parseInt(rp),rm=parseInt(rp.split('-')[1])||12;
-    var d=Math.abs((y*12+m)-(ry*12+rm)-12);if(d<bd){bd=d;best=r}});
-  return bd<=2?best:null;
-}
-function priorMo(arr,latP,fn){
-  if(!latP)return null;var p=pk(latP);var y=parseInt(p),m=parseInt(p.split('-')[1])||12;
-  var pm=m-1,py=y;if(pm<1){pm=12;py--}var target=py+'-'+(pm<10?'0'+pm:pm);
-  var f=fn?arr.filter(fn):arr;
-  return f.find(function(r){return pk(r.period)===target})||null;
-}
-function resetF(){var yrs=getYears();document.getElementById('f-yf').value=Math.max(yrs[0]||2000,2020);document.getElementById('f-yt').value=yrs[yrs.length-1]||2026;document.getElementById('f-mo').value='all';buildAll()}
-
-// Nav
-document.querySelectorAll('.nav-item').forEach(function(el){el.addEventListener('click',function(){
-  document.querySelectorAll('.nav-item').forEach(function(x){x.classList.remove('active')});
-  document.querySelectorAll('.mod').forEach(function(x){x.classList.remove('active')});
-  el.classList.add('active');document.getElementById('mod-'+el.dataset.mod).classList.add('active');
-  // Resize charts in newly visible module, then fix horizontal bar base/width
-  var modId='mod-'+el.dataset.mod;
-  Object.keys(CHS).forEach(function(k){var cv=document.getElementById(k);if(cv&&cv.closest('#'+modId)){var ch=CHS[k];ch.resize();if(ch.config.type==='bar'&&ch.options.indexAxis==='y'){var xs=ch.scales.x;if(xs){var bp=xs.getBasePixel();ch.getDatasetMeta(0).data.forEach(function(e){e.base=bp;e.width=e.x-bp});ch.draw()}}}});
-  window.scrollTo({top:document.querySelector('.main').offsetTop-60,behavior:'smooth'})})});
-
-// ---- TABLE SORT ----
-function sortC(col){
-  var tb=document.getElementById('ex-b');if(!tb)return;
-  var rows=[].slice.call(tb.rows);
-  var asc=tb.dataset.sortCol==col&&tb.dataset.sortDir==='asc'?'desc':'asc';
-  tb.dataset.sortCol=col;tb.dataset.sortDir=asc;
-  rows.sort(function(a,b){
-    var av=a.cells[col].textContent.trim().replace(/,/g,'');
-    var bv=b.cells[col].textContent.trim().replace(/,/g,'');
-    var an=parseFloat(av),bn=parseFloat(bv);
-    if(!isNaN(an)&&!isNaN(bn))return asc==='asc'?an-bn:bn-an;
-    return asc==='asc'?av.localeCompare(bv):bv.localeCompare(av);
-  });
-  rows.forEach(function(r){tb.appendChild(r)});
-}
-
-// ---- CHART HELPERS ----
-// Fix Chart.js 4.4.0 bug: horizontal bar elements get base=null
-Chart.register({id:'barBaseFix',afterDraw:function(chart){if(chart.config.type==='bar'&&chart.options.indexAxis==='y'){var xs=chart.scales.x;if(xs){var bp=xs.getBasePixel();var needsRedraw=false;for(var di=0;di<chart.data.datasets.length;di++){chart.getDatasetMeta(di).data.forEach(function(el){if(el.base===null||el.base===undefined){el.base=bp;el.width=Math.abs(el.x-bp);needsRedraw=true}})}if(needsRedraw){var ctx=chart.ctx;chart.getDatasetMeta(0).data.forEach(function(el){el.draw(ctx)})}}}}});
-var CHS={};
-function mc(id,t,cfg){if(CHS[id])CHS[id].destroy();var ctx=document.getElementById(id);if(!ctx)return null;CHS[id]=new Chart(ctx,Object.assign({type:t},cfg));return CHS[id]}
-function mkChart(id,t,labels,datasets,opts){return mc(id,t,{data:{labels:labels.map(fmtP),datasets:datasets},options:Object.assign({responsive:true,aspectRatio:2,animation:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{size:10},usePointStyle:true,pointStyle:'circle',padding:10}},tooltip:ttMoney},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtMoney(v)}}}}},opts||{})})}
-function lc(id,lbs,ds,o){ds.forEach(function(d,i){if(!d.borderWidth)d.borderWidth=2.2;if(!d.pointRadius&&d.pointRadius!==0)d.pointRadius=ds.length>1?1.5:0;if(!d.pointHoverRadius)d.pointHoverRadius=5});return mc(id,'line',{data:{labels:lbs.map(fmtP),datasets:ds},options:Object.assign({responsive:true,aspectRatio:2,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'circle',padding:12}},tooltip:ttMoney},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtMoney(v)}}}}},o||{})})}
-function lcPct(id,lbs,ds,o){ds.forEach(function(d,i){if(!d.borderWidth)d.borderWidth=2.2;if(!d.pointRadius&&d.pointRadius!==0)d.pointRadius=ds.length>1?1.5:0;if(!d.pointHoverRadius)d.pointHoverRadius=5});return mc(id,'line',{data:{labels:lbs.map(fmtP),datasets:ds},options:Object.assign({responsive:true,aspectRatio:2,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'circle',padding:12}},tooltip:ttPct},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{ticks:{font:{size:10},callback:function(v){return v.toFixed(1)+'%'}}}}},o||{})})}
-function bc(id,lbs,d,c,o){return mc(id,'bar',{data:{labels:lbs,datasets:[{data:d,backgroundColor:c||PAL_BAR,borderRadius:3,maxBarThickness:32}]},options:Object.assign({responsive:true,animation:false,aspectRatio:1.5,indexAxis:'y',plugins:{legend:{display:false},tooltip:ttMoney},scales:{x:{ticks:{font:{size:10},callback:function(v){return fmtMoney(v)}}},y:{ticks:{font:{size:11,color:'#1e293b'}}}}},o||{})})}
-function dc(id,lbs,d,cols){return mc(id,'doughnut',{data:{labels:lbs,datasets:[{data:d,backgroundColor:cols||PAL,borderWidth:0,hoverOffset:4}]},options:{responsive:true,aspectRatio:1.3,cutout:'60%',plugins:{legend:{position:'right',labels:{font:{size:10},padding:8}},tooltip:ttMoney}}})}
-function lcDual(id,lbs,label1,data1,label2,data2){return mc(id,'line',{data:{labels:lbs.map(fmtP),datasets:[
-  {label:label1,data:data1,borderColor:C1,backgroundColor:C1+'15',fill:true,tension:.3,yAxisID:'y',borderWidth:2.2,pointRadius:1},
-  {label:label2,data:data2,borderColor:'#d97706',borderDash:[4,2],tension:.3,yAxisID:'y1',borderWidth:2,pointRadius:1}
-]},options:{responsive:true,aspectRatio:2,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top'},tooltip:{callbacks:{label:function(c){if(c.datasetIndex===0)return c.dataset.label+': '+fmtCount(c.parsed.y);return c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'}}}},scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{position:'left',title:{display:true,text:label1,font:{size:10}},ticks:{callback:function(v){return fmtCount(v)}}},y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:label2,font:{size:10}},ticks:{callback:function(v){return v.toFixed(1)+'%'}}}}}})}
-
-function noData(id,msg){var c=document.getElementById(id);if(!c)return;var p=c.parentElement;if(!p)return;var d=p.querySelector('.no-data');if(d)d.remove();if(!msg)return;c.style.display='none';d=document.createElement('div');d.className='no-data';d.style.cssText='display:flex;align-items:center;justify-content:center;height:140px;color:#94a3b8;font-size:12px;font-style:italic';d.textContent=msg;p.appendChild(d)}
-function showCanvas(id){var c=document.getElementById(id);if(c)c.style.display='';var p=c?c.parentElement:null;if(p){var d=p.querySelector('.no-data');if(d)d.remove()}}
-
-// ---- KPI CARD BUILDER ----
-function addK(cid,label,val,delta,deltaSuffix,sub){
-  var c=document.getElementById(cid);if(!c)return;var d=document.createElement('div');d.className='kpi';
-  var dh='';
-  if(delta!=null&&!isNaN(parseFloat(delta))){
-    var v=parseFloat(delta);var cls=v>=0?'up':'dn';var arrow=v>=0?'&#9650;':'&#9660;';
-    var suffix=deltaSuffix||'%';
-    dh='<div class="kpi-d '+cls+'">'+arrow+' '+(v>=0?'+':'')+v.toFixed(1)+suffix+' YoY</div>';
-  }
-  d.innerHTML='<div class="kpi-l">'+label+'</div><div class="kpi-v">'+val+'</div>'+dh+(sub?'<div class="kpi-s">'+sub+'</div>':'');
-  c.appendChild(d);
-}
-
-// ---- AGGREGATE HELPERS ----
-function pyDelta(PY,ind,measure){
-  var v=latest(PY,function(r){return r.indicator===ind});
-  if(!v)return{v:null,yoy:null,p:'',raw:null};
-  var p12=prior12(PY,v.period,function(r){return r.indicator===ind});
-  var val=measure==='count'?v.count:v.amount;
-  var pv12=p12?(measure==='count'?p12.count:p12.amount):null;
-  return{v:val,yoy:val&&pv12?pctChange(val,pv12):null,p:v.period,raw:v};
-}
-function cardAgg(pyArr,indicators,measure){
-  var byP={};
-  pyArr.forEach(function(r){
-    if(indicators.indexOf(r.indicator)<0)return;
-    var val=measure==='count'?r.count:r.amount;
-    if(val==null)return;
-    if(!byP[r.period])byP[r.period]=0;
-    byP[r.period]+=val;
-  });return byP;
-}
-
-// ======== MAIN BUILD ========
-function buildAll(){
-// Make all modules visible so Chart.js can compute canvas dimensions
-var allMods=document.querySelectorAll('.mod');
-var activeMod=document.querySelector('.mod.active');
-allMods.forEach(function(m){m.classList.add('active')});
-void document.body.offsetHeight; // force synchronous reflow
-['ov-k','ln-k','dp-k','rt-k','ac-k','cr-k','pm-k','an-k','rm-k','mt-k','dm-k','rt-fund-k','mt-gap-k','cl-k','rm-adv-k','pf-k','cr2-k','as-k','rm2-k','rm2-gap-k'].forEach(function(id){var e=document.getElementById(id);if(e)e.innerHTML=''});
-document.querySelectorAll('.no-data').forEach(function(e){e.remove()});
-document.querySelectorAll('.filter-note').forEach(function(e){e.remove()});
-document.querySelectorAll('canvas').forEach(function(e){e.style.display=''});
-var fs=getFilterState();
-var moActive=fs.mo!=='all';
-// Show filter-context notes for modules with mixed/non-monthly frequency
-if(moActive){
-  showFilterNote('mod-remittances','Month filter is active. Remittance data before 2014 is quarterly/annual — those periods will not appear. If no data shows, try resetting the month filter.');
-  showFilterNote('mod-payments','Month filter is active. Some early payment data (pre-2008) is annual only and mapped to December. Other months may appear empty for those years.');
-}
-
-var LC=D.loans_customer||[];var LS=D.loans_sector||[];var LM=D.loans_maturity||[];
-var NL=D.new_loans||[];var DS=D.dep_segments||[];var ND=D.new_deposits||[];
-var PY=D.payments||[];var FX=D.fx||[];var NR=D.neer||[];
-var RC=dedupRemit(D.remit_channel||[]);var RCO=dedupRemit(D.remit_country||[]);
-var IRL=D.int_rates_loans||[];var IRD=D.int_rates_deposits||[];
-var DM=D.dep_maturity||[];
-var ACCT=D.accounts||[];var CARDS=D.cards||[];var TERMS=D.terminals||[];
-var TTX=D.terminal_tx||[];var PC=D.payments_count||[];var PV=D.payments_value||[];
-var INCOME=D.odc_income||[];var DCSVY=D.dc_survey||[];var LMRES=D.loan_maturity_residual||[];
-
-// === NON-OVERLAPPING PAYMENT INDICATORS ===
-var TOTAL_IND=['Interbank','ATM Domestic','ATM Abroad Total','POS Domestic','POS Abroad Total','ATM Deposits','E-Banking'];
-var RETAIL_DIG=['E-Banking','POS Domestic','POS Abroad Total'];
-var RETAIL_CASH=['ATM Domestic','ATM Abroad Total'];
-
-// ===================== OVERVIEW =====================
-var lCr=latest(LC,function(r){return r.segment==='Total'});
-var pCr=lCr?prior12(LC,lCr.period,function(r){return r.segment==='Total'}):null;
-var lDp=latest(DS,function(r){return r.segment==='Total'});
-var pDp=lDp?prior12(DS,lDp.period,function(r){return r.segment==='Total'}):null;
-
-// LTD with pp delta
-var ltd=lCr&&lDp&&lDp.value>0?(lCr.value/lDp.value*100):null;
-var pLTD=pCr&&pDp&&pDp.value>0?(pCr.value/pDp.value*100):null;
-var ltdDeltaPP=ltd!=null&&pLTD!=null?(ltd-pLTD):null;
-
-addK('ov-k','Total Outstanding Loans',lCr?fmtMoney(lCr.value):'\u2014',lCr&&pCr?pctChange(lCr.value,pCr.value):null,'%',lCr?fmtP(lCr.period):'');
-addK('ov-k','Total EUR Deposits',lDp?fmtMoney(lDp.value):'\u2014',lDp&&pDp?pctChange(lDp.value,pDp.value):null,'%',lDp?fmtP(lDp.period):'');
-addK('ov-k','LTD Ratio (Market Proxy)',ltd!=null?fmtPct(ltd):'\u2014',ltdDeltaPP,' pp','Loans / EUR deposits');
-
-var lRm=latest(RC,function(r){return r.channel==='Total'});
-var pRm=lRm?prior12(RC,lRm.period,function(r){return r.channel==='Total'}):null;
-addK('ov-k','Remittances',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.value,pRm.value):null,'%',lRm?fmtP(lRm.period):'');
-
-var lLR=latest(IRL,function(r){return r.type==='All Loans Rate'});
-var pLR=lLR?prior12(IRL,lLR.period,function(r){return r.type==='All Loans Rate'}):null;
-var lDR=latest(IRD,function(r){return r.type==='Time Deposit Rate'});
-var pDR=lDR?prior12(IRD,lDR.period,function(r){return r.type==='Time Deposit Rate'}):null;
-addK('ov-k','Lending Rate',lLR?fmtPct(lLR.value):'\u2014',lLR&&pLR?(lLR.value-pLR.value):null,' pp',lLR?fmtP(lLR.period):'');
-addK('ov-k','Deposit Rate',lDR?fmtPct(lDR.value):'\u2014',lDR&&pDR?(lDR.value-pDR.value):null,' pp',lDR?fmtP(lDR.period):'');
-
-// Commentary
-var oh=document.getElementById('ov-h'),op=document.getElementById('ov-p');
-if(lCr&&lDp&&ltd!=null){
-  oh.textContent='Loans '+fmtMoney(lCr.value)+' | Deposits '+fmtMoney(lDp.value)+' | LTD '+fmtPct(ltd);
-  var t='As of '+fmtP(lCr.period)+', total outstanding loans stand at '+fmtMoney(lCr.value)+' against EUR deposits of '+fmtMoney(lDp.value)+'.';
-  if(pCr)t+=' Loans changed '+fmtDelta(pctChange(lCr.value,pCr.value))+' YoY.';
-  t+=' LTD of '+fmtPct(ltd)+' means '+ltd.toFixed(0)+' cents of every EUR in deposits is deployed as loans.';
-  if(lLR&&lDR)t+=' Lending rate: '+fmtPct(lLR.value)+', time deposit rate: '+fmtPct(lDR.value)+', narrow gap: '+fmtPP(lLR.value-lDR.value)+'.';
-  op.textContent=t;
-} else {oh.textContent='No data in selected period';op.textContent='Adjust filters above.'}
-
-// Overview charts
-var crF=sp(flt(LC.filter(function(r){return r.segment==='Total'})));
-if(crF.length){showCanvas('ch-ov-cr');lc('ch-ov-cr',crF.map(function(r){return r.period}),[{label:'Total Loans',data:crF.map(function(r){return r.value}),borderColor:C1,backgroundColor:C1+'10',fill:true,tension:.3}],{plugins:{legend:{display:false},tooltip:ttMoney}})}
-else noData('ch-ov-cr','No loan data in selected period');
-
-var dpF=sp(flt(DS.filter(function(r){return r.segment==='Total'})));
-if(dpF.length){showCanvas('ch-ov-dp');lc('ch-ov-dp',dpF.map(function(r){return r.period}),[{label:'Total Deposits',data:dpF.map(function(r){return r.value}),borderColor:C2,backgroundColor:C2+'10',fill:true,tension:.3}],{plugins:{legend:{display:false},tooltip:ttMoney}})}
-else noData('ch-ov-dp','No deposit data in selected period');
-
-// LTD trend
-var crM={},dpM={};flt(LC.filter(function(r){return r.segment==='Total'})).forEach(function(r){crM[pk(r.period)]=r});
-flt(DS.filter(function(r){return r.segment==='Total'})).forEach(function(r){dpM[pk(r.period)]=r});
-var ltdK=Object.keys(crM).filter(function(k){return dpM[k]}).sort();
-var ltdL=[],ltdD=[];ltdK.forEach(function(k){ltdL.push(crM[k].period);ltdD.push(crM[k].value/dpM[k].value*100)});
-if(ltdL.length){showCanvas('ch-ov-ltd');lcPct('ch-ov-ltd',ltdL,[{label:'LTD %',data:ltdD,borderColor:GOLD,tension:.3}],{plugins:{legend:{display:false},tooltip:ttPct},scales:{y:{suggestedMin:40,suggestedMax:100}}})}
-else noData('ch-ov-ltd','No LTD data');
-
-var rmF=sp(flt(RC.filter(function(r){return r.channel==='Total'})));
-if(rmF.length){showCanvas('ch-ov-rm');lc('ch-ov-rm',rmF.map(function(r){return r.period}),[{label:'Total',data:rmF.map(function(r){return r.value}),borderColor:GRN,backgroundColor:GRN+'10',fill:true,tension:.3}],{plugins:{legend:{display:false},tooltip:ttMoney}})}
-else noData('ch-ov-rm','No remittance data');
-
-// ===================== LOANS =====================
-var lHH=latest(LC,function(r){return r.segment==='Households'});
-var pHH=lHH?prior12(LC,lHH.period,function(r){return r.segment==='Households'}):null;
-var lNFC=latest(LC,function(r){return r.segment==='Non-Financial Corporations'});
-var pNFC=lNFC?prior12(LC,lNFC.period,function(r){return r.segment==='Non-Financial Corporations'}):null;
-
-addK('ln-k','Total Loans',lCr?fmtMoney(lCr.value):'\u2014',lCr&&pCr?pctChange(lCr.value,pCr.value):null,'%',lCr?fmtP(lCr.period):'');
-addK('ln-k','Households',lHH?fmtMoney(lHH.value):'\u2014',lHH&&pHH?pctChange(lHH.value,pHH.value):null,'%',lHH?fmtP(lHH.period):'');
-addK('ln-k','Corporates (NFC)',lNFC?fmtMoney(lNFC.value):'\u2014',lNFC&&pNFC?pctChange(lNFC.value,pNFC.value):null,'%',lNFC?fmtP(lNFC.period):'');
-if(lCr&&lHH){addK('ln-k','HH Share',fmtPct(lHH.value/lCr.value*100),null,null,'')}
-
-// New loans KPIs
-var lNLT=latest(NL,function(r){return r.type==='Total New Loans'});
-var pNLT=lNLT?prior12(NL,lNLT.period,function(r){return r.type==='Total New Loans'}):null;
-addK('ln-k','New Lending (Flow)',lNLT?fmtMoney(lNLT.value):'\u2014',lNLT&&pNLT?pctChange(lNLT.value,pNLT.value):null,'%',lNLT?fmtP(lNLT.period):'');
-
-// Revolving loans stock KPI (separated from flow)
-var lOD=latest(NL,function(r){return r.type==='Overdrafts & Credit Cards'});
-addK('ln-k','Revolving Loans (Stock)',lOD?fmtMoney(lOD.value):'\u2014',null,null,lOD?fmtP(lOD.period)+' | End-of-period balance':'');
-
-var lh=document.getElementById('ln-h'),lp2=document.getElementById('ln-p');
-if(lCr&&lHH&&lNFC){
-  lh.textContent='Households: '+fmtPct(lHH.value/lCr.value*100)+' of total ('+fmtMoney(lHH.value)+'). Corporates: '+fmtPct(lNFC.value/lCr.value*100)+' ('+fmtMoney(lNFC.value)+').';
-  lp2.textContent='Total loans '+fmtMoney(lCr.value)+' as of '+fmtP(lCr.period)+'. Customer segmentation from ODC loans file. Sector breakdown covers corporate loans only.';
-}
-
-// Customer segment trends
-var custSegs=['Households','Non-Financial Corporations','Government','Non-Residents','Financial Corporations'];
-var custF=sp(flt(LC));
-var custPeriods=[...new Set(custF.filter(function(r){return r.segment==='Total'}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(custPeriods.length){
-  showCanvas('ch-ln-cust');lc('ch-ln-cust',custPeriods,custSegs.map(function(seg,i){
-    var pm={};custF.filter(function(r){return r.segment===seg}).forEach(function(r){pm[r.period]=r.value});
-    return{label:seg.replace('Non-Financial ','NF '),data:custPeriods.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true,borderWidth:i<2?2.5:1.8,pointRadius:0};
-  }));
-} else noData('ch-ln-cust','No loan data');
-
-// Customer composition pie
-var custComp=custSegs.map(function(seg){var v=latest(LC,function(r){return r.segment===seg});return{l:seg,v:v?v.value:0}}).filter(function(x){return x.v>0});
-if(custComp.length){showCanvas('ch-ln-pie');dc('ch-ln-pie',custComp.map(function(x){return x.l}),custComp.map(function(x){return x.v}))}
-else noData('ch-ln-pie','No data');
-
-// [A1 FIX] New loans by type - FLOW ONLY, no Overdrafts
-var nlFlowTypes=['Consumer Loans','Mortgage Loans','Other Loans'];
-var nlF=sp(flt(NL));
-var nlPeriods=[...new Set(nlF.filter(function(r){return nlFlowTypes.indexOf(r.type)>=0}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(nlPeriods.length){
-  showCanvas('ch-ln-type');lc('ch-ln-type',nlPeriods,nlFlowTypes.map(function(t,i){
-    var pm={};nlF.filter(function(r){return r.type===t}).forEach(function(r){pm[r.period]=r.value});
-    return{label:t,data:nlPeriods.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }));
-} else noData('ch-ln-type','No new loan flow data');
-
-// New loans HH vs Corp
-var hhCorpTypes=['Household Total','Corporate Total'];
-var hhCorpP=[...new Set(nlF.filter(function(r){return hhCorpTypes.indexOf(r.type)>=0}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(hhCorpP.length){
-  showCanvas('ch-ln-hhcorp');lc('ch-ln-hhcorp',hhCorpP,hhCorpTypes.map(function(t,i){
-    var pm={};nlF.filter(function(r){return r.type===t}).forEach(function(r){pm[r.period]=r.value});
-    return{label:t,data:hhCorpP.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }));
-} else noData('ch-ln-hhcorp','No HH/Corp data');
-
-// Loan maturity charts moved to Maturity tab (see mod-maturity)
-
-// [A6 FIX] Corporate sector - DATA-DRIVEN, not hardcoded
-var allSectors=LS.filter(function(r){return r.sector!=='Total'});
-var sectorLatest={};
-allSectors.forEach(function(r){var curr=sectorLatest[r.sector];if(!curr||pk(r.period)>pk(curr.period))sectorLatest[r.sector]=r});
-var sortedSectors=Object.values(sectorLatest).sort(function(a,b){return b.value-a.value}).slice(0,10);
-if(sortedSectors.length){showCanvas('ch-ln-sec');bc('ch-ln-sec',sortedSectors.map(function(s){return s.sector}),sortedSectors.map(function(s){return s.value}),PAL_BAR)}
-else noData('ch-ln-sec','No sector data');
-
-// ===================== DEPOSITS =====================
-var dSegs=['Households & NPISH','Non-Financial Corporations','Government','Financial Corporations','Non-Residents'];
-dSegs.forEach(function(seg){
-  var v=latest(DS,function(r){return r.segment===seg});
-  var p12=v?prior12(DS,v.period,function(r){return r.segment===seg}):null;
-  addK('dp-k',seg.replace('& NPISH','').replace('Non-Financial ','NF '),v?fmtMoney(v.value):'\u2014',
-    v&&p12?pctChange(v.value,p12.value):null,'%',v?fmtP(v.period):'');
-});
-
-var dh=document.getElementById('dp-h'),dpEl=document.getElementById('dp-p');
-var lHHD=latest(DS,function(r){return r.segment==='Households & NPISH'});
-if(lDp&&lHHD){
-  dh.textContent='Households: '+fmtPct(lHHD.value/lDp.value*100)+' of EUR deposits ('+fmtMoney(lHHD.value)+'). Total: '+fmtMoney(lDp.value)+'.';
-  dpEl.textContent='Total EUR deposits '+fmtMoney(lDp.value)+' as of '+fmtP(lDp.period)+'. Type breakdown covers HH and Corporate only. Stock and flow series are shown separately.';
-}
-
-// Deposit segment trends
-var dsF=sp(flt(DS));
-var dsPeriods=[...new Set(dsF.filter(function(r){return r.segment==='Total'}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(dsPeriods.length){
-  showCanvas('ch-dp-seg');lc('ch-dp-seg',dsPeriods,dSegs.map(function(seg,i){
-    var pm={};dsF.filter(function(r){return r.segment===seg}).forEach(function(r){pm[r.period]=r.value});
-    return{label:seg.replace('& NPISH','').replace('Non-Financial ','NF '),data:dsPeriods.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }));
-} else noData('ch-dp-seg','No deposit data');
-
-// [C3] HH vs NFC deposit share trend
-if(dsPeriods.length){
-  var hhPm={},nfcPm={},totPm={};
-  dsF.filter(function(r){return r.segment==='Households & NPISH'}).forEach(function(r){hhPm[r.period]=r.value});
-  dsF.filter(function(r){return r.segment==='Non-Financial Corporations'}).forEach(function(r){nfcPm[r.period]=r.value});
-  dsF.filter(function(r){return r.segment==='Total'}).forEach(function(r){totPm[r.period]=r.value});
-  showCanvas('ch-dp-share');lcPct('ch-dp-share',dsPeriods,[
-    {label:'Households',data:dsPeriods.map(function(p){return totPm[p]?hhPm[p]/totPm[p]*100:null}),borderColor:C1,tension:.3},
-    {label:'NFC',data:dsPeriods.map(function(p){return totPm[p]?nfcPm[p]/totPm[p]*100:null}),borderColor:'#d97706',tension:.3,borderWidth:2.2}
-  ]);
-} else noData('ch-dp-share','No data');
-
-// [A2 FIX] Deposit stock chart - ONLY Transferable + Savings (stock)
-var stockTypes=['Total Transferable','Total Savings'];
-var ndF=sp(flt(ND));
-var stockP=[...new Set(ndF.filter(function(r){return stockTypes.indexOf(r.type)>=0}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(stockP.length){
-  showCanvas('ch-dp-stock');lc('ch-dp-stock',stockP,stockTypes.map(function(t,i){
-    var pm={};ndF.filter(function(r){return r.type===t}).forEach(function(r){pm[r.period]=r.value});
-    return{label:t.replace('Total ',''),data:stockP.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }));
-} else noData('ch-dp-stock','No deposit stock data');
-
-// [A2 FIX] Deposit flow chart - ONLY Time Deposits (flow)
-var flowTypes=['Total Time Deposits','HH Time Deposits','Corp Time Deposits'];
-var flowP=[...new Set(ndF.filter(function(r){return flowTypes.indexOf(r.type)>=0}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(flowP.length){
-  showCanvas('ch-dp-flow');lc('ch-dp-flow',flowP,flowTypes.map(function(t,i){
-    var pm={};ndF.filter(function(r){return r.type===t}).forEach(function(r){pm[r.period]=r.value});
-    return{label:t.replace('Total ',''),data:flowP.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }));
-} else noData('ch-dp-flow','No time deposit flow data');
-
-// ===================== RATES =====================
-// WACF: Weighted Average Cost of Funds (stock-based)
-// CA_stock = F11a Total Transferable (stock), SA_stock = F11a Total Savings (stock)
-// TDA_stock = F08 dep_maturity sum (all buckets, HH+NFC — actual outstanding time deposit stock)
-// TDA_rate = F13a published new-business time deposit rate
-// SA rate = 0.05% proxy assumption (near-zero; CBK does not publish SA rate)
-// CA rate = 0% (non-remunerated)
-var lCA=latest(ND,function(r){return r.type==='Total Transferable'});
-var lSA=latest(ND,function(r){return r.type==='Total Savings'});
-// TDA stock from F08 dep_maturity (sum all maturity buckets for latest period)
-var dmLatestP=latest(DM,function(r){return true});
-var tdaStock=0;
-if(dmLatestP){var dmLP=dmLatestP.period;DM.forEach(function(r){if(r.period===dmLP)tdaStock+=r.value})}
-var caAmt=lCA?lCA.value:0, saAmt=lSA?lSA.value:0, tdaAmt=tdaStock;
-var totalDepWt=caAmt+saAmt+tdaAmt;
-var tdaRate=lDR?lDR.value:0;
-var saRate=0.05; // SA assumed 0.05% (near-zero remuneration proxy)
-var caRate=0;    // CA assumed non-remunerated
-var wacf=totalDepWt>0?((caRate*caAmt)+(saRate*saAmt)+(tdaRate*tdaAmt))/totalDepWt:null;
-var narrowGap=lLR&&lDR?(lLR.value-lDR.value):null;
-var wacfGap=lLR&&wacf!=null?(lLR.value-wacf):null;
-
-addK('rt-k','Lending Rate',lLR?fmtPct(lLR.value):'\u2014',lLR&&pLR?(lLR.value-pLR.value):null,' pp',lLR?fmtP(lLR.period)+' | New loans':'');
-addK('rt-k','Time Deposit Rate',lDR?fmtPct(lDR.value):'\u2014',lDR&&pDR?(lDR.value-pDR.value):null,' pp',lDR?fmtP(lDR.period)+' | New time deposits':'');
-addK('rt-k','WACF',wacf!=null?fmtPct(wacf):'\u2014',null,null,'Weighted Avg Cost of Funds (stock-based)');
-if(narrowGap!=null){addK('rt-k','Narrow Gap',fmtPP(narrowGap),null,null,'Loans minus TDA rate only')}
-if(wacfGap!=null){addK('rt-k','WACF Gap',fmtPP(wacfGap),null,null,'Loans minus WACF')}
-
-var lCons=latest(IRL,function(r){return r.type==='Consumer Loan Rate'});
-var lMort=latest(IRL,function(r){return r.type==='Mortgage Rate'});
-var lCorpR=latest(IRL,function(r){return r.type==='Corp Loan Rate'});
-var lHHCons=latest(IRL,function(r){return r.type==='HH Consumer Rate'});
-addK('rt-k','Consumer Rate',lCons?fmtPct(lCons.value):'\u2014',null,null,'');
-addK('rt-k','Mortgage Rate',lMort?fmtPct(lMort.value):'\u2014',null,null,'');
-addK('rt-k','Corp Lending',lCorpR?fmtPct(lCorpR.value):'\u2014',null,null,'');
-
-// Funding proxy composition cards
-addK('rt-fund-k','Transferable (CA)',lCA?fmtMoney(lCA.value):'\u2014',null,null,'F11a stock | Rate: 0% (non-remunerated)');
-addK('rt-fund-k','Savings (SA)',lSA?fmtMoney(lSA.value):'\u2014',null,null,'F11a stock | Rate: 0.05% (proxy)');
-addK('rt-fund-k','Time Deposits (TDA)',tdaStock>0?fmtMoney(tdaStock):'\u2014',null,null,'F08 stock | Rate: '+fmtPct(tdaRate));
-addK('rt-fund-k','Total Weighted Base',totalDepWt>0?fmtMoney(totalDepWt):'\u2014',null,null,'CA+SA (F11a stock) + TDA (F08 stock)');
-
-var rth=document.getElementById('rt-h'),rtp=document.getElementById('rt-p');
-if(lLR&&lDR){
-  rth.textContent='Lending '+fmtPct(lLR.value)+' | TDA rate '+fmtPct(lDR.value)+' | Narrow gap '+fmtPP(narrowGap)+(wacfGap!=null?' | WACF gap '+fmtPP(wacfGap):'');
-  rtp.textContent='Narrow gap = new loans rate minus new TDA rate. WACF = stock-weighted cost of funds (CA at 0%, SA at 0.05% proxy, TDA at published rate, all using outstanding stock balances). Consumer: '+fmtPct(lCons?lCons.value:0)+', mortgage: '+fmtPct(lMort?lMort.value:0)+', corporate: '+fmtPct(lCorpR?lCorpR.value:0)+'.';
-}
-
-// Lending rates by product
-var lrTypes=['All Loans Rate','Consumer Loan Rate','Mortgage Rate','Corp Loan Rate'];
-var lrLabels=['All New Loans','Consumer','Mortgage','Corporate'];
-var lrF=sp(flt(IRL));
-var lrP=[...new Set(lrF.filter(function(r){return r.type==='All Loans Rate'}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(lrP.length){
-  showCanvas('ch-rt-prod');lcPct('ch-rt-prod',lrP,lrTypes.map(function(t,i){
-    var pm={};lrF.filter(function(r){return r.type===t}).forEach(function(r){pm[r.period]=r.value});
-    return{label:lrLabels[i],data:lrP.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }));
-} else noData('ch-rt-prod','No lending rate data');
-
-// Deposit rates
-var drTypes=['Time Deposit Rate','HH Time Deposit Rate','Corp Time Deposit Rate'];
-var drLabels=['All Time Deposits','Household','Corporate'];
-var drF=sp(flt(IRD));
-var drP=[...new Set(drF.filter(function(r){return r.type==='Time Deposit Rate'}).map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(drP.length){
-  showCanvas('ch-rt-dep');lcPct('ch-rt-dep',drP,drTypes.map(function(t,i){
-    var pm={};drF.filter(function(r){return r.type===t}).forEach(function(r){pm[r.period]=r.value});
-    return{label:drLabels[i],data:drP.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }));
-} else noData('ch-rt-dep','No deposit rate data');
-
-// Pricing gap trend: narrow (vs TDA) and WACF gap (vs stock-weighted cost of funds)
-var spreadP=lrP.filter(function(p){
-  var lr=lrF.find(function(r){return r.period===p&&r.type==='All Loans Rate'});
-  var dr=drF.find(function(r){return r.period===p&&r.type==='Time Deposit Rate'});
-  return lr&&dr;
-});
-if(spreadP.length){
-  var lrMap={},drMap2={};
-  lrF.filter(function(r){return r.type==='All Loans Rate'}).forEach(function(r){lrMap[r.period]=r.value});
-  drF.filter(function(r){return r.type==='Time Deposit Rate'}).forEach(function(r){drMap2[r.period]=r.value});
-  // Build per-period WACF from deposit stock weights
-  var caM={},saM={},tdM={};
-  ndF.filter(function(r){return r.type==='Total Transferable'}).forEach(function(r){caM[r.period]=r.value});
-  ndF.filter(function(r){return r.type==='Total Savings'}).forEach(function(r){saM[r.period]=r.value});
-  ndF.filter(function(r){return r.type==='Total Time Deposits'}).forEach(function(r){tdM[r.period]=r.value});
-  showCanvas('ch-rt-spread');
-  lcPct('ch-rt-spread',spreadP,[
-    {label:'Lending Rate',data:spreadP.map(function(p){return lrMap[p]||null}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:0},
-    {label:'Time Deposit Rate',data:spreadP.map(function(p){return drMap2[p]||null}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:0},
-    {label:'Narrow Gap (vs TDA)',data:spreadP.map(function(p){return lrMap[p]&&drMap2[p]?(lrMap[p]-drMap2[p]):null}),borderColor:GOLD,backgroundColor:GOLD+'15',fill:true,tension:.3,borderWidth:1.8,pointRadius:0},
-    {label:'WACF Gap (stock-based)',data:spreadP.map(function(p){
-      var dr=drMap2[p],ca=caM[p]||0,sa=saM[p]||0;
-      // TDA stock from dep_maturity for this period
-      var tdStock=0;DM.forEach(function(r){if(r.period===p)tdStock+=r.value});
-      if(tdStock===0){tdStock=tdM[p]||0} // fallback to F11a if no maturity data for this period
-      var tot=ca+sa+tdStock;
-      if(!lrMap[p]||!dr||tot===0)return null;
-      var wcf=((0*ca)+(0.05*sa)+(dr*tdStock))/tot;
-      return lrMap[p]-wcf;
-    }),borderColor:'#dc2626',backgroundColor:'#dc262608',fill:true,tension:.3,borderWidth:1.8,borderDash:[6,3],pointRadius:0}
-  ]);
-} else noData('ch-rt-spread','No spread data');
-
-// [C2] HH vs Corp lending rates
-var hhCorpRP=lrP;
-if(hhCorpRP.length){
-  var hhRMap={},coRMap={};
-  lrF.filter(function(r){return r.type==='HH Consumer Rate'}).forEach(function(r){hhRMap[r.period]=r.value});
-  lrF.filter(function(r){return r.type==='Corp Loan Rate'}).forEach(function(r){coRMap[r.period]=r.value});
-  showCanvas('ch-rt-hhcorp');lcPct('ch-rt-hhcorp',hhCorpRP,[
-    {label:'HH Consumer',data:hhCorpRP.map(function(p){return hhRMap[p]||null}),borderColor:C1,tension:.3,spanGaps:true},
-    {label:'Corporate',data:hhCorpRP.map(function(p){return coRMap[p]||null}),borderColor:C3,tension:.3,spanGaps:true}
-  ]);
-} else noData('ch-rt-hhcorp','No rate data');
-
-// NEER/REER
-var nrF=sp(flt(NR));
-var nrP=[...new Set(nrF.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(nrP.length){
-  showCanvas('ch-rt-neer');lc('ch-rt-neer',nrP,['NEER','REER_Total','REER_EU','REER_CEFTA'].map(function(idx,i){
-    var pm={};nrF.filter(function(r){return r.index===idx}).forEach(function(r){pm[r.period]=r.value});
-    return{label:idx.replace(/_/g,' '),data:nrP.map(function(p){return pm[p]||null}),borderColor:PAL[i],tension:.3,spanGaps:true};
-  }),{plugins:{tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+fmtNum(c.parsed.y)}}}}});
-} else noData('ch-rt-neer','No NEER/REER data');
-
-// ========== ACCOUNTS MODULE ==========
-var acF=sp(flt(ACCT));
-var acPeriods=acF.map(function(r){return r.period});
-if(acPeriods.length){
-  var lac=acF[acF.length-1];
-  var pac=acF.length>1?acF[acF.length-2]:null;
-  var ebPen=lac.current>0?(lac.ebanking/lac.current*100):0;
-  addK('ac-k','Total Accounts',fmtCount(lac.total),pac?((lac.total-pac.total)/pac.total*100):null,null,fmtP(lac.period)+' | stock');
-  addK('ac-k','Current Accounts',fmtCount(lac.current),null,null,fmtPct(lac.current/lac.total*100)+' of total');
-  addK('ac-k','E-Banking Accounts',fmtCount(lac.ebanking),null,null,fmtPct(ebPen)+' of current (penetration)');
-  addK('ac-k','Savings Accounts',fmtCount(lac.savings),null,null,fmtPct(lac.savings/lac.total*100)+' of total');
-  addK('ac-k','Term Accounts',fmtCount(lac.term),null,null,fmtPct(lac.term/lac.total*100)+' of total');
-  addK('ac-k','E-Money Accounts',fmtCount(lac.emoney),null,null,'Stock');
-  addK('ac-k','Basic Accounts',fmtCount(lac.basic),null,null,fmtPct(lac.basic/lac.current*100)+' of current');
-  // Commentary
-  var ach=document.getElementById('ac-h'),acp=document.getElementById('ac-p');
-  if(ach)ach.textContent='Total: '+fmtCount(lac.total)+' | Current: '+fmtPct(lac.current/lac.total*100)+' | E-Banking: '+fmtPct(ebPen);
-  if(acp){
-    var netChg=pac?(lac.total-pac.total):0;
-    var ebChg=pac?(lac.ebanking-pac.ebanking):0;
-    acp.textContent='As of '+fmtP(lac.period)+', total account stock stands at '+fmtCount(lac.total)+' with net monthly change of '+fmtCount(netChg)+'. E-banking penetration is '+fmtPct(ebPen)+' of current accounts ('+fmtCount(lac.ebanking)+' accounts), growing by '+fmtCount(ebChg)+' month-on-month. Current accounts make up '+fmtPct(lac.current/lac.total*100)+' of total, with savings at '+fmtPct(lac.savings/lac.total*100)+' and term deposits at '+fmtPct(lac.term/lac.total*100)+'.';
-  }
-  // Charts
-  var oCount={plugins:{tooltip:ttCount},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtCount(v)}}}}};
-  showCanvas('ch-ac-total');lc('ch-ac-total',acPeriods,[{label:'Total Accounts',data:acF.map(function(r){return r.total}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:2,fill:true,backgroundColor:C1+'15'}],oCount);
-  showCanvas('ch-ac-mix');lc('ch-ac-mix',acPeriods,[
-    {label:'Current',data:acF.map(function(r){return r.current}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Savings',data:acF.map(function(r){return r.savings}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Term',data:acF.map(function(r){return r.term}),borderColor:'#d97706',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'E-Money',data:acF.map(function(r){return r.emoney}),borderColor:'#be123c',borderWidth:2,tension:.3,pointRadius:1}
-  ],oCount);
-  showCanvas('ch-ac-digital');lcDual('ch-ac-digital',acPeriods,'E-Banking Accounts',acF.map(function(r){return r.ebanking}),'Penetration %',acF.map(function(r){return r.current>0?r.ebanking/r.current*100:0}));
-  // Net change chart
-  var acChanges=acF.map(function(r,i){return i>0?r.total-acF[i-1].total:0});
-  showCanvas('ch-ac-change');
-  mc('ch-ac-change','bar',{data:{labels:acPeriods.map(fmtP),datasets:[{data:acChanges,backgroundColor:acChanges.map(function(v){return v>=0?'#059669':'#dc2626'}),borderRadius:3,maxBarThickness:24}]},options:{responsive:true,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return 'Net change: '+fmtCount(c.raw)}}}},scales:{x:{ticks:{font:{size:9}}},y:{ticks:{callback:function(v){return fmtCount(v)}}}}}});
-}
-
-// ========== CARDS MODULE ==========
-var crF=sp(flt(CARDS));
-var crPeriods=crF.map(function(r){return r.period});
-if(crPeriods.length){
-  var lcr=crF[crF.length-1];
-  var pcr=crF.length>1?crF[crF.length-2]:null;
-  var visaPct=lcr.total>0?lcr.visa/lcr.total*100:0;
-  var mcPct=lcr.total>0?lcr.mastercard/lcr.total*100:0;
-  var debitPct=lcr.total>0?lcr.debit/lcr.total*100:0;
-  var creditPct=lcr.total>0?lcr.credit/lcr.total*100:0;
-  var ctlessPct=lcr.total>0?lcr.contactless/lcr.total*100:0;
-  addK('cr-k','Total Cards',fmtCount(lcr.total),pcr?((lcr.total-pcr.total)/pcr.total*100):null,null,fmtP(lcr.period)+' | issued & valid');
-  addK('cr-k','Payment Cards',fmtCount(lcr.payment_fn),null,null,fmtPct(lcr.payment_fn/lcr.total*100)+' of total');
-  addK('cr-k','Visa Share',fmtPct(visaPct),null,null,fmtCount(lcr.visa)+' cards');
-  addK('cr-k','Mastercard Share',fmtPct(mcPct),null,null,fmtCount(lcr.mastercard)+' cards');
-  addK('cr-k','Debit Share',fmtPct(debitPct),null,null,fmtCount(lcr.debit)+' cards');
-  addK('cr-k','Credit Share',fmtPct(creditPct),null,null,fmtCount(lcr.credit)+' cards');
-  addK('cr-k','Contactless Share',fmtPct(ctlessPct),null,null,fmtCount(lcr.contactless)+' cards');
-  addK('cr-k','E-Money Cards',fmtCount(lcr.emoney_fn),null,null,'Cards with e-money function');
-  // Commentary
-  var crh=document.getElementById('cr-h'),crp=document.getElementById('cr-p');
-  if(crh)crh.textContent='Total: '+fmtCount(lcr.total)+' | Visa: '+fmtPct(visaPct)+' | MC: '+fmtPct(mcPct)+' | Debit: '+fmtPct(debitPct)+' | Contactless: '+fmtPct(ctlessPct);
-  if(crp)crp.textContent='As of '+fmtP(lcr.period)+', '+fmtCount(lcr.total)+' cards are issued and valid. Visa leads with '+fmtPct(visaPct)+' market share ('+fmtCount(lcr.visa)+' cards) vs Mastercard at '+fmtPct(mcPct)+'. Debit cards dominate at '+fmtPct(debitPct)+' ('+fmtCount(lcr.debit)+'), with credit at '+fmtPct(creditPct)+'. Contactless-enabled cards have reached '+fmtPct(ctlessPct)+' of total stock, signalling strong infrastructure readiness.';
-  // Charts
-  var oCountCr={plugins:{tooltip:ttCount},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtCount(v)}}}}};
-  showCanvas('ch-cr-total');lc('ch-cr-total',crPeriods,[{label:'Total Cards',data:crF.map(function(r){return r.total}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:2,fill:true,backgroundColor:C1+'15'}],oCountCr);
-  showCanvas('ch-cr-scheme');lc('ch-cr-scheme',crPeriods,[
-    {label:'Visa',data:crF.map(function(r){return r.visa}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Mastercard',data:crF.map(function(r){return r.mastercard}),borderColor:'#dc2626',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Local',data:crF.map(function(r){return r.local}),borderColor:'#d97706',borderWidth:2,tension:.3,pointRadius:1}
-  ],oCountCr);
-  showCanvas('ch-cr-func');lc('ch-cr-func',crPeriods,[
-    {label:'Debit',data:crF.map(function(r){return r.debit}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Credit',data:crF.map(function(r){return r.credit}),borderColor:'#dc2626',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Delayed Debit',data:crF.map(function(r){return r.delayed_debit}),borderColor:'#d97706',borderWidth:2,tension:.3,pointRadius:1}
-  ],oCountCr);
-  // Contactless trend as % of total
-  showCanvas('ch-cr-ctless');lcDual('ch-cr-ctless',crPeriods,'Contactless Cards',crF.map(function(r){return r.contactless}),'% of Total',crF.map(function(r){return r.total>0?r.contactless/r.total*100:0}));
-  // Spend per issued card proxies - need PV and PC data (filtered)
-  var crPVF=sp(flt(PV)),crPCF=sp(flt(PC));
-  var pvMap={};crPVF.forEach(function(r){pvMap[r.period]=r});
-  var pcMap2={};crPCF.forEach(function(r){pcMap2[r.period]=r});
-  var spendPerCard=crPeriods.map(function(p){var pv=pvMap[p],cr2=crF.find(function(r){return r.period===p});if(pv&&cr2&&cr2.payment_fn>0)return pv.card_total/cr2.payment_fn;return null});
-  var avgTicket=crPeriods.map(function(p){var pv=pvMap[p],pc3=pcMap2[p];if(pv&&pc3&&pc3.card_total>0)return pv.card_total/pc3.card_total;return null});
-  showCanvas('ch-cr-spend');lc('ch-cr-spend',crPeriods,[{label:'EUR per issued payment card',data:spendPerCard,borderColor:GOLD,borderWidth:2.5,tension:.3,pointRadius:2}],{scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,ticks:{font:{size:10},callback:function(v){return '\u20AC'+v.toFixed(0)}}}}});
-  showCanvas('ch-cr-ticket');lc('ch-cr-ticket',crPeriods,[{label:'Average card ticket (EUR)',data:avgTicket,borderColor:'#0d9488',borderWidth:2.5,tension:.3,pointRadius:2}],{scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,ticks:{font:{size:10},callback:function(v){return '\u20AC'+v.toFixed(1)}}}}});
-}
-
-// ========== PAYMENTS MODULE ==========
-var pcF=sp(flt(PC)),pvF=sp(flt(PV));
-var pmPeriods=pcF.map(function(r){return r.period});
-if(pmPeriods.length){
-  var lpc=pcF[pcF.length-1],lpv=pvF.length?pvF[pvF.length-1]:null;
-  var cardShareCnt=lpc.total>0?lpc.card_total/lpc.total*100:0;
-  var cardShareVal=lpv&&lpv.total>0?lpv.card_total/lpv.total*100:0;
-  var ectShare=lpc.credit_transfer>0?lpc.electronic_ct/lpc.credit_transfer*100:0;
-  var remoteShare=lpc.card_total>0?lpc.remote_card/lpc.card_total*100:0;
-  addK('pm-k','Total Payments',fmtCount(lpc.total),null,null,fmtP(lpc.period)+' | count');
-  addK('pm-k','Total Value',lpv?fmtEur(lpv.total):'\u2014',null,null,fmtP(lpc.period)+' | EUR');
-  addK('pm-k','Card Share (count)',fmtPct(cardShareCnt),null,null,fmtCount(lpc.card_total)+' transactions');
-  addK('pm-k','Card Share (value)',fmtPct(cardShareVal),null,null,lpv?fmtEur(lpv.card_total):'');
-  addK('pm-k','Electronic CT Share',fmtPct(ectShare),null,null,fmtCount(lpc.electronic_ct)+' electronic');
-  addK('pm-k','Remote Card Share',fmtPct(remoteShare),null,null,fmtCount(lpc.remote_card)+' online');
-  addK('pm-k','E-Commerce',fmtCount(lpc.ecommerce),null,null,'Payments at Kosovo online merchants');
-  addK('pm-k','Digital Wallet',fmtCount(lpc.digital_wallet),null,null,'Wallet-initiated payments');
-  // Commentary
-  var pmh=document.getElementById('pm-h'),pmp=document.getElementById('pm-p');
-  if(pmh)pmh.textContent='Total: '+fmtCount(lpc.total)+' tx ('+fmtEur(lpv?lpv.total:0)+') | Cards: '+fmtPct(cardShareCnt)+' by count';
-  if(pmp)pmp.textContent='As of '+fmtP(lpc.period)+', '+fmtCount(lpc.total)+' customer payments totalling '+fmtEur(lpv?lpv.total:0)+'. Card-initiated payments account for '+fmtPct(cardShareCnt)+' of transaction count but only '+fmtPct(cardShareVal)+' of value, reflecting smaller average ticket vs credit transfers. Electronic credit transfers are '+fmtPct(ectShare)+' of all credit transfers. Remote (online) card payments are '+fmtPct(remoteShare)+' of card transactions.';
-  // Charts
-  var oPmCnt={plugins:{tooltip:ttCount},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtCount(v)}}}}};
-  var oPmVal={plugins:{tooltip:ttEur},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtEur(v)}}}}};
-  showCanvas('ch-pm-cnt');lc('ch-pm-cnt',pmPeriods,[
-    {label:'Credit Transfers',data:pcF.map(function(r){return r.credit_transfer}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Card Payments',data:pcF.map(function(r){return r.card_total}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'E-Money',data:pcF.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Other',data:pcF.map(function(r){return r.other}),borderColor:'#94a3b8',borderWidth:1.5,tension:.3,pointRadius:0}
-  ],oPmCnt);
-  showCanvas('ch-pm-val');lc('ch-pm-val',pmPeriods,[
-    {label:'Credit Transfers',data:pvF.map(function(r){return r.credit_transfer}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Card Payments',data:pvF.map(function(r){return r.card_total}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'E-Money',data:pvF.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1}
-  ],oPmVal);
-  showCanvas('ch-pm-paper');lc('ch-pm-paper',pmPeriods,[
-    {label:'Paper',data:pcF.map(function(r){return r.paper_ct}),borderColor:'#94a3b8',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Electronic',data:pcF.map(function(r){return r.electronic_ct}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1}
-  ],oPmCnt);
-  showCanvas('ch-pm-channel');lc('ch-pm-channel',pmPeriods,[
-    {label:'Physical (EFTPOS)',data:pcF.map(function(r){return r.physical_card}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Remote (online)',data:pcF.map(function(r){return r.remote_card}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
-  ],oPmCnt);
-  showCanvas('ch-pm-digital');lc('ch-pm-digital',pmPeriods,[
-    {label:'E-Commerce (Kosovo)',data:pcF.map(function(r){return r.ecommerce}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Digital Wallet',data:pcF.map(function(r){return r.digital_wallet}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'E-Money',data:pcF.map(function(r){return r.emoney}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:1}
-  ],oPmCnt);
-  showCanvas('ch-pm-intl');lc('ch-pm-intl',pmPeriods,[
-    {label:'Incoming (EUR)',data:pvF.map(function(r){return r.intl_incoming}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Outgoing (EUR)',data:pvF.map(function(r){return r.intl_outgoing}),borderColor:'#dc2626',borderWidth:2,tension:.3,pointRadius:1}
-  ],oPmVal);
-}
-
-// ========== ACCEPTANCE MODULE ==========
-var trF=sp(flt(TERMS)),txF=sp(flt(TTX));
-var anPeriods=trF.map(function(r){return r.period});
-if(anPeriods.length){
-  var ltr=trF[trF.length-1];
-  var ptr=trF.length>1?trF[trF.length-2]:null;
-  var depCapPct=ltr.total_atm>0?ltr.atm_deposit/ltr.total_atm*100:0;
-  var ctlessPOSPct=ltr.total_pos>0?ltr.pos_contactless/ltr.total_pos*100:0;
-  var lcr2=CARDS.length?CARDS[CARDS.length-1]:null;
-  var posPerCard=lcr2&&lcr2.payment_fn>0?ltr.total_pos/lcr2.payment_fn*1000:0;
-  addK('an-k','Total ATMs',fmtCount(ltr.total_atm),ptr?((ltr.total_atm-ptr.total_atm)/ptr.total_atm*100):null,null,fmtP(ltr.period));
-  addK('an-k','Deposit-Capable ATMs',fmtCount(ltr.atm_deposit),null,null,fmtPct(depCapPct)+' of ATMs');
-  addK('an-k','Total POS',fmtCount(ltr.total_pos),ptr?((ltr.total_pos-ptr.total_pos)/ptr.total_pos*100):null,null,fmtP(ltr.period));
-  addK('an-k','Virtual POS',fmtCount(ltr.virtual_pos),null,null,fmtPct(ltr.total_pos>0?ltr.virtual_pos/ltr.total_pos*100:0)+' of POS');
-  addK('an-k','Contactless POS',fmtPct(ctlessPOSPct),null,null,fmtCount(ltr.pos_contactless)+' terminals');
-  addK('an-k','POS per 1K Cards',posPerCard>0?posPerCard.toFixed(1):'\u2014',null,null,'Total POS / payment cards \u00D7 1000');
-  addK('an-k','Physical Merchants',fmtCount(ltr.merchants_physical),null,null,'Accepting card payments');
-  addK('an-k','Virtual Merchants',fmtCount(ltr.merchants_virtual),null,null,'Online merchants');
-  // Commentary
-  var anh=document.getElementById('an-h'),anp=document.getElementById('an-p');
-  if(anh)anh.textContent='ATMs: '+fmtCount(ltr.total_atm)+' | POS: '+fmtCount(ltr.total_pos)+' | Contactless: '+fmtPct(ctlessPOSPct)+' | Merchants: '+fmtCount(ltr.merchants_physical+ltr.merchants_virtual);
-  if(anp)anp.textContent='As of '+fmtP(ltr.period)+', the acceptance network includes '+fmtCount(ltr.total_atm)+' ATMs ('+fmtPct(depCapPct)+' deposit-capable) and '+fmtCount(ltr.total_pos)+' POS terminals. Contactless POS has reached '+fmtPct(ctlessPOSPct)+' of total, with '+fmtCount(ltr.virtual_pos)+' virtual terminals for e-commerce. '+fmtCount(ltr.merchants_physical)+' physical and '+fmtCount(ltr.merchants_virtual)+' virtual merchants accept card payments.';
-  // Charts
-  var oCountAn={plugins:{tooltip:ttCount},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtCount(v)}}}}};
-  showCanvas('ch-an-atm');lc('ch-an-atm',anPeriods,[
-    {label:'Total ATMs',data:trF.map(function(r){return r.total_atm}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:2},
-    {label:'Deposit-Capable',data:trF.map(function(r){return r.atm_deposit}),borderColor:'#059669',borderWidth:2,tension:.3,pointRadius:1}
-  ],oCountAn);
-  showCanvas('ch-an-pos');lc('ch-an-pos',anPeriods,[
-    {label:'Physical POS',data:trF.map(function(r){return r.eftpos}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Virtual POS',data:trF.map(function(r){return r.virtual_pos}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
-  ],oCountAn);
-  showCanvas('ch-an-ctless');lcDual('ch-an-ctless',anPeriods,'Contactless Terminals',trF.map(function(r){return r.pos_contactless}),'% of POS',trF.map(function(r){return r.total_pos>0?r.pos_contactless/r.total_pos*100:0}));
-  showCanvas('ch-an-merch');lc('ch-an-merch',anPeriods,[
-    {label:'Physical Merchants',data:trF.map(function(r){return r.merchants_physical}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'Virtual Merchants',data:trF.map(function(r){return r.merchants_virtual}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
-  ],oCountAn);
-  // Terminal transactions
-  var oTxVal={plugins:{tooltip:ttEur},scales:{x:{ticks:{maxTicksAutoSkip:true,maxRotation:0,font:{size:9}}},y:{beginAtZero:false,ticks:{font:{size:10},callback:function(v){return fmtEur(v)}}}}};
-  showCanvas('ch-an-txvol');lc('ch-an-txvol',anPeriods,[
-    {label:'ATM Withdrawal',data:txF.map(function(r){return r.atm_cash_count}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'POS Card Payment',data:txF.map(function(r){return r.pos_card_count}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'ATM Deposit',data:txF.map(function(r){return r.atm_deposit_count}),borderColor:'#059669',borderWidth:1.5,tension:.3,pointRadius:0}
-  ],oCountAn);
-  showCanvas('ch-an-txval');lc('ch-an-txval',anPeriods,[
-    {label:'ATM Withdrawal',data:txF.map(function(r){return r.atm_cash_value}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-    {label:'POS Card Payment',data:txF.map(function(r){return r.pos_card_value}),borderColor:'#1e40af',borderWidth:2,tension:.3,pointRadius:1},
-    {label:'ATM Deposit',data:txF.map(function(r){return r.atm_deposit_value}),borderColor:'#059669',borderWidth:1.5,tension:.3,pointRadius:0}
-  ],oTxVal);
-
-  // ========== CASHLESS TRANSITION TRACKER ==========
-  var clh=document.getElementById('cl-h'),clp=document.getElementById('cl-p');
-  var clkEl=document.getElementById('cl-k');if(clkEl)clkEl.innerHTML='';
-  // ATM Recycling Rate = deposit value / withdrawal value
-  var ltx=txF[txF.length-1];
-  var recycleRate=ltx&&ltx.atm_cash_value>0?(ltx.atm_deposit_value/ltx.atm_cash_value*100):null;
-  addK('cl-k','ATM Recycling Rate',recycleRate!=null?fmtPct(recycleRate):'\u2014',null,null,'Deposit value / withdrawal value');
-  // Card-to-ATM substitution: card payment count / ATM withdrawal count
-  var lpcCL=pcF.length?pcF[pcF.length-1]:null;
-  var cardToATM=lpcCL&&ltx&&ltx.atm_cash_count>0?(lpcCL.card_total/ltx.atm_cash_count):null;
-  addK('cl-k','Card-to-ATM Ratio',cardToATM!=null?cardToATM.toFixed(2)+'x':'\u2014',null,null,'Card payments per ATM withdrawal');
-  // Avg tickets
-  var lpvCL=pvF.length?pvF[pvF.length-1]:null;
-  var avgPOS=lpcCL&&lpvCL&&lpcCL.physical_card>0?(lpvCL.physical_card/lpcCL.physical_card):null;
-  var avgEcom=lpcCL&&lpvCL&&lpcCL.ecommerce>0?(lpvCL.ecommerce_val||0)/(lpcCL.ecommerce||1):null;
-  var avgATMwd=ltx&&ltx.atm_cash_count>0?(ltx.atm_cash_value/ltx.atm_cash_count):null;
-  addK('cl-k','Avg POS Ticket',avgPOS!=null?fmtEur(avgPOS):'\u2014',null,null,'Physical card payment');
-  addK('cl-k','Avg ATM Withdrawal',avgATMwd!=null?fmtEur(avgATMwd):'\u2014',null,null,'Per ATM transaction');
-  // Commentary
-  if(clh)clh.textContent='Recycling: '+(recycleRate!=null?fmtPct(recycleRate):'N/A')+' | Card/ATM: '+(cardToATM!=null?cardToATM.toFixed(2)+'x':'N/A');
-  if(clp)clp.textContent='The cashless transition is measured by ATM recycling (how much cash goes back in vs comes out), card-to-ATM substitution (card payments per ATM withdrawal), and average ticket sizes by channel.';
-
-  // ATM Recycling Rate trend
-  if(txF.length>1){
-    showCanvas('ch-cl-recycle');lcPct('ch-cl-recycle',anPeriods,[{
-      label:'Recycling Rate %',data:txF.map(function(r){return r.atm_cash_value>0?r.atm_deposit_value/r.atm_cash_value*100:null}),
-      borderColor:GOLD,borderWidth:2.5,tension:.3,pointRadius:2
-    }],{scales:{y:{suggestedMin:0}}});
-  } else noData('ch-cl-recycle','Insufficient data');
-
-  // Digital vs Physical mix
-  if(pcF.length>1){
-    showCanvas('ch-cl-digmix');lc('ch-cl-digmix',pmPeriods.length?pmPeriods:anPeriods,[
-      {label:'Physical POS Cards',data:pcF.map(function(r){return r.physical_card||0}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-      {label:'E-Money + Wallet',data:pcF.map(function(r){return(r.emoney||0)+(r.digital_wallet||0)}),borderColor:'#7c3aed',borderWidth:2,tension:.3,pointRadius:1}
-    ],{plugins:{tooltip:ttCount},scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,ticks:{callback:function(v){return fmtCount(v)}}}}});
-  } else noData('ch-cl-digmix','Insufficient data');
-
-  // Average ticket by channel
-  if(pcF.length>1&&pvF.length>1){
-    showCanvas('ch-cl-ticket');lc('ch-cl-ticket',pmPeriods.length?pmPeriods:anPeriods,[
-      {label:'POS Ticket',data:pcF.map(function(r,i){var pv=pvF[i];return pv&&r.physical_card>0?pv.physical_card/r.physical_card:null}),borderColor:C1,borderWidth:2,tension:.3,pointRadius:1},
-      {label:'ATM Withdrawal',data:txF.map(function(r){return r.atm_cash_count>0?r.atm_cash_value/r.atm_cash_count:null}),borderColor:'#dc2626',borderWidth:2,tension:.3,pointRadius:1}
-    ],{plugins:{tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+fmtEur(c.parsed.y)}}}},scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,ticks:{callback:function(v){return fmtEur(v)}}}}});
-  } else noData('ch-cl-ticket','Insufficient data');
-
-  // Cash substitution trend (card payments / ATM withdrawals)
-  if(pcF.length>1&&txF.length>1){
-    var subPeriods=anPeriods;
-    showCanvas('ch-cl-cashsub');lc('ch-cl-cashsub',subPeriods,[{
-      label:'Card/ATM Ratio',data:txF.map(function(r,i){var pc2=pcF[i];return pc2&&r.atm_cash_count>0?pc2.card_total/r.atm_cash_count:null}),
-      borderColor:GRN,borderWidth:2.5,tension:.3,pointRadius:2
-    }],{plugins:{tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y.toFixed(2)+'x'}}}},scales:{x:{ticks:{maxRotation:0,font:{size:9}}},y:{beginAtZero:true,title:{display:true,text:'Ratio (x)',font:{size:10}}}}});
-  } else noData('ch-cl-cashsub','Insufficient data');
-}
-
-// ===================== REMITTANCES =====================
-addK('rm-k','Total',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.value,pRm.value):null,'%',lRm?fmtP(lRm.period):'');
-['Banks','MTOs','Other'].forEach(function(ch){
-  var v=latest(RC,function(r){return r.channel===ch});
-  var p12=v?prior12(RC,v.period,function(r){return r.channel===ch}):null;
-  addK('rm-k',ch,v?fmtMoney(v.value):'\u2014',v&&p12?pctChange(v.value,p12.value):null,'%',v?fmtP(v.period):'');
-});
-
-var rmh=document.getElementById('rm-h'),rmp=document.getElementById('rm-p');
-if(lRm){
-  rmh.textContent='Remittances: '+fmtMoney(lRm.value)+' ('+fmtP(lRm.period)+')';
-  var rcoFiltered=flt(RCO);
-  var rcoAllP=[...new Set(rcoFiltered.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-  var rcoLatP=rcoAllP[rcoAllP.length-1];
-  var topCountries=rcoFiltered.filter(function(r){return r.period===rcoLatP&&r.country!=='Total'&&r.country!=='Other'&&r.value>0}).sort(function(a,b){return b.value-a.value}).slice(0,2);
-  rmp.textContent='Three channels: Banks, MTOs, Other.'+(topCountries.length?' Top corridors: '+topCountries.map(function(r){return r.country}).join(', ')+'.':'')+' Country data shows percentage shares.';
-} else {rmh.textContent='No remittance data';rmp.textContent=''}
-
-if(rmF.length){showCanvas('ch-rm-tr');lc('ch-rm-tr',rmF.map(function(r){return r.period}),[{label:'Total',data:rmF.map(function(r){return r.value}),borderColor:C1,backgroundColor:C1+'10',fill:true,tension:.3}],{plugins:{legend:{display:false},tooltip:ttMoney}})}
-else noData('ch-rm-tr','No data');
-
-var rcoFilt=flt(RCO);
-var rcoPF=[...new Set(rcoFilt.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-var rcoLP=rcoPF[rcoPF.length-1];
-var rcoB=rcoFilt.filter(function(r){return r.period===rcoLP&&r.country!=='Total'&&r.country!=='Other'&&r.value>0}).sort(function(a,b){return b.value-a.value}).slice(0,10);
-if(rcoB.length){showCanvas('ch-rm-co');bc('ch-rm-co',rcoB.map(function(r){return r.country}),rcoB.map(function(r){return r.value}),PAL_BAR,{plugins:{tooltip:ttPct},scales:{x:{title:{display:true,text:'% share'},ticks:{callback:function(v){return v.toFixed(1)+'%'}}}}})}
-else noData('ch-rm-co','No country data');
-
-var rmChF=sp(flt(RC.filter(function(r){return r.channel!=='Total'})));
-var rmChP=[...new Set(rmChF.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(rmChP.length){
-  showCanvas('ch-rm-ch');lc('ch-rm-ch',rmChP,['Banks','MTOs','Other'].map(function(ch,i){
-    var pm={};rmChF.filter(function(r){return r.channel===ch}).forEach(function(r){pm[r.period]=r.value});
-    return{label:ch,data:rmChP.map(function(p){return pm[p]||null}),borderColor:PAL[i],backgroundColor:PAL[i]+'15',fill:true,tension:.3,spanGaps:true};
-  }));
-} else noData('ch-rm-ch','No channel data');
-
-// ========== ADVANCED REMITTANCE ANALYTICS ==========
-var rmAdvK=document.getElementById('rm-adv-k');if(rmAdvK)rmAdvK.innerHTML='';
-// MTO Share
-var lMTO=latest(RC,function(r){return r.channel==='MTOs'});
-var lRmTot=latest(RC,function(r){return r.channel==='Total'});
-var mtoShare=lMTO&&lRmTot&&lRmTot.value>0?(lMTO.value/lRmTot.value*100):null;
-addK('rm-adv-k','MTO Share of Remittances',mtoShare!=null?fmtPct(mtoShare):'\u2014',null,null,lMTO?fmtP(lMTO.period):'');
-// Bank share
-var lBank=latest(RC,function(r){return r.channel==='Banks'});
-var bankShare=lBank&&lRmTot&&lRmTot.value>0?(lBank.value/lRmTot.value*100):null;
-addK('rm-adv-k','Bank Share',bankShare!=null?fmtPct(bankShare):'\u2014',null,null,'Banks channel');
-// Germany + Switzerland concentration
-var rcoLatest=flt(RCO);
-var rcoAllPAdv=[...new Set(rcoLatest.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-var rcoLPAdv=rcoAllPAdv[rcoAllPAdv.length-1];
-var deShare=0,chShare=0;
-rcoLatest.filter(function(r){return r.period===rcoLPAdv}).forEach(function(r){
-  if(r.country==='Germany')deShare=r.value;
-  if(r.country==='Switzerland')chShare=r.value;
-});
-var deCHConc=deShare+chShare;
-addK('rm-adv-k','DE+CH Concentration',deCHConc>0?fmtPct(deCHConc):'\u2014',null,null,'Germany '+fmtPct(deShare)+' + Switzerland '+fmtPct(chShare));
-
-// Channel dominance trend (% stacked)
-if(rmChP.length>1){
-  var bankM={},mtoM={},othM={},totM2={};
-  flt(RC).forEach(function(r){
-    if(r.channel==='Banks')bankM[r.period]=r.value;
-    if(r.channel==='MTOs')mtoM[r.period]=r.value;
-    if(r.channel==='Other')othM[r.period]=r.value;
-    if(r.channel==='Total')totM2[r.period]=r.value;
-  });
-  showCanvas('ch-rm-dom');lcPct('ch-rm-dom',rmChP,[
-    {label:'Banks %',data:rmChP.map(function(p){return totM2[p]>0?(bankM[p]||0)/totM2[p]*100:null}),borderColor:C1,backgroundColor:C1+'20',fill:true,tension:.3,pointRadius:0},
-    {label:'MTOs %',data:rmChP.map(function(p){return totM2[p]>0?(mtoM[p]||0)/totM2[p]*100:null}),borderColor:'#d97706',backgroundColor:'#d9770620',fill:true,tension:.3,pointRadius:0},
-    {label:'Other %',data:rmChP.map(function(p){return totM2[p]>0?(othM[p]||0)/totM2[p]*100:null}),borderColor:'#94a3b8',backgroundColor:'#94a3b820',fill:true,tension:.3,pointRadius:0}
-  ],{scales:{y:{max:100,ticks:{callback:function(v){return v+'%'}}}}});
-} else noData('ch-rm-dom','Insufficient data');
-
-// Germany + Switzerland concentration trend
-if(rcoAllPAdv.length>1){
-  var deTrend={},chTrend={};
-  rcoLatest.forEach(function(r){
-    if(r.country==='Germany')deTrend[r.period]=r.value;
-    if(r.country==='Switzerland')chTrend[r.period]=r.value;
-  });
-  showCanvas('ch-rm-conc');lcPct('ch-rm-conc',rcoAllPAdv,[
-    {label:'Germany %',data:rcoAllPAdv.map(function(p){return deTrend[p]||null}),borderColor:C1,borderWidth:2.2,tension:.3,pointRadius:1},
-    {label:'Switzerland %',data:rcoAllPAdv.map(function(p){return chTrend[p]||null}),borderColor:'#dc2626',borderWidth:2.2,tension:.3,pointRadius:1},
-    {label:'Combined %',data:rcoAllPAdv.map(function(p){return(deTrend[p]||0)+(chTrend[p]||0)||null}),borderColor:GOLD,borderWidth:2.5,borderDash:[4,2],tension:.3,pointRadius:0}
-  ]);
-} else noData('ch-rm-conc','Insufficient country data');
-
-// ===================== MATURITY ANALYSIS =====================
-var matBuckets=['Up to 1 year','1-2 years','2-5 years','5-10 years','Over 10 years'];
-var matBucketLabels=['Under 1Y','1-2Y','2-5Y','5-10Y','Over 10Y'];
-var matF=sp(flt(LM));
-
-// Compute latest values per segment per bucket
-function matLatest(seg){
-  var result={};
-  matBuckets.forEach(function(m){
-    var v=latest(LM,function(r){return r.segment===seg&&r.maturity===m});
-    result[m]=v?v.value:0;
-  });
-  result.total=matBuckets.reduce(function(s,m){return s+result[m]},0);
-  result.period=latest(LM,function(r){return r.segment===seg});
-  return result;
-}
-var hhMat=matLatest('Households');
-var nfcMat=matLatest('Non-Financial Corporations');
-var allMat={};
-matBuckets.forEach(function(m){allMat[m]=hhMat[m]+nfcMat[m]});
-allMat.total=hhMat.total+nfcMat.total;
-var matPeriod=hhMat.period?hhMat.period.period:'';
-
-// Rollups
-var shortTerm=allMat['Up to 1 year'];
-var medium=allMat['1-2 years']+allMat['2-5 years'];
-var longTerm=allMat['5-10 years']+allMat['Over 10 years'];
-var shortPct=allMat.total>0?(shortTerm/allMat.total*100):0;
-var longPct=allMat.total>0?(longTerm/allMat.total*100):0;
-
-// KPI cards
-addK('mt-k','Total Loans (Maturity)',allMat.total>0?fmtMoney(allMat.total):'\u2014',null,null,matPeriod?fmtP(matPeriod)+' | HH+NFC':'');
-addK('mt-k','Under 1 Year',shortTerm>0?fmtMoney(shortTerm):'\u2014',null,null,fmtPct(shortPct)+' of total');
-addK('mt-k','1\u20135 Years',medium>0?fmtMoney(medium):'\u2014',null,null,fmtPct(allMat.total>0?medium/allMat.total*100:0)+' of total');
-addK('mt-k','Over 5 Years',longTerm>0?fmtMoney(longTerm):'\u2014',null,null,fmtPct(longPct)+' of total');
-// Duration Pressure KPI removed (duplicates Over 5 Years share)
-
-// Commentary
-var mth=document.getElementById('mt-h'),mtp=document.getElementById('mt-p');
-if(allMat.total>0){
-  var longestBucket=matBuckets.reduce(function(a,b){return allMat[b]>allMat[a]?b:a},matBuckets[0]);
-  mth.textContent='Total: '+fmtMoney(allMat.total)+' | Short (<1Y): '+fmtPct(shortPct)+' | Long (>5Y): '+fmtPct(longPct);
-  var commentary='As of '+fmtP(matPeriod)+', '+fmtPct(longPct)+' of outstanding loans mature beyond 5 years ('+fmtMoney(longTerm)+'), while only '+fmtPct(shortPct)+' mature within 1 year ('+fmtMoney(shortTerm)+'). ';
-  commentary+='The largest bucket is '+longestBucket+' at '+fmtMoney(allMat[longestBucket])+'. ';
-  if(longPct>50) commentary+='The loan book is heavily skewed toward longer maturities, reflecting mortgage and long-term corporate lending. This creates significant duration pressure and repricing risk if funding remains short-dated.';
-  else if(longPct>30) commentary+='The asset side shows moderate long-term concentration. Maturity transformation risk can be assessed against the deposit maturity profile (see Maturity tab, deposit section).';
-  else commentary+='The loan book is relatively balanced across maturities.';
-  // HH vs NFC comparison
-  var hhLong=hhMat['5-10 years']+hhMat['Over 10 years'];
-  var nfcLong=nfcMat['5-10 years']+nfcMat['Over 10 years'];
-  var hhLongPct=hhMat.total>0?(hhLong/hhMat.total*100):0;
-  var nfcLongPct=nfcMat.total>0?(nfcLong/nfcMat.total*100):0;
-  commentary+=' Households: '+fmtPct(hhLongPct)+' over 5Y (mortgage-driven). Corporates: '+fmtPct(nfcLongPct)+' over 5Y.';
-  mtp.textContent=commentary;
-}
-
-// All segments bar chart
-if(allMat.total>0){
-  showCanvas('ch-mt-all');bc('ch-mt-all',matBucketLabels,matBuckets.map(function(m){return allMat[m]}),PAL_BAR);
-}else noData('ch-mt-all','No maturity data');
-
-// Loan maturity doughnut removed (redundant with bar chart)
-
-// HH bar chart
-if(hhMat.total>0){
-  showCanvas('ch-mt-hh');bc('ch-mt-hh',matBucketLabels,matBuckets.map(function(m){return hhMat[m]}),PAL_BAR);
-}else noData('ch-mt-hh','No HH maturity data');
-
-// NFC bar chart
-if(nfcMat.total>0){
-  showCanvas('ch-mt-nfc');bc('ch-mt-nfc',matBucketLabels,matBuckets.map(function(m){return nfcMat[m]}),PAL_BAR.slice(2));
-}else noData('ch-mt-nfc','No NFC maturity data');
-
-// Trend: short-term vs long-term over time
-var mtPeriods=[...new Set(matF.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(mtPeriods.length>1){
-  var shortMap={},longMap={};
-  mtPeriods.forEach(function(p){
-    var s=0,l=0;
-    matF.filter(function(r){return r.period===p}).forEach(function(r){
-      if(r.maturity==='Up to 1 year')s+=r.value;
-      if(r.maturity==='5-10 years'||r.maturity==='Over 10 years')l+=r.value;
-    });
-    shortMap[p]=s;longMap[p]=l;
-  });
-  showCanvas('ch-mt-trend');lc('ch-mt-trend',mtPeriods,[
-    {label:'Under 1 Year',data:mtPeriods.map(function(p){return shortMap[p]||null}),borderColor:'#dc2626',borderWidth:2.2,tension:.3},
-    {label:'Over 5 Years',data:mtPeriods.map(function(p){return longMap[p]||null}),borderColor:C1,borderWidth:2.2,tension:.3}
-  ],{plugins:{tooltip:ttMoney}});
-}else noData('ch-mt-trend','Insufficient trend data');
-
-// Detail table
-var mtTbl=document.getElementById('mt-table');
-if(mtTbl){mtTbl.innerHTML='';}
-if(mtTbl&&allMat.total>0){
-  matBuckets.forEach(function(m,i){
-    var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+m+'</td><td class="num">'+fmtMoney(hhMat[m])+'</td><td class="num">'+fmtMoney(nfcMat[m])+'</td><td class="num">'+fmtMoney(allMat[m])+'</td><td class="num">'+fmtPct(allMat[m]/allMat.total*100)+'</td>';
-    mtTbl.appendChild(tr);
-  });
-  // Total row
-  var trT=document.createElement('tr');
-  trT.style.fontWeight='600';
-  trT.innerHTML='<td>Total</td><td class="num">'+fmtMoney(hhMat.total)+'</td><td class="num">'+fmtMoney(nfcMat.total)+'</td><td class="num">'+fmtMoney(allMat.total)+'</td><td class="num">100.0%</td>';
-  mtTbl.appendChild(trT);
-}
-
-// ===================== DEPOSIT MATURITY =====================
-var dmBuckets=['Up to 1 month','1-3 months','3-6 months','6-12 months','1-2 years','Over 2 years'];
-var dmBucketLabels=['<1M','1-3M','3-6M','6-12M','1-2Y','>2Y'];
-var dmF=sp(flt(DM));
-
-function dmLatest(seg){
-  var result={};
-  dmBuckets.forEach(function(m){
-    var v=latest(DM,function(r){return r.segment===seg&&r.maturity===m});
-    result[m]=v?v.value:0;
-  });
-  result.total=dmBuckets.reduce(function(s,m){return s+result[m]},0);
-  result.period=latest(DM,function(r){return r.segment===seg});
-  return result;
-}
-if(DM.length>0){
-var hhDM=dmLatest('Households');
-var nfcDM=dmLatest('Non-Financial Corporations');
-var allDM={};
-dmBuckets.forEach(function(m){allDM[m]=hhDM[m]+nfcDM[m]});
-allDM.total=hhDM.total+nfcDM.total;
-var dmPeriod=hhDM.period?hhDM.period.period:'';
-
-// Rollups: short (<6M) vs long (>1Y)
-var dmShort=allDM['Up to 1 month']+allDM['1-3 months']+allDM['3-6 months'];
-var dmMedium=allDM['6-12 months'];
-var dmLong=allDM['1-2 years']+allDM['Over 2 years'];
-var dmShortPct=allDM.total>0?(dmShort/allDM.total*100):0;
-var dmLongPct=allDM.total>0?(dmLong/allDM.total*100):0;
-
-// KPIs
-addK('dm-k','Term Deposits (Maturity)',allDM.total>0?fmtMoney(allDM.total):'\u2014',null,null,dmPeriod?fmtP(dmPeriod)+' | HH+NFC':'');
-addK('dm-k','Under 6 Months',dmShort>0?fmtMoney(dmShort):'\u2014',null,null,fmtPct(dmShortPct)+' of total');
-addK('dm-k','6\u201312 Months',dmMedium>0?fmtMoney(dmMedium):'\u2014',null,null,fmtPct(allDM.total>0?dmMedium/allDM.total*100:0)+' of total');
-addK('dm-k','Over 1 Year',dmLong>0?fmtMoney(dmLong):'\u2014',null,null,fmtPct(dmLongPct)+' of total');
-// Rollover Pressure KPI removed (duplicates Under 6 Months share)
-
-// Commentary
-var dmh=document.getElementById('dm-h'),dmp=document.getElementById('dm-p');
-if(allDM.total>0){
-  var bigBucket=dmBuckets.reduce(function(a,b){return allDM[b]>allDM[a]?b:a},dmBuckets[0]);
-  dmh.textContent='Total: '+fmtMoney(allDM.total)+' | Short (<6M): '+fmtPct(dmShortPct)+' | Long (>1Y): '+fmtPct(dmLongPct);
-  var dmComm='As of '+fmtP(dmPeriod)+', '+fmtPct(allDM.total>0?allDM[bigBucket]/allDM.total*100:0)+' of term deposits sit in the '+bigBucket+' bucket ('+fmtMoney(allDM[bigBucket])+'). ';
-  dmComm+=fmtPct(dmShortPct)+' mature within 6 months ('+fmtMoney(dmShort)+'), creating near-term rollover exposure. ';
-  dmComm+=fmtPct(dmLongPct)+' are locked beyond 1 year ('+fmtMoney(dmLong)+'). ';
-  var hhLongDM=hhDM['1-2 years']+hhDM['Over 2 years'];
-  var nfcLongDM=nfcDM['1-2 years']+nfcDM['Over 2 years'];
-  dmComm+='Households: '+fmtMoney(hhDM.total)+' total ('+fmtPct(hhDM.total>0?hhLongDM/hhDM.total*100:0)+' >1Y). Corporates: '+fmtMoney(nfcDM.total)+' total ('+fmtPct(nfcDM.total>0?nfcLongDM/nfcDM.total*100:0)+' >1Y).';
-  dmp.textContent=dmComm;
-}
-
-// Charts
-if(allDM.total>0){
-  showCanvas('ch-dm-all');bc('ch-dm-all',dmBucketLabels,dmBuckets.map(function(m){return allDM[m]}),PAL_BAR);
-}else noData('ch-dm-all','No deposit maturity data');
-
-// Deposit maturity doughnut removed (redundant with bar chart)
-
-if(hhDM.total>0){
-  showCanvas('ch-dm-hh');bc('ch-dm-hh',dmBucketLabels,dmBuckets.map(function(m){return hhDM[m]}),PAL_BAR);
-}else noData('ch-dm-hh','No HH deposit maturity data');
-
-if(nfcDM.total>0){
-  showCanvas('ch-dm-nfc');bc('ch-dm-nfc',dmBucketLabels,dmBuckets.map(function(m){return nfcDM[m]}),PAL_BAR.slice(2));
-}else noData('ch-dm-nfc','No NFC deposit maturity data');
-
-// Trend: short vs long over time
-var dmPeriods=[...new Set(dmF.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
-if(dmPeriods.length>1){
-  var dmShortMap={},dmLongMap={};
-  dmPeriods.forEach(function(p){
-    var s=0,l=0;
-    dmF.filter(function(r){return r.period===p}).forEach(function(r){
-      if(r.maturity==='Up to 1 month'||r.maturity==='1-3 months'||r.maturity==='3-6 months')s+=r.value;
-      if(r.maturity==='1-2 years'||r.maturity==='Over 2 years')l+=r.value;
-    });
-    dmShortMap[p]=s;dmLongMap[p]=l;
-  });
-  showCanvas('ch-dm-trend');lc('ch-dm-trend',dmPeriods,[
-    {label:'Under 6 Months',data:dmPeriods.map(function(p){return dmShortMap[p]||null}),borderColor:'#dc2626',borderWidth:2.2,tension:.3},
-    {label:'Over 1 Year',data:dmPeriods.map(function(p){return dmLongMap[p]||null}),borderColor:C1,borderWidth:2.2,tension:.3}
-  ],{plugins:{tooltip:ttMoney}});
-}else noData('ch-dm-trend','Insufficient trend data');
-
-// Detail table
-var dmTbl=document.getElementById('dm-table');
-if(dmTbl){dmTbl.innerHTML='';}
-if(dmTbl&&allDM.total>0){
-  dmBuckets.forEach(function(m){
-    var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+m+'</td><td class="num">'+fmtMoney(hhDM[m])+'</td><td class="num">'+fmtMoney(nfcDM[m])+'</td><td class="num">'+fmtMoney(allDM[m])+'</td><td class="num">'+fmtPct(allDM[m]/allDM.total*100)+'</td>';
-    dmTbl.appendChild(tr);
-  });
-  var trDT=document.createElement('tr');
-  trDT.style.fontWeight='600';
-  trDT.innerHTML='<td>Total</td><td class="num">'+fmtMoney(hhDM.total)+'</td><td class="num">'+fmtMoney(nfcDM.total)+'</td><td class="num">'+fmtMoney(allDM.total)+'</td><td class="num">100.0%</td>';
-  dmTbl.appendChild(trDT);
-}
-// ========== CONTRACTUAL MATURITY GAP ==========
-// Re-bucket deposits to match loan maturity buckets
-// Deposit: Up to 1M + 1-3M + 3-6M + 6-12M -> "Up to 1 year"
-// Deposit: 1-2Y -> "1-2 years"
-// Deposit: Over 2Y -> split conceptually into "2-5 years" (all assigned here; no finer data)
-// Loans have: Up to 1 year, 1-2 years, 2-5 years, 5-10 years, Over 10 years
-var depAligned={
-  'Up to 1 year':(allDM['Up to 1 month']||0)+(allDM['1-3 months']||0)+(allDM['3-6 months']||0)+(allDM['6-12 months']||0),
-  '1-2 years':allDM['1-2 years']||0,
-  '2-5 years':allDM['Over 2 years']||0,
-  '5-10 years':0,
-  'Over 10 years':0
-};
-var gapBuckets=['Up to 1 year','1-2 years','2-5 years','5-10 years','Over 10 years'];
-var gapLabels=['<1Y','1-2Y','2-5Y','5-10Y','>10Y'];
-var gapLoans=gapBuckets.map(function(b){return allMat[b]||0});
-var gapDeps=gapBuckets.map(function(b){return depAligned[b]||0});
-var gapNet=gapBuckets.map(function(b,i){return gapLoans[i]-gapDeps[i]});
-
-if(allMat.total>0&&allDM.total>0){
-  showCanvas('ch-mt-gap');
-  mc('ch-mt-gap','bar',{data:{labels:gapLabels,datasets:[
-    {label:'Loans',data:gapLoans,backgroundColor:'#1e40af',borderRadius:3,maxBarThickness:40},
-    {label:'Time Deposits',data:gapDeps,backgroundColor:'#059669',borderRadius:3,maxBarThickness:40},
-    {label:'Gap (L-D)',data:gapNet,backgroundColor:gapNet.map(function(v){return v>=0?'#dc262680':'#05966980'}),borderRadius:3,maxBarThickness:40}
-  ]},options:{responsive:true,animation:false,aspectRatio:2,plugins:{legend:{position:'top',labels:{font:{size:11}}},tooltip:ttMoney},scales:{x:{ticks:{font:{size:11}}},y:{ticks:{font:{size:10},callback:function(v){return fmtMoney(v)}}}}}});
-  // Gap KPIs
-  var gapEl=document.getElementById('mt-gap-k');if(gapEl)gapEl.innerHTML='';
-  var shortGap=gapNet[0];
-  var totalGap=gapNet.reduce(function(s,v){return s+v},0);
-  addK('mt-gap-k','Short-Term Gap (<1Y)',fmtMoney(shortGap),null,null,shortGap>0?'Funding shortfall':'Deposit surplus');
-  addK('mt-gap-k','Total Net Gap',fmtMoney(totalGap),null,null,'Loans minus aligned TDA stock');
-  addK('mt-gap-k','Loan Duration Bias',fmtPct(longPct),null,null,'Loans >5Y as % of total');
-  addK('mt-gap-k','Deposit Duration Bias',fmtPct(allDM.total>0?depAligned['Up to 1 year']/allDM.total*100:0),null,null,'TDA <1Y as % of total TDA');
-} else noData('ch-mt-gap','Insufficient maturity data for gap analysis');
-} // end if DM.length
-
-// ===================== PROFITABILITY & EFFICIENCY (Table 14) =====================
-if(INCOME.length){
-var incF=sp(flt(INCOME));
-// For annual analysis, use December (full-year cumulative) rows
-var decInc=incF.filter(function(r){return r.period&&r.period.endsWith('-12')});
-if(decInc.length<2) decInc=incF; // fallback if filters exclude Dec
-
-var latestInc=decInc[decInc.length-1];
-var prevInc=decInc.length>1?decInc[decInc.length-2]:null;
-
-// KPIs
-var nii=latestInc.interest_income-latestInc.interest_expense;
-var nimProxy=latestInc.total_income>0?(nii/latestInc.total_income*100):null;
-var opIncome=latestInc.interest_income+latestInc.non_interest_income+latestInc.revaluation_income-latestInc.interest_expense-latestInc.non_interest_expense;
-var cti=opIncome>0?(latestInc.gen_admin_expense/opIncome*100):null;
-var feeDep=latestInc.total_income>0?(latestInc.fee_commission_income/latestInc.total_income*100):null;
-var npm=latestInc.total_income>0?(latestInc.net_profit/latestInc.total_income*100):null;
-
-var prevNim=null,prevCti=null;
-if(prevInc){
-  var pnii=prevInc.interest_income-prevInc.interest_expense;
-  prevNim=prevInc.total_income>0?(pnii/prevInc.total_income*100):null;
-  var pOpInc=prevInc.interest_income+prevInc.non_interest_income+prevInc.revaluation_income-prevInc.interest_expense-prevInc.non_interest_expense;
-  prevCti=pOpInc>0?(prevInc.gen_admin_expense/pOpInc*100):null;
-}
-
-addK('pf-k','NIM Proxy',nimProxy!=null?fmtPct(nimProxy):'\u2014',prevNim!=null?nimProxy-prevNim:null,' pp','NII / Total Income');
-addK('pf-k','Cost-to-Income',cti!=null?fmtPct(cti):'\u2014',prevCti!=null?cti-prevCti:null,' pp','G&A expenses / operating income');
-addK('pf-k','Fee Dependency',feeDep!=null?fmtPct(feeDep):'\u2014',null,null,'Fee Income / Total');
-addK('pf-k','Net Profit Margin',npm!=null?fmtPct(npm):'\u2014',null,null,'Net Profit / Income');
-addK('pf-k','Net Profit',latestInc.net_profit?fmtMoney(latestInc.net_profit):'\u2014',null,null,'EUR, cumulative');
-addK('pf-k','Total Income',latestInc.total_income?fmtMoney(latestInc.total_income):'\u2014',null,null,'EUR, cumulative');
-
-document.getElementById('pf-h').textContent='Income Statement — '+latestInc.period;
-document.getElementById('pf-p').textContent='Full-year cumulative: Total income '+fmtMoney(latestInc.total_income)+', Net interest income '+fmtMoney(nii)+', Net profit '+fmtMoney(latestInc.net_profit)+'. Cost-to-income ratio '+(cti!=null?cti.toFixed(1)+'%':'N/A')+' (G&A expenses / operating income).';
-
-// Chart: Income composition trend
-var incPeriods=decInc.map(function(r){return r.period});
-mkChart('ch-pf-income','bar',incPeriods,
-[{label:'Interest Income',data:decInc.map(function(r){return r.interest_income}),backgroundColor:'#0f172a'},
- {label:'Non-Interest Income',data:decInc.map(function(r){return r.non_interest_income}),backgroundColor:'#475569'},
- {label:'Revaluation Income',data:decInc.map(function(r){return r.revaluation_income}),backgroundColor:'#94a3b8'},
- {label:'Total Expenses',data:decInc.map(function(r){return -r.total_expenses}),backgroundColor:'#dc2626'}],
-{plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{stacked:false},y:{title:{display:true,text:'EUR M'}}}});
-
-// Chart: Cost-to-Income ratio
-mkChart('ch-pf-cti','line',incPeriods,
-[{label:'Cost-to-Income %',data:decInc.map(function(r){var oi=r.interest_income+r.non_interest_income+r.revaluation_income-r.interest_expense-r.non_interest_expense;return oi>0?(r.gen_admin_expense/oi*100):null}),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-
-// Chart: NIM proxy
-mkChart('ch-pf-nim','line',incPeriods,
-[{label:'NIM Proxy %',data:decInc.map(function(r){return r.total_income>0?((r.interest_income-r.interest_expense)/r.total_income*100):null}),borderColor:'#059669',backgroundColor:'#05966910',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-
-// Chart: Fee dependency
-mkChart('ch-pf-fee','line',incPeriods,
-[{label:'Fee Dependency %',data:decInc.map(function(r){return r.total_income>0?(r.fee_commission_income/r.total_income*100):null}),borderColor:'#b8860b',backgroundColor:'#b8860b10',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-
-// Chart: Net Profit Margin
-mkChart('ch-pf-npm','line',incPeriods,
-[{label:'Net Profit Margin %',data:decInc.map(function(r){return r.total_income>0?(r.net_profit/r.total_income*100):null}),borderColor:'#0f172a',backgroundColor:'#0f172a10',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-
-// Chart: Expense breakdown
-mkChart('ch-pf-expense','bar',incPeriods,
-[{label:'Personnel',data:decInc.map(function(r){return r.personnel_expense}),backgroundColor:'#0f172a'},
- {label:'General & Admin',data:decInc.map(function(r){return r.general_expense}),backgroundColor:'#475569'},
- {label:'Loan Loss Provisions',data:decInc.map(function(r){return r.loan_loss_provisions}),backgroundColor:'#dc2626'},
- {label:'Interest Expense',data:decInc.map(function(r){return r.interest_expense}),backgroundColor:'#b8860b'},
- {label:'Other',data:decInc.map(function(r){return r.depreciation+r.fee_commission_expense+r.other_non_int_expense+r.revaluation_losses+r.tax_provision}),backgroundColor:'#94a3b8'}],
-{plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'EUR M'}}}});
-} // end INCOME
-
-// ===================== CREDIT RISK & PROVISIONING (Table 14 + Table 02) =====================
-if(INCOME.length){
-var incF2=sp(flt(INCOME));
-var decInc2=incF2.filter(function(r){return r.period&&r.period.endsWith('-12')});
-if(decInc2.length<2) decInc2=incF2;
-
-var dcF=sp(flt(DCSVY));
-var decDC=dcF.filter(function(r){return r.period&&r.period.endsWith('-12')});
-// Build loan stock map from DC Survey
-var loanMap={};decDC.forEach(function(r){loanMap[r.period]=r.loans});
-
-var latCR=decInc2[decInc2.length-1];
-var prevCR=decInc2.length>1?decInc2[decInc2.length-2]:null;
-var latLoans=loanMap[latCR.period]||0;
-var prevLoans=prevCR?loanMap[prevCR.period]||0:0;
-
-var costOfRisk=latLoans>0?(latCR.loan_loss_provisions/latLoans*100):null;
-var prevCoR=prevCR&&prevLoans>0?(prevCR.loan_loss_provisions/prevLoans*100):null;
-var niiCR=latCR.interest_income-latCR.interest_expense;
-var provInt=niiCR>0?(latCR.loan_loss_provisions/niiCR*100):null;
-
-addK('cr2-k','Loan Loss Provisions',latCR.loan_loss_provisions?fmtMoney(latCR.loan_loss_provisions):'\u2014',null,null,'EUR, cumulative');
-addK('cr2-k','Cost of Risk',costOfRisk!=null?(costOfRisk.toFixed(2)+'%'):'\u2014',prevCoR!=null?costOfRisk-prevCoR:null,' pp','Dec cumulative provisions / Dec loans');
-addK('cr2-k','Provisioning Intensity',provInt!=null?fmtPct(provInt):'\u2014',null,null,'Provisions / NII');
-addK('cr2-k','Total Loans',latLoans?fmtMoney(latLoans):'\u2014',null,null,'Year-end stock, Table 02');
-
-document.getElementById('cr2-h').textContent='Credit Risk — '+latCR.period;
-document.getElementById('cr2-p').textContent='Loan loss provisions '+fmtMoney(latCR.loan_loss_provisions)+' (Dec cumulative). Cost of risk '+(costOfRisk!=null?costOfRisk.toFixed(2)+'%':'N/A')+' (Dec cumulative provisions / Dec loan stock). Provisioning absorbs '+(provInt!=null?provInt.toFixed(1)+'%':'N/A')+' of net interest income.';
-
-var crPeriods=decInc2.map(function(r){return r.period});
-
-// Chart: Provisions trend
-mkChart('ch-cr2-prov','bar',crPeriods,
-[{label:'Loan Loss Provisions (EUR M)',data:decInc2.map(function(r){return r.loan_loss_provisions}),backgroundColor:'#dc2626'}],
-{scales:{y:{title:{display:true,text:'EUR M'}}}});
-
-// Chart: Cost of Risk
-mkChart('ch-cr2-cor','line',crPeriods,
-[{label:'Cost of Risk %',data:decInc2.map(function(r){var ls=loanMap[r.period]||0;return ls>0?(r.loan_loss_provisions/ls*100):null}),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-
-// Chart: Provisioning Intensity
-mkChart('ch-cr2-int','line',crPeriods,
-[{label:'Prov. Intensity %',data:decInc2.map(function(r){var ni=r.interest_income-r.interest_expense;return ni>0?(r.loan_loss_provisions/ni*100):null}),borderColor:'#b8860b',backgroundColor:'#b8860b10',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-} // end credit risk
-
-// ===================== ASSET COMPOSITION (Table 02) =====================
-if(DCSVY.length){
-var asF=sp(flt(DCSVY));
-var decAS=asF.filter(function(r){return r.period&&r.period.endsWith('-12')});
-if(decAS.length<2) decAS=asF;
-
-var latAS=decAS[decAS.length-1];
-var prevAS=decAS.length>1?decAS[decAS.length-2]:null;
-
-// Total identified assets = claims_nonresidents + claims_other_sectors + abs(claims_govt) + other_claims
-// Actually use: claims_nonresidents + domestic_credit + other_claims as total asset proxy
-var totalAssets=Math.abs(latAS.claims_nonresidents)+Math.abs(latAS.domestic_credit)+Math.abs(latAS.other_claims);
-var prevTotal=prevAS?(Math.abs(prevAS.claims_nonresidents)+Math.abs(prevAS.domestic_credit)+Math.abs(prevAS.other_claims)):0;
-
-var lta=totalAssets>0?(latAS.loans/totalAssets*100):null;
-var prevLta=prevTotal>0?(prevAS.loans/prevTotal*100):null;
-var secShare=totalAssets>0?(latAS.securities/totalAssets*100):null;
-
-addK('as-k','Loans',latAS.loans?fmtMoney(latAS.loans):'\u2014',prevAS?pctChange(latAS.loans,prevAS.loans):null,'%','EUR');
-addK('as-k','Securities',latAS.securities?fmtMoney(latAS.securities):'\u2014',null,null,'EUR');
-addK('as-k','Loan-to-Asset Ratio',lta!=null?fmtPct(lta):'\u2014',prevLta!=null?lta-prevLta:null,' pp','Loans / Total Assets');
-addK('as-k','Securities Share',secShare!=null?fmtPct(secShare):'\u2014',null,null,'Securities / Assets');
-addK('as-k','Cash & Deposits',fmtMoney(latAS.cash+latAS.deposits_foreign),null,null,'EUR');
-
-document.getElementById('as-h').textContent='Asset Structure — '+latAS.period;
-document.getElementById('as-p').textContent='Domestic loans '+fmtMoney(latAS.loans)+', Securities '+fmtMoney(latAS.securities)+', Cash '+fmtMoney(latAS.cash)+'. Loan-to-asset ratio '+(lta!=null?lta.toFixed(1)+'%':'N/A')+'.';
-
-var asPeriods=decAS.map(function(r){return r.period});
-
-// Chart: Asset composition stacked area
-mkChart('ch-as-comp','line',asPeriods,
-[{label:'Loans',data:decAS.map(function(r){return r.loans}),borderColor:'#0f172a',backgroundColor:'#0f172a20',fill:true,tension:.3,pointRadius:0},
- {label:'Securities',data:decAS.map(function(r){return r.securities}),borderColor:'#b8860b',backgroundColor:'#b8860b20',fill:true,tension:.3,pointRadius:0},
- {label:'Cash & Foreign Deposits',data:decAS.map(function(r){return r.cash+r.deposits_foreign}),borderColor:'#059669',backgroundColor:'#05966920',fill:true,tension:.3,pointRadius:0}],
-{plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{title:{display:true,text:'EUR M'}}}});
-
-// Chart: Loan-to-Asset ratio
-mkChart('ch-as-lta','line',asPeriods,
-[{label:'Loan-to-Asset %',data:decAS.map(function(r){var t=Math.abs(r.claims_nonresidents)+Math.abs(r.domestic_credit)+Math.abs(r.other_claims);return t>0?(r.loans/t*100):null}),borderColor:'#0f172a',backgroundColor:'#0f172a10',fill:true,tension:.3,pointRadius:2}],
-{plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
-
-// Chart: Domestic credit vs foreign assets
-mkChart('ch-as-domfor','line',asPeriods,
-[{label:'Domestic Credit',data:decAS.map(function(r){return r.domestic_credit}),borderColor:'#0f172a',tension:.3,pointRadius:0},
- {label:'Net Foreign Assets',data:decAS.map(function(r){return r.net_foreign_assets}),borderColor:'#b8860b',tension:.3,pointRadius:0}],
-{plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{title:{display:true,text:'EUR M'}}}});
-} // end assets
-
-// ===================== RESIDUAL MATURITY (Table 10) =====================
-if(LMRES.length){
-var rmF=sp(flt(LMRES));
-var decRM=rmF.filter(function(r){return r.period&&r.period.endsWith('-12')});
-if(decRM.length<2) decRM=rmF;
-
-var latRM=decRM[decRM.length-1];
-var prevRM=decRM.length>1?decRM[decRM.length-2]:null;
-var totalRM=latRM.up_to_1y+latRM.y1_2+latRM.y2_5+latRM.y5_10+latRM.over_10y;
-var shortShare=totalRM>0?(latRM.up_to_1y/totalRM*100):null;
-var longShare=totalRM>0?((latRM.y5_10+latRM.over_10y)/totalRM*100):null;
-var prevTotalRM=prevRM?(prevRM.up_to_1y+prevRM.y1_2+prevRM.y2_5+prevRM.y5_10+prevRM.over_10y):0;
-var prevShort=prevTotalRM>0?(prevRM.up_to_1y/prevTotalRM*100):null;
-
-// Weighted average maturity proxy (midpoints: 0.5, 1.5, 3.5, 7.5, 15)
-var wam=totalRM>0?((latRM.up_to_1y*0.5+latRM.y1_2*1.5+latRM.y2_5*3.5+latRM.y5_10*7.5+latRM.over_10y*15)/totalRM):null;
-
-addK('rm2-k','Total Loans',fmtMoney(latRM.total),null,null,'EUR, Table 10');
-addK('rm2-k','Short-Term (<1Y)',shortShare!=null?fmtPct(shortShare):'\u2014',prevShort!=null?shortShare-prevShort:null,' pp','Share of total');
-addK('rm2-k','Long-Term (>5Y)',longShare!=null?fmtPct(longShare):'\u2014',null,null,'Share of total');
-addK('rm2-k','Avg Maturity Proxy',wam!=null?(wam.toFixed(1)+' yrs'):'\u2014',null,null,'Weighted midpoints');
-addK('rm2-k','Up to 1Y',fmtMoney(latRM.up_to_1y),null,null,'EUR');
-addK('rm2-k','Over 10Y',fmtMoney(latRM.over_10y),null,null,'EUR');
-
-document.getElementById('rm2-h').textContent='Residual Maturity — '+latRM.period;
-document.getElementById('rm2-p').textContent='Total loan stock '+fmtMoney(latRM.total)+'. Short-term (<1Y) '+(shortShare!=null?shortShare.toFixed(1)+'%':'N/A')+', Long-term (>5Y) '+(longShare!=null?longShare.toFixed(1)+'%':'N/A')+'. Weighted average maturity proxy '+(wam!=null?wam.toFixed(1)+' years':'N/A')+'.';
-
-var bucketLabels=['Up to 1Y','1-2Y','2-5Y','5-10Y','Over 10Y'];
-var bucketColors=['#dc2626','#b8860b','#475569','#0f172a','#059669'];
-
-// Chart: All sectors stacked bar
-var rmPeriods=decRM.map(function(r){return r.period});
-mkChart('ch-rm2-all','bar',rmPeriods,
-bucketLabels.map(function(bl,i){
-  var key=['up_to_1y','y1_2','y2_5','y5_10','over_10y'][i];
-  return {label:bl,data:decRM.map(function(r){return r[key]}),backgroundColor:bucketColors[i]};
-}),
-{plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'EUR M'}}}});
-
-// Chart: Household residual maturity (latest snapshot as horizontal bar)
-var hhBuckets=[latRM.hh_up_to_1y,latRM.hh_1_2y,latRM.hh_2_5y,latRM.hh_5_10y,latRM.hh_over_10y];
-mkChart('ch-rm2-hh','bar',bucketLabels,
-[{label:'Households (EUR M)',data:hhBuckets,backgroundColor:bucketColors}],
-{indexAxis:'y',plugins:{legend:{display:false}}});
-
-// Chart: Corporate residual maturity
-var corpBuckets=[latRM.corp_up_to_1y,latRM.corp_1_2y,latRM.corp_2_5y,latRM.corp_5_10y,latRM.corp_over_10y];
-mkChart('ch-rm2-corp','bar',bucketLabels,
-[{label:'Corporates (EUR M)',data:corpBuckets,backgroundColor:bucketColors}],
-{indexAxis:'y',plugins:{legend:{display:false}}});
-
-// Chart: Short vs Long trend
-mkChart('ch-rm2-trend','line',rmPeriods,
-[{label:'Short-term (<1Y)',data:decRM.map(function(r){return r.up_to_1y}),borderColor:'#dc2626',tension:.3,pointRadius:2},
- {label:'Long-term (>5Y)',data:decRM.map(function(r){return r.y5_10+r.over_10y}),borderColor:'#0f172a',tension:.3,pointRadius:2}],
-{plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{title:{display:true,text:'EUR M'}}}});
-
-// Chart: Residual vs Contractual maturity gap
-// Compare residual loan maturity (Table 10) with contractual deposit maturity (F08 DM)
-if(DM.length){
-var dmLatP2=latest(DM,function(r){return true});
-if(dmLatP2){
-var allDM2={};DM.forEach(function(r){if(r.period===dmLatP2.period){allDM2[r.type]=(allDM2[r.type]||0)+r.value}});
-var depAligned2={
-  'Up to 1Y':(allDM2['Up to 1 month']||0)+(allDM2['1-3 months']||0)+(allDM2['3-6 months']||0)+(allDM2['6-12 months']||0),
-  '1-2Y':allDM2['1-2 years']||0,
-  '2-5Y':allDM2['Over 2 years']||0,
-  '5-10Y':0,
-  'Over 10Y':0
-};
-var gapData2=bucketLabels.map(function(bl){
-  var lk=['up_to_1y','y1_2','y2_5','y5_10','over_10y'][bucketLabels.indexOf(bl)];
-  return latRM[lk]-(depAligned2[bl]||0);
-});
-mkChart('ch-rm2-gap','bar',bucketLabels,
-[{label:'Residual Loans',data:[latRM.up_to_1y,latRM.y1_2,latRM.y2_5,latRM.y5_10,latRM.over_10y],backgroundColor:'#0f172a'},
- {label:'Contractual Deposits',data:bucketLabels.map(function(bl){return depAligned2[bl]||0}),backgroundColor:'#b8860b'},
- {label:'Gap (L-D)',data:gapData2,backgroundColor:gapData2.map(function(v){return v>=0?'#05966640':'#dc262640'}),borderColor:gapData2.map(function(v){return v>=0?'#059669':'#dc2626'}),borderWidth:1}],
-{plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{title:{display:true,text:'EUR M'}}}});
-
-var shortGap2=latRM.up_to_1y-(depAligned2['Up to 1Y']||0);
-var totalNetGap2=gapData2.reduce(function(a,b){return a+b},0);
-addK('rm2-gap-k','Short-Term Gap (<1Y)',fmtMoney(shortGap2),null,null,shortGap2>0?'More loans than deposits':'More deposits than loans');
-addK('rm2-gap-k','Total Net Gap',fmtMoney(totalNetGap2),null,null,'Residual loans \u2212 contractual deposits');
-}} // end residual gap
-} // end LMRES
-
-// ===================== METHODOLOGY TABLE =====================
-function yr(arr){
-  if(!arr||!arr.length)return['--','--'];
-  var sorted=arr.map(function(r){return pk(r.period)}).filter(function(x){return x&&x!=='0000-00'}).sort();
-  if(!sorted.length)return['--','--'];
-  return[sorted[0],sorted[sorted.length-1]];
-}
-var tb=document.getElementById('ex-b');if(tb){tb.innerHTML='';
-var datasets=[
-  {n:'Loans (Customer)',d:LC},{n:'Loans (Maturity)',d:LM},{n:'Loans (Sector)',d:LS},
-  {n:'New Loans',d:NL},{n:'Deposits (Segments)',d:DS},{n:'New Deposits',d:ND},
-  {n:'Payments (Legacy)',d:PY},{n:'FX Rates',d:FX},{n:'NEER/REER',d:NR},
-  {n:'Remittances (Channel)',d:RC},{n:'Remittances (Country)',d:RCO},
-  {n:'Interest Rates (Loans)',d:IRL},{n:'Interest Rates (Deposits)',d:IRD},
-  {n:'Deposits (Maturity)',d:DM},
-  {n:'Accounts',d:ACCT},{n:'Cards Issued',d:CARDS},{n:'Terminals',d:TERMS},{n:'Terminal Tx',d:TTX},{n:'Payments (Count)',d:PC},{n:'Payments (Value)',d:PV},
-  {n:'ODC Income (T14)',d:INCOME},{n:'DC Survey (T02)',d:DCSVY},{n:'Loan Maturity Residual (T10)',d:LMRES}
-];
-datasets.forEach(function(ds){
-  var r=yr(ds.d);var freq='Monthly';
-  if(ds.n.indexOf('Remittance')>=0)freq='Mixed (Q/M)';
-  if(ds.n==='FX Rates')freq='Monthly';
-  var tr=document.createElement('tr');
-  tr.innerHTML='<td>'+ds.n+'</td><td class="num">'+ds.d.length.toLocaleString()+'</td><td>'+fmtP(r[0])+'</td><td>'+fmtP(r[1])+'</td><td>'+freq+'</td>';
-  tb.appendChild(tr);
-});}
-
-// Restore module visibility: hide all, then re-show only the originally active one
-allMods.forEach(function(m){m.classList.remove('active')});
-if(activeMod)activeMod.classList.add('active');
-} // end buildAll
-
-initFilters();
-buildAll();
-
-</script>
 </body>
 </html>
