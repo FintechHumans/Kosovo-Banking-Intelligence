@@ -27,3 +27,10 @@ cbk_*.html
 # OS files
 .DS_Store
 Thumbs.db
+
+# Governance documentation (Phase 11 deliverables) - override the *.md rule above
+!docs/
+!docs/*.md
+
+# Local data-validation audit: downloaded BQK workbooks and working scripts
+audit/
