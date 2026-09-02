@@ -117,6 +117,82 @@ tr:hover td{background:#f8f9fb}
 @media(max-width:1024px){.cgrid{grid-template-columns:1fr}.main{padding:20px}.hdr,.nav,.footer{padding-left:20px;padding-right:20px}}
 @media(max-width:768px){.kpis{grid-template-columns:1fr 1fr}.fbar{flex-direction:column;align-items:stretch}.hdr-meta{display:none}}
 @media print{body{font-size:11px}.hdr,.nav,.fbar,.fbtn{display:none!important}.mod{display:block!important;page-break-inside:avoid}.main{padding:10px}.ccard{break-inside:avoid}.kpis{grid-template-columns:repeat(3,1fr)}.note{break-inside:avoid}}
+
+/* ---- Decision Centre / Signals / Regime ---- */
+.dc-banner{padding:10px 14px;border-radius:5px;font-size:12px;margin-bottom:14px;border:1px solid}
+.dc-banner.ok{background:#f0fdf4;border-color:#bbf7d0;color:#166534}
+.dc-banner.warn{background:#fffbeb;border-color:#fcd34d;color:#92400e}
+.dc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:12px}
+.dc-card{background:var(--card);border:1px solid var(--border-s);border-radius:6px;padding:13px 14px;box-shadow:var(--shadow)}
+.dc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.dc-label{font-size:11px;font-weight:600;color:var(--text-2);letter-spacing:.2px;text-transform:uppercase}
+.dc-status{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap;letter-spacing:.3px}
+.st-direct{background:#e0f2fe;color:#075985}.st-verified{background:#dcfce7;color:#166534}
+.st-proxy{background:#fef3c7;color:#92400e}.st-estimated{background:#fee2e2;color:#991b1b}
+.st-unavailable{background:#f1f5f9;color:#64748b}
+.dc-value{font-size:23px;font-weight:650;letter-spacing:-.4px;line-height:1.2;margin:2px 0 6px}
+.sem-good{color:var(--green)}.sem-bad{color:var(--red)}
+.sem-attention{color:var(--gold)}.sem-neutral{color:var(--text)}
+.dc-reason{font-size:11px;color:var(--text-3);font-style:italic;margin-bottom:6px}
+.dc-changes{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.dc-chg{font-size:11px;font-weight:600}
+.dc-chg.up{color:var(--green)}.dc-chg.dn{color:var(--red)}.dc-chg.flat{color:var(--text-3)}
+.dc-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--text-3)}
+.dc-warn{margin-top:7px;font-size:10.5px;color:#92400e;background:#fffbeb;border:1px solid #fcd34d;border-radius:4px;padding:5px 7px;line-height:1.4}
+.dc-details{margin-top:9px;border-top:1px solid var(--border);padding-top:7px}
+.dc-details summary{font-size:10.5px;color:var(--text-3);cursor:pointer;list-style:none;user-select:none}
+.dc-details summary::-webkit-details-marker{display:none}
+.dc-details summary:before{content:"\25B8 ";color:var(--gold)}
+.dc-details[open] summary:before{content:"\25BE "}
+.dc-details-body{font-size:10.5px;color:var(--text-2);line-height:1.5;margin-top:6px}
+.dc-details-body ul{margin:3px 0 6px 15px}
+.dc-details-body li{margin-bottom:2px}
+.dc-formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f8fafc;border:1px solid var(--border);border-radius:4px;padding:5px 7px;margin-bottom:6px;font-size:10px;word-break:break-word}
+.dc-sub{font-weight:700;color:var(--text-2);margin-top:5px;font-size:10px;text-transform:uppercase;letter-spacing:.3px}
+.dc-error{padding:12px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:5px;color:#991b1b;font-size:12px}
+.dc-empty{padding:12px;color:var(--text-3);font-size:12px;font-style:italic}
+.dc-row-active{background:#fffbeb;font-weight:600}
+#dc-sensitivity table{margin-top:6px;font-size:11px}
+.sig-card{background:var(--card);border:1px solid var(--border-s);border-left:3px solid var(--text-3);border-radius:6px;padding:13px 15px;margin-bottom:11px}
+.sig-card.pri-high{border-left-color:var(--red)}
+.sig-card.pri-medium{border-left-color:var(--gold)}
+.sig-card.pri-low{border-left-color:var(--text-3)}
+.sig-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.sig-pri{font-size:9px;font-weight:700;letter-spacing:.4px;padding:2px 7px;border-radius:3px;background:#f1f5f9;color:var(--text-2);text-transform:uppercase}
+.pri-high .sig-pri{background:#fee2e2;color:#991b1b}
+.pri-medium .sig-pri{background:#fef3c7;color:#92400e}
+.sig-metric{font-weight:650;font-size:13px}
+.sig-score{margin-left:auto;font-size:10px;color:var(--text-3)}
+.sig-stats{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:9px}
+.sig-stat{display:flex;flex-direction:column;font-size:11px}
+.sig-stat em{font-style:normal;font-size:9px;color:var(--text-3);text-transform:uppercase;letter-spacing:.3px}
+.sig-stat b{font-weight:650}
+.sig-block{margin-bottom:6px}
+.sig-block-label{font-size:9px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.4px;margin-bottom:1px}
+.sig-block-text{font-size:11.5px;color:var(--text-2);line-height:1.5}
+.reg-card{background:var(--card);border:1px solid var(--border-s);border-radius:6px;padding:13px 15px;margin-bottom:10px;opacity:.62}
+.reg-card.active{opacity:1;border-color:var(--gold);box-shadow:0 0 0 1px rgba(184,134,11,.16)}
+.reg-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px}
+.reg-name{font-weight:650;font-size:13px}
+.reg-state{font-size:9px;font-weight:700;letter-spacing:.4px;padding:2px 7px;border-radius:3px;background:#f1f5f9;color:var(--text-3)}
+.reg-card.active .reg-state{background:#fef3c7;color:#92400e}
+.reg-rationale{font-size:11.5px;color:var(--text-2);margin-bottom:7px;line-height:1.5}
+.reg-conds{list-style:none;margin:0 0 6px}
+.reg-conds li{font-size:11px;color:var(--text-2);display:flex;gap:7px;margin-bottom:3px;line-height:1.45}
+.cond-mark{font-weight:700;width:11px;flex:none}
+.cond-met .cond-mark{color:var(--green)}
+.cond-unmet .cond-mark{color:var(--red)}
+.cond-unknown .cond-mark{color:var(--text-3)}
+.reg-meta{font-size:10px;color:var(--text-3);border-top:1px solid var(--border);padding-top:5px}
+.gov-grid{display:grid;grid-template-columns:auto 1fr;gap:5px 16px;font-size:11.5px;margin-bottom:9px}
+.gov-k{color:var(--text-3)}.gov-v{font-weight:600}
+.gov-issues{margin:6px 0 0 16px;font-size:10.5px;line-height:1.55}
+.gov-issues .lvl-error{color:#991b1b}
+.gov-issues .lvl-warn{color:#92400e}
+.gov-issues .lvl-info{color:var(--text-3)}
+.nav-item:focus-visible,.fbtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
 </style>
 </head>
 <body>
@@ -128,7 +204,7 @@ tr:hover td{background:#f8f9fb}
 </a>
 <div class="hdr-meta"><span>Source: Central Bank of Kosovo</span><span>Analytically corrected</span></div>
 </div>
-<div class="nav"><div class="nav-inner"><div class="nav-item active" data-mod="overview">Overview</div><div class="nav-item" data-mod="loans">Loans</div><div class="nav-item" data-mod="deposits">Deposits</div><div class="nav-item" data-mod="rates">Rates</div><div class="nav-item" data-mod="accounts">Accounts</div><div class="nav-item" data-mod="cards">Cards</div><div class="nav-item" data-mod="payments">Payments</div><div class="nav-item" data-mod="acceptance">Acceptance</div><div class="nav-item" data-mod="remittances">Remittances</div><div class="nav-item" data-mod="maturity">Maturity</div><div class="nav-item" data-mod="profitability">Profitability</div><div class="nav-item" data-mod="credit-risk">Credit Risk</div><div class="nav-item" data-mod="assets">Assets</div><div class="nav-item" data-mod="residual-mat">Residual Mat.</div><div class="nav-item" data-mod="methodology">Methodology</div></div></div>
+<div class="nav"><div class="nav-inner"><div class="nav-item active" data-mod="decision">Decision Centre</div><div class="nav-item" data-mod="signals">Signals</div><div class="nav-item" data-mod="regime">Market Regime</div><div class="nav-item" data-mod="overview">Overview</div><div class="nav-item" data-mod="loans">Loans</div><div class="nav-item" data-mod="deposits">Deposits</div><div class="nav-item" data-mod="rates">Rates</div><div class="nav-item" data-mod="accounts">Accounts</div><div class="nav-item" data-mod="cards">Cards</div><div class="nav-item" data-mod="payments">Payments</div><div class="nav-item" data-mod="acceptance">Acceptance</div><div class="nav-item" data-mod="remittances">Remittances</div><div class="nav-item" data-mod="maturity">Maturity</div><div class="nav-item" data-mod="profitability">Profitability</div><div class="nav-item" data-mod="credit-risk">Credit Risk</div><div class="nav-item" data-mod="assets">Assets</div><div class="nav-item" data-mod="residual-mat">Residual Mat.</div><div class="nav-item" data-mod="methodology">Methodology</div></div></div>
 <div class="main">
 <div class="fbar" id="fbar">
 <div class="fg"><label>From</label><select id="f-yf"></select></div>
@@ -139,7 +215,27 @@ tr:hover td{background:#f8f9fb}
 <button class="fbtn" onclick="window.print()" title="Print or save as PDF">Print / PDF</button>
 <button class="fbtn pri" onclick="buildAll()">Apply</button>
 </div>
-<div class="mod active" id="mod-overview">
+<div class="mod active" id="mod-decision">
+<div class="pg-title"><h1>Decision Centre</h1>
+<p>The market position in one screen. Every card states the period it was computed on, the period it is compared against, its calculation status and its assumptions.</p></div>
+<div class="dc-banner" id="dc-sync"></div>
+<div class="dc-grid" id="dc-kpis"></div>
+<div class="note"><div class="note-tag">Deposit cost sensitivity</div>
+<div id="dc-sensitivity"></div></div>
+<div class="note"><div class="note-tag">Data governance</div>
+<div id="dc-governance"></div></div>
+</div>
+<div class="mod" id="mod-signals">
+<div class="pg-title"><h1>Signals Requiring Attention</h1>
+<p>Ranked by <strong>materiality &times; persistence &times; confidence</strong>. Each signal separates what the data shows from what it might mean and what to go and ask. Inferred causes are not presented as confirmed fact.</p></div>
+<div id="sig-body"></div>
+</div>
+<div class="mod" id="mod-regime">
+<div class="pg-title"><h1>Market Regime</h1>
+<p>Rule-based and fully transparent. Every condition is shown with its outcome; a regime is active only when all of its conditions are both met and testable.</p></div>
+<div id="reg-body"></div>
+</div>
+<div class="mod" id="mod-overview">
 <div class="pg-title"><h1>Executive Overview</h1>
 <p>Market-level snapshot of the Kosovo banking system. All KPIs use corrected source mapping with proxy disclosures where applicable.</p></div>
 <div class="kpis" id="ov-k"></div>
@@ -190,7 +286,7 @@ tr:hover td{background:#f8f9fb}
 </div>
 <div class="mod" id="mod-rates">
 <div class="pg-title"><h1>Interest Rates</h1>
-<p>Effective rates on new lending and new time deposits, repricing gap, and WACF (Weighted Average Cost of Funds).</p></div>
+<p>Effective rates on new lending and new time deposits, the repricing gap, and the Estimated Deposit Cost Proxy.</p></div>
 <div class="kpis" id="rt-k"></div>
 <div class="note warn"><div class="note-tag">Proxy Disclosure</div><p>Neither pricing gap shown here equals Net Interest Margin (NIM). Both exclude legacy book rates, non-interest income, and provisioning. The <strong>narrow gap</strong> compares only new-business rates (new loans vs new time deposits). <strong>WACF</strong> (Weighted Average Cost of Funds) weights all three deposit categories using outstanding stock balances: CA from F11a (stock, at 0% non-remunerated), SA from F11a (stock, at 0.05% proxy &mdash; CBK does not publish SA rate), TDA from F08 deposit maturity (stock, at published CBK new-business time deposit rate). The WACF gap = lending rate minus WACF.</p></div>
 <div class="note"><div class="note-tag">Rate Environment</div><h3 id="rt-h"></h3><p id="rt-p"></p></div>
@@ -199,7 +295,7 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard"><h3>Deposit rates by customer</h3><div class="csub">Effective rates on new time deposits, %</div><canvas id="ch-rt-dep"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard full"><h3>Pricing gap trend</h3><div class="csub">Lending rate, TDA rate, narrow gap (vs TDA only), WACF gap (vs stock-weighted cost of funds)</div><canvas id="ch-rt-spread"></canvas></div>
+<div class="ccard full"><h3>Pricing gap trend</h3><div class="csub">Lending rate, TDA rate, narrow gap (vs TDA only), pricing gap (vs estimated deposit cost)</div><canvas id="ch-rt-spread"></canvas></div>
 </div>
 <div class="kpis" id="rt-fund-k"></div>
 <div class="cgrid">
@@ -344,10 +440,10 @@ tr:hover td{background:#f8f9fb}
 <div class="tw"><table><thead><tr><th>Maturity Bucket</th><th class="num">HH (EUR M)</th><th class="num">NFC (EUR M)</th><th class="num">Total (EUR M)</th><th class="num">Share %</th></tr></thead><tbody id="dm-table"></tbody></table></div>
 </div>
 <div class="cgrid">
-<div class="ccard full"><h3>Contractual Maturity Gap</h3><div class="csub">Loans vs time deposits by aligned bucket, EUR M &mdash; gap = loans minus deposits</div><canvas id="ch-mt-gap"></canvas></div>
+<div class="ccard full"><h3>Structural Original-Maturity Comparison</h3><div class="csub">Loans vs time deposits by aligned bucket, EUR M &mdash; gap = loans minus deposits</div><canvas id="ch-mt-gap"></canvas></div>
 </div>
 <div class="kpis" id="mt-gap-k"></div>
-<div class="note caveat"><div class="note-tag">Contractual Maturity Gap</div><p id="mt-alm">Deposit maturity buckets (6 buckets from F08) are re-bucketed to match loan maturity (5 buckets from F10). First 4 deposit buckets (up to 1 month through 6&ndash;12 months) are combined into &ldquo;Up to 1 Year&rdquo;. Positive gap = more loans than deposits in that bucket (funding shortfall). This is <strong>contractual</strong> (original) maturity, not residual maturity, and does not constitute a full liquidity risk assessment.</p></div>
+<div class="note caveat"><div class="note-tag">Structural Original-Maturity Comparison</div><p id="mt-alm">Deposit maturity buckets (6 buckets from F08) are re-bucketed to match loan maturity (5 buckets from F10). First 4 deposit buckets (up to 1 month through 6&ndash;12 months) are combined into &ldquo;Up to 1 Year&rdquo;. Positive gap = more loans than deposits in that bucket (funding shortfall). This compares two <strong>original-maturity</strong> ladders. It is <strong>not a liquidity gap</strong>: it excludes transferable and savings deposits, securities, wholesale funding, off-balance-sheet commitments and loan amortisation cash flows.</p></div>
 <div class="note caveat"><div class="note-tag">Deposit Maturity Scope</div><p>Maturity bucketing applies only to <strong>time deposits</strong> (Depozita tjera). Transferable and savings deposits have no fixed maturity term. Values are end-of-period stocks in EUR millions from F08. NFC combines public and private non-financial corporations.</p></div>
 </div>
 <div class="mod" id="mod-profitability">
@@ -448,8 +544,8 @@ tr:hover td{background:#f8f9fb}
 <tr><td>Total EUR Deposits</td><td>Sum of all EUR deposit balances across segments (F08 Col 2). EUR only.</td><td>Verified</td></tr>
 <tr><td>LTD Ratio</td><td>Total loans / Total EUR deposits &times; 100. Numerator includes ~&euro;0.97M non-EUR loans (0.015%).</td><td>Market Proxy</td></tr>
 <tr><td>Narrow Gap (Proxy)</td><td>All new loans rate (F13) minus time deposit rate (F13a). New-business rates only. Not NIM.</td><td>Proxy</td></tr>
-<tr><td>WACF</td><td>Weighted Average Cost of Funds = (0%&times;CA_stock + 0.05%&times;SA_stock + TDA_rate&times;TDA_stock) / (CA+SA+TDA). CA and SA stock from F11a. TDA stock from F08 deposit maturity (sum of all buckets, HH+NFC). TDA rate from F13a. SA rate 0.05% is a proxy assumption &mdash; CBK does not publish system-wide SA pricing.</td><td>Proxy</td></tr>
-<tr><td>WACF Gap</td><td>All new loans rate minus WACF. Uses stock-weighted funding cost. Not NIM.</td><td>Proxy</td></tr>
+<tr><td>Estimated Deposit Cost Proxy (was &ldquo;WACF&rdquo;)</td><td>Renamed: it covers customer deposits only and applies a new-business rate to an outstanding stock, so it is not a weighted average cost of funds. Formula = (0%&times;CA_stock + 0.05%&times;SA_stock + TDA_rate&times;TDA_stock) / (CA+SA+TDA). CA and SA stock from F11a. TDA stock from F08 deposit maturity (sum of all buckets, HH+NFC). TDA rate from F13a. SA rate 0.05% is a proxy assumption &mdash; CBK does not publish system-wide SA pricing.</td><td>Proxy</td></tr>
+<tr><td>Pricing Gap (was &ldquo;WACF Gap&rdquo;)</td><td>All new loans rate minus the Estimated Deposit Cost Proxy. Not a net interest margin.</td><td>Proxy</td></tr>
 <tr><td>Remittances Total</td><td>Pre-computed Total row from source. Not summed from channels.</td><td>Verified</td></tr>
 <tr><td>Retail Digital Share (Legacy)</td><td>(E-Banking + POS) / (E-Banking + POS + ATM) &times; 100. Excludes Interbank and ATM Deposits. Legacy F15 data.</td><td>Verified</td></tr>
 <tr><td>Total Payment Volume (Legacy)</td><td>Sum of 7 non-overlapping indicators. Parent totals for ATM/POS Abroad; children excluded from sum. Legacy F15 data.</td><td>Verified</td></tr>
@@ -463,7 +559,7 @@ tr:hover td{background:#f8f9fb}
 <tr><td>Card Share (value)</td><td>Card payment value / total payment value &times; 100. Source: Table 4 (Payments).</td><td>Direct</td></tr>
 <tr><td>POS per 1,000 Payment Cards</td><td>Total POS terminals / payment-function cards &times; 1000. Source: Table 3 (Terminals) &amp; Table 2 (Cards).</td><td>Direct</td></tr>
 <tr><td>Deposit-Capable ATM Share</td><td>Deposit-capable ATMs / total ATMs &times; 100. Source: Table 3 (Terminals).</td><td>Direct</td></tr>
-<tr><td>Contractual Maturity Gap</td><td>Loans minus aligned time deposits per maturity bucket. Deposit buckets re-bucketed: first 4 deposit buckets (&le;1M, 1-3M, 3-6M, 6-12M) combined into &ldquo;Up to 1 Year&rdquo;. Source: F10 (loans) &amp; F08 (deposits).</td><td>Direct</td></tr>
+<tr><td>Structural Original-Maturity Comparison (was &ldquo;Contractual Maturity Gap&rdquo;)</td><td>Renamed: it is not a liquidity gap. Loans minus aligned time deposits per maturity bucket. Deposit buckets re-bucketed: first 4 deposit buckets (&le;1M, 1-3M, 3-6M, 6-12M) combined into &ldquo;Up to 1 Year&rdquo;. Source: F10 (loans) &amp; F08 (deposits).</td><td>Direct</td></tr>
 <tr><td>ATM Recycling Rate</td><td>ATM deposit value / ATM withdrawal value &times; 100. Higher = more cash deposited relative to withdrawn. Source: Table 5 (Terminal Transactions).</td><td>Direct</td></tr>
 <tr><td>Card-to-ATM Ratio</td><td>Card payment count / ATM withdrawal count. Measures card substitution of cash. Source: Table 4 (Payments) &amp; Table 5 (Terminal Tx).</td><td>Direct</td></tr>
 <tr><td>MTO Share of Remittances</td><td>MTO (agencies) channel value / total remittance value &times; 100. Source: CBK Tables 31-32.</td><td>Direct</td></tr>
@@ -508,7 +604,13 @@ tr:hover td{background:#f8f9fb}
 </div>
 </div>
 
-<script src="_data_blob.js?v=202607b"></script>
+<script src="_data_blob.js?v=20260902"></script>
+<script src="js/core/periods.js?v=20260902"></script>
+<script src="js/core/safe-math.js?v=20260902"></script>
+<script src="js/core/calculations.js?v=20260902"></script>
+<script src="js/core/validators.js?v=20260902"></script>
+<script src="js/core/signals.js?v=20260902"></script>
+<script src="js/core/regimes.js?v=20260902"></script>
 <script>
 
 const C1='#0f172a',C2='#1e40af',C3='#0d9488',C4='#d97706',C5='#be123c',GRN='#059669',GOLD='#b8860b';
@@ -523,19 +625,58 @@ Chart.defaults.elements.point.hoverRadius=5;
 Chart.defaults.scale.grid={color:'#e8ecf1'};
 Chart.defaults.scale.border={color:'#cbd5e1'};
 
-const MM={January:'01',February:'02',March:'03',April:'04',May:'05',June:'06',
-July:'07',August:'08',September:'09',October:'10',November:'11',December:'12',
-Janar:'01',Shkurt:'02',Mars:'03',Prill:'04',Maj:'05',Qershor:'06',Korrik:'07',
-Gusht:'08',Shtator:'09',Tetor:'10','\u004e\u00ebntor':'11',Nentor:'11',Dhjetor:'12'};
-const MN={'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'};
+// ---- KBI CORE BINDING -------------------------------------------------
+// Period algebra, arithmetic and deduplication now come from the unit-tested
+// modules in app/js/core/. The month maps, the +/-2 month "year over year"
+// search, the zero-as-missing percentage change and the largest-value
+// deduplication that used to live here have been deleted, not wrapped.
+var _P = window.KBI && window.KBI.Periods;
+var _M = window.KBI && window.KBI.Math;
+var _V = window.KBI && window.KBI.Validate;
+
+if (!_P || !_M || !_V) {
+  document.addEventListener('DOMContentLoaded', function () {
+    var main = document.querySelector('.main');
+    if (!main) return;
+    var box = document.createElement('div');
+    box.style.cssText = 'margin:24px;padding:16px 20px;border:1px solid #fecaca;' +
+      'background:#fef2f2;color:#991b1b;border-radius:6px;font-size:13px;line-height:1.6';
+    box.textContent = 'Calculation modules failed to load (app/js/core/). ' +
+      'Figures are not displayed rather than shown from an untested fallback. ' +
+      'Reload the page; if this persists the deployment is incomplete.';
+    main.insertBefore(box, main.firstChild);
+  });
+  throw new Error('KBI core modules unavailable');
+}
 
 // ---- REMITTANCE CLEANER: exclude annual/quarterly, deduplicate monthly ----
-function isMonthlyPeriod(p){var s=String(p).replace(/\s*\(p\)\s*/,'').split(' ');if(s.length<2)return false;if(/^T\d$/i.test(s[1]))return false;return /^\d{4}$/.test(s[0])&&(MM[s[1]]||MM[s.slice(1).join(' ')]);}
-function dedupRemit(arr){var map={};arr.forEach(function(r){if(!isMonthlyPeriod(r.period))return;var ch=r.channel||r.country||'';var key=r.period+'|'+ch;if(!map[key]||r.value>map[key].value)map[key]=r});return Object.values(map)}
+function isMonthlyPeriod(p){return _P.toIndex(p)!=null}
+// Deterministic: final beats provisional, then later publication, then declared
+// source priority. Duplicates that none of those separate are excluded from the
+// calculations and reported, instead of silently keeping the larger figure.
+var DEDUPE_CONFLICTS=[];
+function dedupRemit(arr){
+  var monthly=(arr||[]).filter(function(r){return isMonthlyPeriod(r.period)});
+  var res=_V.dedupe(monthly);
+  if(res.conflicts.length)DEDUPE_CONFLICTS=DEDUPE_CONFLICTS.concat(res.conflicts);
+  return res.rows;
+}
 // ---- GLOBAL FORMATTERS ----
-function pk(p){if(!p)return'0000-00';var s=String(p).replace(/\s*\(p\)\s*/,'').split(' ');if(s.length===1&&/^\d{4}$/.test(s[0]))return s[0]+'-12';if(s.length>=2&&/^\d{4}$/.test(s[0])){var m=MM[s[1]]||MM[s.slice(1).join(' ')]||'00';return s[0]+'-'+m}return p}
+function pk(p){
+  var k=_P.toKey(p);
+  if(k)return k;
+  if(!p)return'0000-00';
+  var s=String(p).replace(/\s*\(p\)\s*/,'').trim();
+  if(/^\d{4}$/.test(s))return s+'-12';   // a bare year sorts at its December
+  return s;
+}
 function sp(a){return a.slice().sort(function(x,y){return pk(x.period).localeCompare(pk(y.period))})}
-function fmtP(p){if(!p)return'';var k=pk(p);var parts=k.split('-');if(parts.length===2&&MN[parts[1]])return MN[parts[1]]+' '+parts[0];return String(p).replace(/\s*\(p\)\s*/,'')}
+function fmtP(p){
+  if(!p)return'';
+  var i=_P.toIndex(p);
+  if(i!=null)return _P.format(i);
+  return String(p).replace(/\s*\(p\)\s*/,'');
+}
 
 function fmtMoney(v){
   if(v==null||isNaN(v))return'\u2014';
@@ -561,7 +702,9 @@ var ttEur={callbacks:{label:function(c){return c.dataset.label+': '+fmtEur(c.par
 var ttPct={callbacks:{label:function(c){return c.dataset.label+': '+fmtPct(c.parsed.y)}}};
 var ttPP={callbacks:{label:function(c){return c.dataset.label+': '+fmtPP(c.parsed.y)}}};
 
-function pctChange(a,b){if(!b||!a||b===0)return null;return((a-b)/Math.abs(b)*100).toFixed(1)}
+// Zero is a value, not a gap: 100 -> 0 now reads -100.0, and only a missing or
+// zero BASE returns null. Kept as a 1-dp string, which is what addK() expects.
+function pctChange(a,b){var v=_M.pctChange(a,b);return v==null?null:v.toFixed(1)}
 
 // ---- FILTERS ----
 function getYears(){
@@ -602,19 +745,18 @@ function showFilterNote(containerId,msg){
 }
 function latest(arr,fn){var f=fn?arr.filter(fn):arr;f=flt(f);if(!f.length)return null;return sp(f)[f.length-1]}
 function latestYearOnly(arr,fn){var f=fn?arr.filter(fn):arr;f=fltYearOnly(f);if(!f.length)return null;return sp(f)[f.length-1]}
-function prior12(arr,latP,fn){
-  if(!latP)return null;var p=pk(latP);var y=parseInt(p),m=parseInt(p.split('-')[1])||12;
-  var f=fn?arr.filter(fn):arr;var best=null,bd=999;
-  f.forEach(function(r){var rp=pk(r.period);var ry=parseInt(rp),rm=parseInt(rp.split('-')[1])||12;
-    var d=Math.abs((y*12+m)-(ry*12+rm)-12);if(d<bd){bd=d;best=r}});
-  return bd<=2?best:null;
-}
-function priorMo(arr,latP,fn){
-  if(!latP)return null;var p=pk(latP);var y=parseInt(p),m=parseInt(p.split('-')[1])||12;
-  var pm=m-1,py=y;if(pm<1){pm=12;py--}var target=py+'-'+(pm<10?'0'+pm:pm);
+// Exact comparisons. The previous prior12() accepted any observation within
+// +/-2 months of 12 months back, so a 10- or 14-month interval could be labelled
+// "YoY". If the exact comparable period is absent the answer is null, and the
+// card shows no delta rather than a misleading one.
+function _at(arr,target,fn){
+  if(target==null)return null;
   var f=fn?arr.filter(fn):arr;
-  return f.find(function(r){return pk(r.period)===target})||null;
+  for(var i=0;i<f.length;i++){if(_P.toIndex(f[i].period)===target)return f[i]}
+  return null;
 }
+function prior12(arr,latP,fn){return _at(arr,_P.sameMonthPreviousYear(_P.toIndex(latP)),fn)}
+function priorMo(arr,latP,fn){return _at(arr,_P.previousMonth(_P.toIndex(latP)),fn)}
 function resetF(){var yrs=getYears();document.getElementById('f-yf').value=Math.max(yrs[0]||2000,2020);document.getElementById('f-yt').value=yrs[yrs.length-1]||2026;document.getElementById('f-mo').value='all';buildAll()}
 
 // Nav
@@ -942,9 +1084,9 @@ var wacfGap=lLR&&wacf!=null?(lLR.value-wacf):null;
 
 addK('rt-k','Lending Rate',lLR?fmtPct(lLR.value):'\u2014',lLR&&pLR?(lLR.value-pLR.value):null,' pp',lLR?fmtP(lLR.period)+' | New loans':'');
 addK('rt-k','Time Deposit Rate',lDR?fmtPct(lDR.value):'\u2014',lDR&&pDR?(lDR.value-pDR.value):null,' pp',lDR?fmtP(lDR.period)+' | New time deposits':'');
-addK('rt-k','WACF',wacf!=null?fmtPct(wacf):'\u2014',null,null,'Weighted Avg Cost of Funds (stock-based)');
+addK('rt-k','Est. Deposit Cost',wacf!=null?fmtPct(wacf):'\u2014',null,null,'Customer deposits only \u2014 not a full cost of funds');
 if(narrowGap!=null){addK('rt-k','Narrow Gap',fmtPP(narrowGap),null,null,'Loans minus TDA rate only')}
-if(wacfGap!=null){addK('rt-k','WACF Gap',fmtPP(wacfGap),null,null,'Loans minus WACF')}
+if(wacfGap!=null){addK('rt-k','Pricing Gap',fmtPP(wacfGap),null,null,'Lending rate minus estimated deposit cost')}
 
 var lCons=latest(IRL,function(r){return r.type==='Consumer Loan Rate'});
 var lMort=latest(IRL,function(r){return r.type==='Mortgage Rate'});
@@ -1010,7 +1152,7 @@ if(spreadP.length){
     {label:'Lending Rate',data:spreadP.map(function(p){return lrMap[p]||null}),borderColor:C1,borderWidth:2.5,tension:.3,pointRadius:0},
     {label:'Time Deposit Rate',data:spreadP.map(function(p){return drMap2[p]||null}),borderColor:'#0d9488',borderWidth:2,tension:.3,pointRadius:0},
     {label:'Narrow Gap (vs TDA)',data:spreadP.map(function(p){return lrMap[p]&&drMap2[p]?(lrMap[p]-drMap2[p]):null}),borderColor:GOLD,backgroundColor:GOLD+'15',fill:true,tension:.3,borderWidth:1.8,pointRadius:0},
-    {label:'WACF Gap (stock-based)',data:spreadP.map(function(p){
+    {label:'Pricing Gap (est. deposit cost)',data:spreadP.map(function(p){
       var dr=drMap2[p],ca=caM[p]||0,sa=saM[p]||0;
       // TDA stock from dep_maturity for this period
       var tdStock=0;DM.forEach(function(r){if(r.period===p)tdStock+=r.value});
@@ -1636,8 +1778,10 @@ var prevInc=decInc.length>1?decInc[decInc.length-2]:null;
 // KPIs
 var nii=latestInc.interest_income-latestInc.interest_expense;
 var nimProxy=latestInc.total_income>0?(nii/latestInc.total_income*100):null;
-var opIncome=latestInc.interest_income+latestInc.non_interest_income+latestInc.revaluation_income-latestInc.interest_expense-latestInc.non_interest_expense;
-var cti=opIncome>0?(latestInc.gen_admin_expense/opIncome*100):null;
+// Operating expenses exclude impairment and tax; fee expense is netted
+// against income. Identical to KBI.Calc.costToIncome (see docs/METHODOLOGY.md).
+var opIncome=latestInc.total_income-latestInc.interest_expense-latestInc.fee_commission_expense;
+var cti=opIncome>0?(((latestInc.gen_admin_expense||0)+(latestInc.depreciation||0))/opIncome*100):null;
 var feeDep=latestInc.total_income>0?(latestInc.fee_commission_income/latestInc.total_income*100):null;
 var npm=latestInc.total_income>0?(latestInc.net_profit/latestInc.total_income*100):null;
 
@@ -1645,19 +1789,19 @@ var prevNim=null,prevCti=null;
 if(prevInc){
   var pnii=prevInc.interest_income-prevInc.interest_expense;
   prevNim=prevInc.total_income>0?(pnii/prevInc.total_income*100):null;
-  var pOpInc=prevInc.interest_income+prevInc.non_interest_income+prevInc.revaluation_income-prevInc.interest_expense-prevInc.non_interest_expense;
-  prevCti=pOpInc>0?(prevInc.gen_admin_expense/pOpInc*100):null;
+  var pOpInc=prevInc.total_income-prevInc.interest_expense-prevInc.fee_commission_expense;
+  prevCti=pOpInc>0?(((prevInc.gen_admin_expense||0)+(prevInc.depreciation||0))/pOpInc*100):null;
 }
 
-addK('pf-k','NIM Proxy',nimProxy!=null?fmtPct(nimProxy):'\u2014',prevNim!=null?nimProxy-prevNim:null,' pp','NII / Total Income');
-addK('pf-k','Cost-to-Income',cti!=null?fmtPct(cti):'\u2014',prevCti!=null?cti-prevCti:null,' pp','G&A expenses / operating income');
+addK('pf-k','Net Interest Income Share',nimProxy!=null?fmtPct(nimProxy):'\u2014',prevNim!=null?nimProxy-prevNim:null,' pp','NII / Total Income \u2014 not a margin');
+addK('pf-k','Cost-to-Income',cti!=null?fmtPct(cti):'\u2014',prevCti!=null?cti-prevCti:null,' pp','(G&A + depreciation) / operating income');
 addK('pf-k','Fee Dependency',feeDep!=null?fmtPct(feeDep):'\u2014',null,null,'Fee Income / Total');
 addK('pf-k','Net Profit Margin',npm!=null?fmtPct(npm):'\u2014',null,null,'Net Profit / Income');
 addK('pf-k','Net Profit',latestInc.net_profit?fmtMoney(latestInc.net_profit):'\u2014',null,null,'EUR, cumulative');
 addK('pf-k','Total Income',latestInc.total_income?fmtMoney(latestInc.total_income):'\u2014',null,null,'EUR, cumulative');
 
 document.getElementById('pf-h').textContent='Income Statement — '+latestInc.period;
-document.getElementById('pf-p').textContent='Full-year cumulative: Total income '+fmtMoney(latestInc.total_income)+', Net interest income '+fmtMoney(nii)+', Net profit '+fmtMoney(latestInc.net_profit)+'. Cost-to-income ratio '+(cti!=null?cti.toFixed(1)+'%':'N/A')+' (G&A expenses / operating income).';
+document.getElementById('pf-p').textContent='Full-year cumulative: Total income '+fmtMoney(latestInc.total_income)+', Net interest income '+fmtMoney(nii)+', Net profit '+fmtMoney(latestInc.net_profit)+'. Cost-to-income ratio '+(cti!=null?cti.toFixed(1)+'%':'N/A')+' = (G&A + depreciation) / (total income - interest expense - fee expense). This tab reports year-ends for comparability; the Decision Centre reports the latest published period, so the two differ by period, not by method.';
 
 // Chart: Income composition trend
 var incPeriods=decInc.map(function(r){return r.period});
@@ -1714,18 +1858,21 @@ var prevCR=decInc2.length>1?decInc2[decInc2.length-2]:null;
 var latLoans=loanMap[latCR.period]||0;
 var prevLoans=prevCR?loanMap[prevCR.period]||0:0;
 
-var costOfRisk=latLoans>0?(latCR.loan_loss_provisions/latLoans*100):null;
-var prevCoR=prevCR&&prevLoans>0?(prevCR.loan_loss_provisions/prevLoans*100):null;
+// Average gross loans, not the ending balance. December is already a full
+// year so no annualisation factor applies here. Matches KBI.Calc.costOfRisk.
+var avgLoansCR=(latLoans>0&&prevLoans>0)?((latLoans+prevLoans)/2):latLoans;
+var costOfRisk=avgLoansCR>0?(latCR.loan_loss_provisions/avgLoansCR*100):null;
+var prevCoR=null;
 var niiCR=latCR.interest_income-latCR.interest_expense;
 var provInt=niiCR>0?(latCR.loan_loss_provisions/niiCR*100):null;
 
 addK('cr2-k','Loan Loss Provisions',latCR.loan_loss_provisions?fmtMoney(latCR.loan_loss_provisions):'\u2014',null,null,'EUR, cumulative');
-addK('cr2-k','Cost of Risk',costOfRisk!=null?(costOfRisk.toFixed(2)+'%'):'\u2014',prevCoR!=null?costOfRisk-prevCoR:null,' pp','Dec cumulative provisions / Dec loans');
+addK('cr2-k','Cost of Risk (annualised)',costOfRisk!=null?(costOfRisk.toFixed(2)+'%'):'\u2014',null,null,'Full-year impairment / average gross loans');
 addK('cr2-k','Provisioning Intensity',provInt!=null?fmtPct(provInt):'\u2014',null,null,'Provisions / NII');
 addK('cr2-k','Total Loans',latLoans?fmtMoney(latLoans):'\u2014',null,null,'Year-end stock, Table 02');
 
-document.getElementById('cr2-h').textContent='Credit Risk — '+latCR.period;
-document.getElementById('cr2-p').textContent='Loan loss provisions '+fmtMoney(latCR.loan_loss_provisions)+' (Dec cumulative). Cost of risk '+(costOfRisk!=null?costOfRisk.toFixed(2)+'%':'N/A')+' (Dec cumulative provisions / Dec loan stock). Provisioning absorbs '+(provInt!=null?provInt.toFixed(1)+'%':'N/A')+' of net interest income.';
+document.getElementById('cr2-h').textContent='Credit Risk — '+latCR.period+' (year-end; the Decision Centre shows the latest published period)';
+document.getElementById('cr2-p').textContent='Loan loss provisions '+fmtMoney(latCR.loan_loss_provisions)+' (full year). Cost of risk '+(costOfRisk!=null?costOfRisk.toFixed(2)+'%':'N/A')+' on average gross loans. Provisioning absorbs '+(provInt!=null?provInt.toFixed(1)+'%':'N/A')+' of net interest income.';
 
 var crPeriods=decInc2.map(function(r){return r.period});
 
@@ -1916,5 +2063,7 @@ initFilters();
 buildAll();
 
 </script>
+<script src="js/decision-centre.js?v=20260902"></script>
+<script src="js/a11y.js?v=20260902"></script>
 </body>
 </html>
