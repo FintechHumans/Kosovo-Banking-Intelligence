@@ -455,7 +455,7 @@ tr:hover td{background:#f8f9fb}
 <div class="ccard full"><h3>Income composition trend</h3><div class="csub">Annual cumulative: interest income, non-interest income, total expenses (EUR M)</div><canvas id="ch-pf-income"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Cost-to-Income ratio</h3><div class="csub">G&amp;A expenses / operating income, December cumulative %</div><canvas id="ch-pf-cti"></canvas></div>
+<div class="ccard"><h3>Cost-to-Income ratio</h3><div class="csub">(G&amp;A + depreciation) / (total income &minus; interest exp &minus; fee exp), December cumulative %</div><canvas id="ch-pf-cti"></canvas></div>
 <div class="ccard"><h3>Net Interest Margin proxy</h3><div class="csub">Net interest income / total income, year-end %</div><canvas id="ch-pf-nim"></canvas></div>
 </div>
 <div class="cgrid">
@@ -465,7 +465,7 @@ tr:hover td{background:#f8f9fb}
 <div class="cgrid">
 <div class="ccard full"><h3>Expense breakdown trend</h3><div class="csub">Personnel, general &amp; admin, provisions, interest expense (EUR M, year-end cumulative)</div><canvas id="ch-pf-expense"></canvas></div>
 </div>
-<div class="note caveat"><div class="note-tag">Data Note</div><p>Income data from CBK Table 14 is <strong>cumulative</strong> (year-to-date). December values represent full-year totals. Ratios computed from cumulative figures. <strong>Cost-to-Income</strong> = general &amp; administrative expenses (col 21) / operating income, where operating income = interest income (col 3) + non-interest income (col 8) + revaluation income (col 11) &minus; interest expense (col 13) &minus; non-interest expense (col 17). NIM proxy uses net interest income / total income (not average earning assets, which are unavailable).</p></div>
+<div class="note caveat"><div class="note-tag">Data Note</div><p>Income data from CBK Table 14 is <strong>cumulative</strong> (year-to-date). December values represent full-year totals. Ratios computed from cumulative figures. <strong>Cost-to-Income</strong> (KPI and historical chart use the same formula) = (general &amp; administrative expenses, col 21 + depreciation, col 20) / (total income, col 2 &minus; interest expense, col 13 &minus; fee &amp; commission expense, col 18). If any required component is missing, the ratio shows &ldquo;N/A&rdquo; and no bar/point is drawn &mdash; unavailable data is never silently treated as zero. NIM proxy uses net interest income / total income (not average earning assets, which are unavailable).</p></div>
 </div>
 
 <div class="mod" id="mod-credit-risk">
@@ -604,7 +604,7 @@ tr:hover td{background:#f8f9fb}
 </div>
 </div>
 
-<script src="_data_blob.js?v=20260902"></script>
+<script src="_data_blob.js?v=20261019v5"></script>
 <script src="js/core/periods.js?v=20260902"></script>
 <script src="js/core/safe-math.js?v=20260902"></script>
 <script src="js/core/calculations.js?v=20260902"></script>
@@ -994,7 +994,10 @@ if(hhCorpP.length){
 // Loan maturity charts moved to Maturity tab (see mod-maturity)
 
 // [A6 FIX] Corporate sector - DATA-DRIVEN, not hardcoded
-var allSectors=LS.filter(function(r){return r.sector!=='Total'});
+// [HOTFIX 2026-10-19] filter to 3 top-level sectors (Agriculture, Industry, Services)
+// to prevent double-counting with sub-categories (Mining, Manufacturing, Trade, Hotels, etc.)
+var TOP_LEVEL_SECTORS={'Agriculture':1,'Industry':1,'Services':1};
+var allSectors=LS.filter(function(r){return TOP_LEVEL_SECTORS[r.sector]===1});
 var sectorLatest={};
 allSectors.forEach(function(r){var curr=sectorLatest[r.sector];if(!curr||pk(r.period)>pk(curr.period))sectorLatest[r.sector]=r});
 var sortedSectors=Object.values(sectorLatest).sort(function(a,b){return b.value-a.value}).slice(0,10);
@@ -1780,8 +1783,23 @@ var nii=latestInc.interest_income-latestInc.interest_expense;
 var nimProxy=latestInc.total_income>0?(nii/latestInc.total_income*100):null;
 // Operating expenses exclude impairment and tax; fee expense is netted
 // against income. Identical to KBI.Calc.costToIncome (see docs/METHODOLOGY.md).
-var opIncome=latestInc.total_income-latestInc.interest_expense-latestInc.fee_commission_expense;
-var cti=opIncome>0?(((latestInc.gen_admin_expense||0)+(latestInc.depreciation||0))/opIncome*100):null;
+// [V5] Single shared null-safe Cost-to-Income definition used by BOTH the KPI
+// and the historical chart. Previously the historical chart used a different
+// numerator (gen_admin_expense only) and denominator (operating income minus
+// non_interest_expense) and silently coerced NULL to 0. Now one definition.
+//   Numerator:   gen_admin_expense + depreciation   (admin + fixed-asset dep.)
+//   Denominator: total_income − interest_expense − fee_commission_expense
+//                (operating income after cost of funds and fee pass-through)
+// If any required input is NULL, the result is NULL → the UI displays "N/A"
+// and chart.js renders a gap, not a misleading number.
+function safeCIR(r){
+  if(!r||r.gen_admin_expense==null||r.depreciation==null||
+     r.total_income==null||r.interest_expense==null||r.fee_commission_expense==null) return null;
+  var denom=r.total_income-r.interest_expense-r.fee_commission_expense;
+  if(!(denom>0)) return null;
+  return (r.gen_admin_expense+r.depreciation)/denom*100;
+}
+var cti=safeCIR(latestInc);
 var feeDep=latestInc.total_income>0?(latestInc.fee_commission_income/latestInc.total_income*100):null;
 var npm=latestInc.total_income>0?(latestInc.net_profit/latestInc.total_income*100):null;
 
@@ -1789,12 +1807,12 @@ var prevNim=null,prevCti=null;
 if(prevInc){
   var pnii=prevInc.interest_income-prevInc.interest_expense;
   prevNim=prevInc.total_income>0?(pnii/prevInc.total_income*100):null;
-  var pOpInc=prevInc.total_income-prevInc.interest_expense-prevInc.fee_commission_expense;
-  prevCti=pOpInc>0?(((prevInc.gen_admin_expense||0)+(prevInc.depreciation||0))/pOpInc*100):null;
+  // [V5] shared safeCIR helper (see definition above)
+  prevCti=safeCIR(prevInc);
 }
 
 addK('pf-k','Net Interest Income Share',nimProxy!=null?fmtPct(nimProxy):'\u2014',prevNim!=null?nimProxy-prevNim:null,' pp','NII / Total Income \u2014 not a margin');
-addK('pf-k','Cost-to-Income',cti!=null?fmtPct(cti):'\u2014',prevCti!=null?cti-prevCti:null,' pp','(G&A + depreciation) / operating income');
+addK('pf-k','Cost-to-Income',cti!=null?fmtPct(cti):'\u2014',prevCti!=null?cti-prevCti:null,' pp','(G&A + depreciation) / (total income \u2212 interest exp \u2212 fee exp)');
 addK('pf-k','Fee Dependency',feeDep!=null?fmtPct(feeDep):'\u2014',null,null,'Fee Income / Total');
 addK('pf-k','Net Profit Margin',npm!=null?fmtPct(npm):'\u2014',null,null,'Net Profit / Income');
 addK('pf-k','Net Profit',latestInc.net_profit?fmtMoney(latestInc.net_profit):'\u2014',null,null,'EUR, cumulative');
@@ -1812,9 +1830,9 @@ mkChart('ch-pf-income','bar',incPeriods,
  {label:'Total Expenses',data:decInc.map(function(r){return -r.total_expenses}),backgroundColor:'#dc2626'}],
 {plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{stacked:false},y:{title:{display:true,text:'EUR M'}}}});
 
-// Chart: Cost-to-Income ratio
+// [V5] Chart uses the SAME safeCIR() as the KPI — single source of truth
 mkChart('ch-pf-cti','line',incPeriods,
-[{label:'Cost-to-Income %',data:decInc.map(function(r){var oi=r.interest_income+r.non_interest_income+r.revaluation_income-r.interest_expense-r.non_interest_expense;return oi>0?(r.gen_admin_expense/oi*100):null}),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
+[{label:'Cost-to-Income %',data:decInc.map(safeCIR),borderColor:'#dc2626',backgroundColor:'#dc262610',fill:true,tension:.3,pointRadius:2}],
 {plugins:{tooltip:ttPct},scales:{y:{title:{display:true,text:'%'}}}});
 
 // Chart: NIM proxy
@@ -1838,7 +1856,7 @@ mkChart('ch-pf-expense','bar',incPeriods,
  {label:'General & Admin',data:decInc.map(function(r){return r.general_expense}),backgroundColor:'#475569'},
  {label:'Loan Loss Provisions',data:decInc.map(function(r){return r.loan_loss_provisions}),backgroundColor:'#dc2626'},
  {label:'Interest Expense',data:decInc.map(function(r){return r.interest_expense}),backgroundColor:'#b8860b'},
- {label:'Other',data:decInc.map(function(r){return r.depreciation+r.fee_commission_expense+r.other_non_int_expense+r.revaluation_losses+r.tax_provision}),backgroundColor:'#94a3b8'}],
+ {label:'Other',data:decInc.map(function(r){var vs=[r.depreciation,r.fee_commission_expense,r.other_non_int_expense,r.revaluation_losses,r.tax_provision];return vs.some(function(v){return v==null})?null:vs.reduce(function(a,b){return a+b},0)}),backgroundColor:'#94a3b8'}],
 {plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'EUR M'}}}});
 } // end INCOME
 
