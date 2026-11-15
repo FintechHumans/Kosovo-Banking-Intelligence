@@ -551,14 +551,43 @@
     } catch (e) { /* governance panel must never break the page */ }
     var summary = V.summarise(issues);
 
+    /* Coverage: which datasets reach the newest period, which stop earlier,
+       and which latest values BQK still marks as preliminary. */
+    var byPeriod = {}, prelim = [];
+    datasets.forEach(function (key) {
+      var rowsK = DATA()[key], i = P.latestIndex(rowsK);
+      (byPeriod[i] = byPeriod[i] || []).push(key);
+      if (rowsK.some(function (r) { return r.preliminary && P.toIndex(r.period) === i; })) {
+        prelim.push(key + ' (' + P.format(i) + ')');
+      }
+    });
+    var current = latest == null ? [] : (byPeriod[latest] || []);
+    var older = Object.keys(byPeriod).map(Number)
+      .filter(function (i) { return i !== latest; })
+      .sort(function (a, b) { return b - a; })
+      .map(function (i) { return byPeriod[i].join(', ') + ' (' + P.format(i) + ')'; });
+
+    /* Mismatches that are in the BQK source itself and are shown, not corrected. */
+    var KNOWN_SOURCE_ISSUES = [
+      'remit_channel — Total differs from Banks + MTOs + Other in BQK Table 31 for Jun 2020, Aug 2021 and Oct 2021; published values kept, not adjusted.',
+      'remit_channel — the "Other" channel for Apr–May 2020 is "n.a." in BQK Table 31.',
+      'loans_customer — Government lending is not published by BQK ("…"), so Total cannot be reconciled with its components.',
+      'loans_maturity — "Non-Financial Corporations" is BQK\'s other (private) non-financial corporations column; public non-financial corporations (mostly suppressed "…" by BQK, about €0.04M in Sep 2026) are not included.',
+      'dep_maturity / loan_maturity_residual — buckets BQK suppresses ("…") are left out of sums, so some totals cover published components only; Aug 2026 Non-Financial Corporations "Up to 1 month" deposits are missing.'
+    ];
+
     var rows = [
       ['Application version', APP_VERSION],
       ['Methodology version', METHODOLOGY_VERSION],
       ['Datasets loaded', String(datasets.length)],
       ['Observations', observations.toLocaleString('en')],
-      ['Latest reporting period', latest == null ? 'N/A' : P.format(latest)],
-      ['Validation status', summary.status],
-      ['Known issues', summary.errors + ' error(s), ' + summary.warnings + ' warning(s)']
+      ['Newest reporting period', latest == null ? 'N/A'
+        : P.format(latest) + ' — ' + current.length + ' of ' + datasets.length + ' datasets'],
+      ['Datasets on an older period', older.length ? older.join('; ') : 'none'],
+      ['Preliminary latest values', prelim.length ? prelim.join(', ') + ' — BQK marks (p)' : 'none'],
+      ['Automated checks', summary.status + ' — ' + summary.errors + ' error(s), ' + summary.warnings +
+        ' warning(s). Covers structure, duplicates and continuity; it is not a re-check against BQK source cells.'],
+      ['Known source mismatches', KNOWN_SOURCE_ISSUES.length + ' documented (listed below)']
     ];
     var dl = h('div', 'gov-grid');
     rows.forEach(function (r) {
@@ -566,6 +595,17 @@
       dl.appendChild(h('div', 'gov-v', r[1]));
     });
     host.appendChild(dl);
+
+    var kdet = document.createElement('details');
+    kdet.className = 'dc-details';
+    var ksum = document.createElement('summary');
+    ksum.textContent = 'Known source mismatches (' + KNOWN_SOURCE_ISSUES.length + ')';
+    kdet.appendChild(ksum);
+    var kul = document.createElement('ul');
+    kul.className = 'gov-issues';
+    KNOWN_SOURCE_ISSUES.forEach(function (t) { kul.appendChild(h('li', 'lvl-warn', t)); });
+    kdet.appendChild(kul);
+    host.appendChild(kdet);
 
     if (issues.length) {
       var det = document.createElement('details');
