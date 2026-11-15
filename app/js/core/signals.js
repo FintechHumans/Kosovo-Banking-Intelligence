@@ -148,6 +148,9 @@
       unit: spec.unit || null,
       mom: momValue,
       yoy: yoyValue,
+      // absolute changes (percentage points for rates and ratios)
+      momAbs: momValue == null ? null : latest.value - prev.value,
+      yoyAbs: yoyPoint ? latest.value - yoyPoint.value : null,
       percentile: pct,
       runLength: run,
       direction: momValue == null ? 'flat' : momValue > 0 ? 'up' : momValue < 0 ? 'down' : 'flat',

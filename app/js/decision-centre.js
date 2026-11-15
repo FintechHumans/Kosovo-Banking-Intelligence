@@ -59,6 +59,15 @@
       return { text: 'N/A', cls: 'flat',
                title: ch.reason || 'exact comparable period unavailable' };
     }
+    // Rates and ratios (unit '%') change in percentage points, not in relative per cent.
+    if (unit === '%' && ch.absolute != null && isFinite(ch.absolute)) {
+      var d = ch.absolute;
+      return {
+        text: (d >= 0 ? '▲ +' : '▼ ') + d.toFixed(2) + ' pp',
+        cls: d > 0 ? 'up' : d < 0 ? 'dn' : 'flat',
+        title: 'vs ' + ch.periodLabel + ' (percentage-point change)'
+      };
+    }
     var v = ch.value;
     return {
       text: (v >= 0 ? '▲ +' : '▼ ') + v.toFixed(2) + '%',
@@ -453,8 +462,10 @@
 
       var stats = h('div', 'sig-stats');
       [['Latest', fmtVal(s.value, s.unit)],
-       ['MoM', s.mom == null ? 'N/A' : s.mom.toFixed(2) + '%'],
-       ['YoY', s.yoy == null ? 'N/A' : s.yoy.toFixed(2) + '%'],
+       ['MoM', s.unit === '%' ? (s.momAbs == null ? 'N/A' : (s.momAbs >= 0 ? '+' : '') + s.momAbs.toFixed(2) + ' pp')
+                              : (s.mom == null ? 'N/A' : s.mom.toFixed(2) + '%')],
+       ['YoY', s.unit === '%' ? (s.yoyAbs == null ? 'N/A' : (s.yoyAbs >= 0 ? '+' : '') + s.yoyAbs.toFixed(2) + ' pp')
+                              : (s.yoy == null ? 'N/A' : s.yoy.toFixed(2) + '%')],
        ['Percentile', s.percentile == null ? 'N/A' : s.percentile.toFixed(0) + 'th'],
        ['Run', s.runLength + ' mo'],
        ['Confidence', (s.confidence * 100).toFixed(0) + '%']
@@ -572,8 +583,8 @@
       'remit_channel — Total differs from Banks + MTOs + Other in BQK Table 31 for Jun 2020, Aug 2021 and Oct 2021; published values kept, not adjusted.',
       'remit_channel — the "Other" channel for Apr–May 2020 is "n.a." in BQK Table 31.',
       'loans_customer — Government lending is not published by BQK ("…"), so Total cannot be reconciled with its components.',
-      'loans_maturity — "Non-Financial Corporations" is BQK\'s other (private) non-financial corporations column; public non-financial corporations (mostly suppressed "…" by BQK, about €0.04M in Sep 2026) are not included.',
-      'dep_maturity / loan_maturity_residual — buckets BQK suppresses ("…") are left out of sums, so some totals cover published components only; Aug 2026 Non-Financial Corporations "Up to 1 month" deposits are missing.'
+      'loans_maturity — the corporate series is BQK\'s "other (private) non-financial corporations" column and is now labelled so; public non-financial corporations (mostly suppressed "…" by BQK, about €0.04M in Sep 2026) are not included.',
+      'dep_maturity / loan_maturity_residual — buckets BQK suppresses ("…") are left out of sums, so bucket totals and shares cover published components only (residual maturity: also non-euro loans, which BQK does not split by bucket); Aug 2026 Non-Financial Corporations "Up to 1 month" deposits are missing.'
     ];
 
     var rows = [

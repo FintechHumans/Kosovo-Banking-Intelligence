@@ -410,18 +410,18 @@ tr:hover td{background:#f8f9fb}
 <div class="kpis" id="mt-k"></div>
 <div class="note"><div class="note-tag">Loan Maturity Profile</div><h3 id="mt-h"></h3><p id="mt-p"></p></div>
 <div class="cgrid">
-<div class="ccard full"><h3>Loan maturity: all segments</h3><div class="csub">Outstanding loans by original maturity bucket, EUR</div><canvas id="ch-mt-all"></canvas></div>
+<div class="ccard full"><h3>Loan maturity: households + other NFC</h3><div class="csub">Outstanding loans by original maturity bucket, EUR (households and other (private) non-financial corporations; public NFCs, government and other sectors not included)</div><canvas id="ch-mt-all"></canvas></div>
 </div>
 <div class="cgrid">
 <div class="ccard"><h3>Household loan maturity</h3><div class="csub">HH outstanding by maturity bucket, EUR</div><canvas id="ch-mt-hh"></canvas></div>
-<div class="ccard"><h3>Corporate loan maturity</h3><div class="csub">NFC outstanding by maturity bucket, EUR</div><canvas id="ch-mt-nfc"></canvas></div>
+<div class="ccard"><h3>Other (private) NFC loan maturity</h3><div class="csub">Other (private) non-financial corporations outstanding by maturity bucket, EUR; public NFCs not included</div><canvas id="ch-mt-nfc"></canvas></div>
 </div>
 <div class="cgrid">
 <div class="ccard full"><h3>Loan maturity trend: short-term vs long-term</h3><div class="csub">Under 1 year vs over 5 years, EUR</div><canvas id="ch-mt-trend"></canvas></div>
 </div>
 <div class="meth-section">
 <h3>Loan Maturity Detail</h3>
-<div class="tw"><table><thead><tr><th>Maturity Bucket</th><th class="num">HH (EUR M)</th><th class="num">NFC (EUR M)</th><th class="num">Total (EUR M)</th><th class="num">Share %</th></tr></thead><tbody id="mt-table"></tbody></table></div>
+<div class="tw"><table><thead><tr><th>Maturity Bucket</th><th class="num">HH (EUR M)</th><th class="num">Other NFC (EUR M)</th><th class="num">Total (EUR M)</th><th class="num">Share %</th></tr></thead><tbody id="mt-table"></tbody></table></div>
 </div>
 <div class="note"><div class="note-tag">Term Deposit Maturity Profile</div><h3 id="dm-h"></h3><p id="dm-p"></p></div>
 <div class="kpis" id="dm-k"></div>
@@ -505,12 +505,13 @@ tr:hover td{background:#f8f9fb}
 <p>Loan maturity distribution from CBK Table 10: residual maturity buckets across all sectors, household vs corporate breakdown, and short-term mismatch analysis.</p></div>
 <div class="kpis" id="rm2-k"></div>
 <div class="note"><div class="note-tag">Residual Maturity</div><h3 id="rm2-h"></h3><p id="rm2-p"></p></div>
+<div class="note caveat" id="rm2-cov" style="display:none"><div class="note-tag">Published components only</div><p id="rm2-cov-p"></p></div>
 <div class="cgrid">
-<div class="ccard full"><h3>Loan residual maturity: all sectors</h3><div class="csub">Outstanding loans by residual maturity bucket (EUR M)</div><canvas id="ch-rm2-all"></canvas></div>
+<div class="ccard full"><h3>Loan residual maturity: all sectors</h3><div class="csub">Outstanding loans by residual maturity bucket (EUR M); sum of the buckets BQK publishes</div><canvas id="ch-rm2-all"></canvas></div>
 </div>
 <div class="cgrid">
-<div class="ccard"><h3>Household residual maturity</h3><div class="csub">HH loans by residual maturity bucket (EUR M)</div><canvas id="ch-rm2-hh"></canvas></div>
-<div class="ccard"><h3>Corporate residual maturity</h3><div class="csub">Corp loans by residual maturity bucket (EUR M)</div><canvas id="ch-rm2-corp"></canvas></div>
+<div class="ccard"><h3>Household residual maturity</h3><div class="csub">HH loans by residual maturity bucket (EUR M); published buckets only</div><canvas id="ch-rm2-hh"></canvas></div>
+<div class="ccard"><h3>Corporate residual maturity</h3><div class="csub">Corp loans by residual maturity bucket (EUR M); published buckets only</div><canvas id="ch-rm2-corp"></canvas></div>
 </div>
 <div class="cgrid">
 <div class="ccard full"><h3>Short-term (&lt;1Y) vs Long-term (&gt;5Y) trend</h3><div class="csub">Residual maturity concentration over time (EUR M)</div><canvas id="ch-rm2-trend"></canvas></div>
@@ -604,12 +605,12 @@ tr:hover td{background:#f8f9fb}
 </div>
 </div>
 
-<script src="_data_blob.js?v=20261115sep2"></script>
+<script src="_data_blob.js?v=20261115sep3"></script>
 <script src="js/core/periods.js?v=20260902"></script>
 <script src="js/core/safe-math.js?v=20260902"></script>
 <script src="js/core/calculations.js?v=20260902"></script>
 <script src="js/core/validators.js?v=20260902"></script>
-<script src="js/core/signals.js?v=20260902"></script>
+<script src="js/core/signals.js?v=20261115sep3"></script>
 <script src="js/core/regimes.js?v=20260902"></script>
 <script>
 
@@ -1546,7 +1547,7 @@ function matLatest(seg){
   return result;
 }
 var hhMat=matLatest('Households');
-var nfcMat=matLatest('Non-Financial Corporations');
+var nfcMat=matLatest('Other (private) Non-Financial Corporations');
 var allMat={};
 matBuckets.forEach(function(m){allMat[m]=hhMat[m]+nfcMat[m]});
 allMat.total=hhMat.total+nfcMat.total;
@@ -1560,7 +1561,7 @@ var shortPct=allMat.total>0?(shortTerm/allMat.total*100):0;
 var longPct=allMat.total>0?(longTerm/allMat.total*100):0;
 
 // KPI cards
-addK('mt-k','Total Loans (Maturity)',allMat.total>0?fmtMoney(allMat.total):'\u2014',null,null,matPeriod?fmtP(matPeriod)+' | HH+NFC':'');
+addK('mt-k','HH + Other NFC Loans',allMat.total>0?fmtMoney(allMat.total):'\u2014',null,null,matPeriod?fmtP(matPeriod)+' | HH + other (private) NFC':'');
 addK('mt-k','Under 1 Year',shortTerm>0?fmtMoney(shortTerm):'\u2014',null,null,fmtPct(shortPct)+' of total');
 addK('mt-k','1\u20135 Years',medium>0?fmtMoney(medium):'\u2014',null,null,fmtPct(allMat.total>0?medium/allMat.total*100:0)+' of total');
 addK('mt-k','Over 5 Years',longTerm>0?fmtMoney(longTerm):'\u2014',null,null,fmtPct(longPct)+' of total');
@@ -1571,7 +1572,7 @@ var mth=document.getElementById('mt-h'),mtp=document.getElementById('mt-p');
 if(allMat.total>0){
   var longestBucket=matBuckets.reduce(function(a,b){return allMat[b]>allMat[a]?b:a},matBuckets[0]);
   mth.textContent='Total: '+fmtMoney(allMat.total)+' | Short (<1Y): '+fmtPct(shortPct)+' | Long (>5Y): '+fmtPct(longPct);
-  var commentary='As of '+fmtP(matPeriod)+', '+fmtPct(longPct)+' of outstanding loans mature beyond 5 years ('+fmtMoney(longTerm)+'), while only '+fmtPct(shortPct)+' mature within 1 year ('+fmtMoney(shortTerm)+'). ';
+  var commentary='As of '+fmtP(matPeriod)+', '+fmtPct(longPct)+' of household and other (private) NFC loans mature beyond 5 years ('+fmtMoney(longTerm)+'), while only '+fmtPct(shortPct)+' mature within 1 year ('+fmtMoney(shortTerm)+'). ';
   commentary+='The largest bucket is '+longestBucket+' at '+fmtMoney(allMat[longestBucket])+'. ';
   if(longPct>50) commentary+='The loan book is heavily skewed toward longer maturities, reflecting mortgage and long-term corporate lending. This creates significant duration pressure and repricing risk if funding remains short-dated.';
   else if(longPct>30) commentary+='The asset side shows moderate long-term concentration. Maturity transformation risk can be assessed against the deposit maturity profile (see Maturity tab, deposit section).';
@@ -1581,7 +1582,7 @@ if(allMat.total>0){
   var nfcLong=nfcMat['5-10 years']+nfcMat['Over 10 years'];
   var hhLongPct=hhMat.total>0?(hhLong/hhMat.total*100):0;
   var nfcLongPct=nfcMat.total>0?(nfcLong/nfcMat.total*100):0;
-  commentary+=' Households: '+fmtPct(hhLongPct)+' over 5Y (mortgage-driven). Corporates: '+fmtPct(nfcLongPct)+' over 5Y.';
+  commentary+=' Households: '+fmtPct(hhLongPct)+' over 5Y (mortgage-driven). Other (private) NFCs: '+fmtPct(nfcLongPct)+' over 5Y. Public NFCs are not part of this table.';
   mtp.textContent=commentary;
 }
 
@@ -1600,7 +1601,7 @@ if(hhMat.total>0){
 // NFC bar chart
 if(nfcMat.total>0){
   showCanvas('ch-mt-nfc');bc('ch-mt-nfc',matBucketLabels,matBuckets.map(function(m){return nfcMat[m]}),PAL_BAR.slice(2));
-}else noData('ch-mt-nfc','No NFC maturity data');
+}else noData('ch-mt-nfc','No other (private) NFC maturity data');
 
 // Trend: short-term vs long-term over time
 var mtPeriods=[...new Set(matF.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
@@ -1979,14 +1980,28 @@ var prevShort=prevTotalRM>0?(prevRM.up_to_1y/prevTotalRM*100):null;
 var wam=totalRM>0?((latRM.up_to_1y*0.5+latRM.y1_2*1.5+latRM.y2_5*3.5+latRM.y5_10*7.5+latRM.over_10y*15)/totalRM):null;
 
 addK('rm2-k','Total Loans',fmtMoney(latRM.total),null,null,'EUR, Table 10, '+fmtP(latRM.period));
-addK('rm2-k','Short-Term (<1Y)',shortShare!=null?fmtPct(shortShare):'\u2014',prevShort!=null?shortShare-prevShort:null,' pp','Share of total');
-addK('rm2-k','Long-Term (>5Y)',longShare!=null?fmtPct(longShare):'\u2014',null,null,'Share of total');
-addK('rm2-k','Avg Maturity Proxy',wam!=null?(wam.toFixed(1)+' yrs'):'\u2014',null,null,'Weighted midpoints');
+addK('rm2-k','Short-Term (<1Y)',shortShare!=null?fmtPct(shortShare):'\u2014',prevShort!=null?shortShare-prevShort:null,' pp','Share of published buckets');
+addK('rm2-k','Long-Term (>5Y)',longShare!=null?fmtPct(longShare):'\u2014',null,null,'Share of published buckets');
+addK('rm2-k','Avg Maturity Proxy',wam!=null?(wam.toFixed(1)+' yrs'):'\u2014',null,null,'Weighted midpoints, published buckets');
 addK('rm2-k','Up to 1Y',fmtMoney(latRM.up_to_1y),null,null,'EUR');
 addK('rm2-k','Over 10Y',fmtMoney(latRM.over_10y),null,null,'EUR');
 
 document.getElementById('rm2-h').textContent='Residual Maturity — '+latRM.period;
 document.getElementById('rm2-p').textContent='Total loan stock '+fmtMoney(latRM.total)+'. Short-term (<1Y) '+(shortShare!=null?shortShare.toFixed(1)+'%':'N/A')+', Long-term (>5Y) '+(longShare!=null?longShare.toFixed(1)+'%':'N/A')+'. Weighted average maturity proxy '+(wam!=null?wam.toFixed(1)+' years':'N/A')+'.';
+
+// Coverage of the published buckets (data-driven): BQK splits only euro loans by bucket and
+// suppresses some buckets with '\u2026'; those amounts are in Total but in no bucket.
+(function(){
+  var el=document.getElementById('rm2-cov'),pe=document.getElementById('rm2-cov-p');
+  if(!el||!pe||!(latRM.total>0)||!(totalRM>0)) return;
+  var shown=[latRM];
+  var newest=rmF.length?rmF[rmF.length-1]:null;
+  if(newest&&newest!==latRM) shown.push(newest);
+  var txt=shown.map(function(r){var t=r.up_to_1y+r.y1_2+r.y2_5+r.y5_10+r.over_10y;
+    return fmtP(r.period)+': buckets '+fmtMoney(t)+' of '+fmtMoney(r.total)+' total ('+(t/r.total*100).toFixed(2)+'%; '+fmtMoney(r.total-t)+' not allocated)';}).join('; ');
+  pe.textContent='Bucket values are sums of the components BQK publishes. Loans in currencies other than the euro are not split by maturity, and BQK suppresses some buckets ("\u2026"); these amounts are included in Total Loans but in no bucket. '+txt+'. Shares, the maturity proxy and the gap chart use the published bucket sum as their base, not total loans.';
+  el.style.display='';
+})();
 
 var bucketLabels=['Up to 1Y','1-2Y','2-5Y','5-10Y','Over 10Y'];
 var bucketColors=['#dc2626','#b8860b','#475569','#0f172a','#059669'];
@@ -2084,7 +2099,7 @@ initFilters();
 buildAll();
 
 </script>
-<script src="js/decision-centre.js?v=20261116gov"></script>
+<script src="js/decision-centre.js?v=20261115sep3"></script>
 <script src="js/a11y.js?v=20260902"></script>
 </body>
 </html>
