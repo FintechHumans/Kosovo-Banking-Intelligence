@@ -377,17 +377,24 @@
     var banner = el('dc-sync');
     if (banner) {
       clear(banner);
-      var sync = k.ltd.extra && k.ltd.extra.sync;
-      if (sync) {
-        var aligned = sync.aligned;
+      // Every combined KPI is checked, not only LTD: when the rate tables lag the
+      // balance sheet, EDCP / pricing gap sit on an earlier month than LTD.
+      var syncs = [['Market LTD proxy', k.ltd], ['Estimated deposit cost / pricing gap', k.edcp]]
+        .filter(function (p) { return p[1] && p[1].extra && p[1].extra.sync && p[1].extra.sync.period != null; })
+        .map(function (p) { return { name: p[0], s: p[1].extra.sync }; });
+      if (syncs.length) {
+        var first = syncs[0].s.period;
+        var aligned = syncs.every(function (x) { return x.s.aligned && x.s.period === first; });
         banner.className = 'dc-banner ' + (aligned ? 'ok' : 'warn');
         banner.appendChild(h('strong', null, aligned
-          ? 'Inputs aligned at ' + P.format(sync.period)
-          : 'Combined KPIs computed at ' + P.format(sync.period)));
+          ? 'Inputs aligned at ' + P.format(first)
+          : 'Combined KPIs use different reporting periods'));
         banner.appendChild(h('span', null, aligned
           ? ' — every combined KPI uses the same reporting period.'
-          : ' — ' + sync.lagMonths + ' month(s) behind the newest input. Limited by: ' +
-            sync.limiting.join(', ') + '. Ahead: ' + sync.stale.join(', ') + '.'));
+          : ' — ' + syncs.map(function (x) {
+              return x.name + ': ' + P.format(x.s.period) +
+                (x.s.aligned ? '' : ' (limited by ' + x.s.limiting.join(', ') + ')');
+            }).join('; ') + '.'));
       }
     }
 

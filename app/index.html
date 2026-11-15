@@ -266,7 +266,7 @@ tr:hover td{background:#f8f9fb}
 <div class="cgrid">
 <div class="ccard full"><h3>Corporate lending by economic sector</h3><div class="csub">Top sectors by latest value &mdash; corporate loans only, dynamically sorted</div><canvas id="ch-ln-sec"></canvas></div>
 </div>
-<div class="note caveat"><div class="note-tag">Caveat</div><p>The sector breakdown covers corporate/business lending only (~&euro;3.8B). Total market loans including households are ~&euro;6.6B. &ldquo;Overdrafts &amp; Credit Cards&rdquo; is an outstanding stock balance, not a new-lending flow, and is excluded from the product flow chart.</p></div>
+<div class="note caveat"><div class="note-tag">Caveat</div><p><span id="ln-sec-cav">The sector breakdown covers corporate/business lending only; total market loans also include households.</span> &ldquo;Overdrafts &amp; Credit Cards&rdquo; is an outstanding stock balance, not a new-lending flow, and is excluded from the product flow chart.</p></div>
 </div>
 <div class="mod" id="mod-deposits">
 <div class="pg-title"><h1>Deposits</h1>
@@ -604,7 +604,7 @@ tr:hover td{background:#f8f9fb}
 </div>
 </div>
 
-<script src="_data_blob.js?v=20261019v5"></script>
+<script src="_data_blob.js?v=20261115sep2"></script>
 <script src="js/core/periods.js?v=20260902"></script>
 <script src="js/core/safe-math.js?v=20260902"></script>
 <script src="js/core/calculations.js?v=20260902"></script>
@@ -887,7 +887,7 @@ addK('ov-k','LTD Ratio (Market Proxy)',ltd!=null?fmtPct(ltd):'\u2014',ltdDeltaPP
 
 var lRm=latest(RC,function(r){return r.channel==='Total'});
 var pRm=lRm?prior12(RC,lRm.period,function(r){return r.channel==='Total'}):null;
-addK('ov-k','Remittances',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.value,pRm.value):null,'%',lRm?fmtP(lRm.period):'');
+addK('ov-k','Remittances',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.value,pRm.value):null,'%',lRm?fmtP(lRm.period)+(lRm.preliminary?' (preliminary)':''):'');
 
 var lLR=latest(IRL,function(r){return r.type==='All Loans Rate'});
 var pLR=lLR?prior12(IRL,lLR.period,function(r){return r.type==='All Loans Rate'}):null;
@@ -1001,6 +1001,9 @@ var allSectors=LS.filter(function(r){return TOP_LEVEL_SECTORS[r.sector]===1});
 var sectorLatest={};
 allSectors.forEach(function(r){var curr=sectorLatest[r.sector];if(!curr||pk(r.period)>pk(curr.period))sectorLatest[r.sector]=r});
 var sortedSectors=Object.values(sectorLatest).sort(function(a,b){return b.value-a.value}).slice(0,10);
+var secTot=LS.filter(function(r){return r.sector==='Total'}).sort(function(a,b){return pk(a.period)-pk(b.period)}).pop();
+var secCav=document.getElementById('ln-sec-cav');
+if(secCav&&secTot&&lCr)secCav.textContent='The sector breakdown covers corporate/business lending only ('+fmtMoney(secTot.value)+', '+fmtP(secTot.period)+'). Total market loans including households are '+fmtMoney(lCr.value)+' ('+fmtP(lCr.period)+').';
 if(sortedSectors.length){showCanvas('ch-ln-sec');bc('ch-ln-sec',sortedSectors.map(function(s){return s.sector}),sortedSectors.map(function(s){return s.value}),PAL_BAR)}
 else noData('ch-ln-sec','No sector data');
 
@@ -1437,7 +1440,7 @@ if(anPeriods.length){
 }
 
 // ===================== REMITTANCES =====================
-addK('rm-k','Total',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.value,pRm.value):null,'%',lRm?fmtP(lRm.period):'');
+addK('rm-k','Total',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.value,pRm.value):null,'%',lRm?fmtP(lRm.period)+(lRm.preliminary?' (preliminary)':''):'');
 ['Banks','MTOs','Other'].forEach(function(ch){
   var v=latest(RC,function(r){return r.channel===ch});
   var p12=v?prior12(RC,v.period,function(r){return r.channel===ch}):null;
@@ -1446,7 +1449,7 @@ addK('rm-k','Total',lRm?fmtMoney(lRm.value):'\u2014',lRm&&pRm?pctChange(lRm.valu
 
 var rmh=document.getElementById('rm-h'),rmp=document.getElementById('rm-p');
 if(lRm){
-  rmh.textContent='Remittances: '+fmtMoney(lRm.value)+' ('+fmtP(lRm.period)+')';
+  rmh.textContent='Remittances: '+fmtMoney(lRm.value)+' ('+fmtP(lRm.period)+(lRm.preliminary?', preliminary':'')+')';
   var rcoFiltered=flt(RCO);
   var rcoAllP=[...new Set(rcoFiltered.map(function(r){return r.period}))].sort(function(a,b){return pk(a).localeCompare(pk(b))});
   var rcoLatP=rcoAllP[rcoAllP.length-1];
@@ -1928,8 +1931,8 @@ var lta=totalAssets>0?(latAS.loans/totalAssets*100):null;
 var prevLta=prevTotal>0?(prevAS.loans/prevTotal*100):null;
 var secShare=totalAssets>0?(latAS.securities/totalAssets*100):null;
 
-addK('as-k','Loans',latAS.loans?fmtMoney(latAS.loans):'\u2014',prevAS?pctChange(latAS.loans,prevAS.loans):null,'%','EUR');
-addK('as-k','Securities',latAS.securities?fmtMoney(latAS.securities):'\u2014',null,null,'EUR');
+addK('as-k','Loans',latAS.loans?fmtMoney(latAS.loans):'\u2014',prevAS?pctChange(latAS.loans,prevAS.loans):null,'%','EUR, '+fmtP(latAS.period));
+addK('as-k','Securities',latAS.securities?fmtMoney(latAS.securities):'\u2014',null,null,'EUR, '+fmtP(latAS.period));
 addK('as-k','Loan-to-Asset Ratio',lta!=null?fmtPct(lta):'\u2014',prevLta!=null?lta-prevLta:null,' pp','Loans / Total Assets');
 addK('as-k','Securities Share',secShare!=null?fmtPct(secShare):'\u2014',null,null,'Securities / Assets');
 addK('as-k','Cash & Deposits',fmtMoney(latAS.cash+latAS.deposits_foreign),null,null,'EUR');
@@ -1975,7 +1978,7 @@ var prevShort=prevTotalRM>0?(prevRM.up_to_1y/prevTotalRM*100):null;
 // Weighted average maturity proxy (midpoints: 0.5, 1.5, 3.5, 7.5, 15)
 var wam=totalRM>0?((latRM.up_to_1y*0.5+latRM.y1_2*1.5+latRM.y2_5*3.5+latRM.y5_10*7.5+latRM.over_10y*15)/totalRM):null;
 
-addK('rm2-k','Total Loans',fmtMoney(latRM.total),null,null,'EUR, Table 10');
+addK('rm2-k','Total Loans',fmtMoney(latRM.total),null,null,'EUR, Table 10, '+fmtP(latRM.period));
 addK('rm2-k','Short-Term (<1Y)',shortShare!=null?fmtPct(shortShare):'\u2014',prevShort!=null?shortShare-prevShort:null,' pp','Share of total');
 addK('rm2-k','Long-Term (>5Y)',longShare!=null?fmtPct(longShare):'\u2014',null,null,'Share of total');
 addK('rm2-k','Avg Maturity Proxy',wam!=null?(wam.toFixed(1)+' yrs'):'\u2014',null,null,'Weighted midpoints');
@@ -2081,7 +2084,7 @@ initFilters();
 buildAll();
 
 </script>
-<script src="js/decision-centre.js?v=20260902"></script>
+<script src="js/decision-centre.js?v=20261115sep"></script>
 <script src="js/a11y.js?v=20260902"></script>
 </body>
 </html>
